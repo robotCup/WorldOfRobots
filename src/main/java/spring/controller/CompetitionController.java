@@ -9,12 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/robots")
-public class RobotController {
+@RequestMapping("/")
+public class CompetitionController {	
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String Robots(){
-		return "robots";
+	public String Index(){
+		return "competitions";
 	}
+	
+	@RequestMapping(value="/competitions", method = RequestMethod.GET)
+	public String Competitions(){
+		return "competitions";
+	}	
 	
 }
