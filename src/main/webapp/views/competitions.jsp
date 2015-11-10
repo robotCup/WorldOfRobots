@@ -3,8 +3,7 @@
         <div class="row">
             <div class="col-md-8">
              	<div id="map"></div>
-		        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJMQnUVO7WPqS96NqQUObz4RtxuQzADTY&callback=initMap"
-		        async defer></script>
+		        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJMQnUVO7WPqS96NqQUObz4RtxuQzADTY&callback=initMap" async defer></script>
 		        <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/map.js"></script>
   	   
                 <!-- <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt=""> -->

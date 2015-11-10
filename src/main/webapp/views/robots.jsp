@@ -1,5 +1,11 @@
 <%@ include file="/resources/layout/top.jsp" %>
 
+<!-- Import lib dataTables -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/css/jquery.dataTables.min.css"/>
+
+<!-- Import js de la page -->    
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/robots.js"></script>   
     <!-- Heading Row -->
         <div class="row">
             <div class="col-md-8">
@@ -17,26 +23,26 @@
 
         <hr>
 
-        <!-- Content Row -->
+        <!-- Tableau de robots -->
         <div class="row">
-            <div class="col-md-4">
-                <h2>Robot 1</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-                <a class="btn btn-default" href="#">Voir la fiche</a>
-            </div>
-            <!-- /.col-md-4 -->
-            <div class="col-md-4">
-                <h2>Robot 2</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-                <a class="btn btn-default" href="#">Voir la fiche</a>
-            </div>
-            <!-- /.col-md-4 -->
-            <div class="col-md-4">
-                <h2>Robot 3</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe rem nisi accusamus error velit animi non ipsa placeat. Recusandae, suscipit, soluta quibusdam accusamus a veniam quaerat eveniet eligendi dolor consectetur.</p>
-                <a class="btn btn-default" href="#">Voir la fiche</a>
-            </div>
-            <!-- /.col-md-4 -->
+            <table id="tab_robots" class="display" cellspacing="0" width="100%">
+            	 <thead>
+		            <tr>
+		                <th>Nom</th>
+		                <th>Age</th>
+		                <th>Expérience</th>
+		                <th>Action</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr>
+		                <td>Robot 1</td>
+		                <td>3 ans</td>
+		                <td>Compet 1, Compet 2</td>
+		                <td>Voir la fiche</td>
+		            </tr>
+	            </tbody>
+            </table>
         </div>
         <!-- /.row -->
 
