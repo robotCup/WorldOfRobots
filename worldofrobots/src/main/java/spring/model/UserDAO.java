@@ -1,4 +1,4 @@
-package spring.modele;
+package spring.model;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Repository
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class UtilisateurDAO {
+
+public class UserDAO {
 
 	
 	@Autowired private SessionFactory sessionFactory;
@@ -20,9 +20,14 @@ public class UtilisateurDAO {
 	 * @Transactional annotation below will trigger Spring Hibernate transaction manager to automatically create
 	 * a hibernate session. See src/main/webapp/WEB-INF/servlet-context.xml	 */
 	@Transactional
-	public List<Utilisateur> findAll() {
+	public List<User> findAll() {
 		Session session = sessionFactory.getCurrentSession();
-	List apprentis = session.createQuery("from Utilisateur").list();
-		return apprentis;
+		List Users = session.createQuery("from User").list();
+		return Users;
+	}
+
+	public Object findByLogin(String login, String pwd) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

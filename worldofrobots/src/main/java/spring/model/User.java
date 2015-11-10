@@ -1,28 +1,27 @@
-package spring.modele;
-
+package spring.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="utilisateur")
-public class Utilisateur {
+@Table(name="user")
+public class User {
 	@Id @GeneratedValue
 	private long id;
 	
-	private String user;
+	private String login;
 	private String pwd;
-	@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
-	public String getUser() {
-		return user;
+	private String name;
+	//@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
+	public String getLogin() {
+		return login;
 	}
-	public void setUser(String user) {
-		this.user = user;
+	public void setLogin(String user) {
+		this.login = user;
 	}
 	public String getPwd() {
 		return pwd;
