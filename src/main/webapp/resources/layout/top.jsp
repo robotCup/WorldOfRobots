@@ -2,7 +2,8 @@
 <html lang="fr">
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">    	
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <title>World of Robots</title>
 
     <!-- Bootstrap Core CSS -->
@@ -13,6 +14,10 @@
 
 	<!-- General CSS -->
     <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/general.css"/>
+    
+    <!-- jQuery -->
+    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/theme/js/jquery.js"></script>
+    
 </head>
 
 <body>
@@ -28,7 +33,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="<%=request.getContextPath()%>">
-                    <img src="http://placehold.it/150x50&text=Logo" alt="logo">
+                    <img src="http://placehold.it/150x50&text=Logo" alt="">
                 </a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
