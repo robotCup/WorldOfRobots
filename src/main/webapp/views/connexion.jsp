@@ -1,7 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ include file="/resources/layout/top.jsp" %>
 
-
 	<form:form method="post"  action="toConnect" commandName="connexion">
 		<fieldset>
 			<legend>Se connecter : </legend>

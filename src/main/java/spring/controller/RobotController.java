@@ -17,4 +17,14 @@ public class RobotController {
 		return "robots";
 	}
 	
+	@RequestMapping(value="add", method = RequestMethod.GET)
+	public String prepareAddRobot(){
+		return "addRobots";
+	}
+	
+	@RequestMapping(value="add", method = RequestMethod.POST)
+	public String toAddRobot(){
+		return "";
+	}
+	
 }

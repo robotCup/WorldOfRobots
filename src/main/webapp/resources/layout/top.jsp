@@ -44,9 +44,14 @@
                     </li>
                     <li>
                         <a href="<%=request.getContextPath()%>/robots">Robots</a>
+                        <ul class="dropdown-menu">
+		                    <li class="dropdown-submenu">
+		                        <a href="<%=request.getContextPath()%>/robots/add">Ajouter un robot</a>
+		                    </li>
+	                    </ul>
                     </li>
                     <li>
-                        <a href="<%=request.getContextPath()%>/user/monEspace">Mon espace</a>
+                        <a href="<%=request.getContextPath()%>/user/mySpace">Mon espace</a>
                     </li>
                     <li>
                         <a href="<%=request.getContextPath()%>/user/toConnect">
