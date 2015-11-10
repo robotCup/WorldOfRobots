@@ -46,10 +46,10 @@
                         <a href="<%=request.getContextPath()%>/robots">Robots</a>
                     </li>
                     <li>
-                        <a href="#">Mon espace</a>
+                        <a href="<%=request.getContextPath()%>/user/monEspace">Mon espace</a>
                     </li>
                     <li>
-                        <a href="<%=request.getContextPath()%>/user/connexion">
+                        <a href="<%=request.getContextPath()%>/user/toConnect">
                         	<img id="connexion" alt="connexion" src="<%=request.getContextPath()%>/resources/images/icon_homme.png"/>
                         </a>
                     </li>
