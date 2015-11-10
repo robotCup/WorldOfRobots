@@ -50,7 +50,7 @@
                     </li>
                     <li>
                         <a href="<%=request.getContextPath()%>/user/toConnect">
-                        	<img id="connexion" alt="connexion" src="<%=request.getContextPath()%>/resources/images/icon_homme.png"/>
+                        	<img id="connexion" alt="connexion" src="<%=request.getContextPath()%>/resources/images/icon_robot.png"/>
                         </a>
                     </li>
                 </ul>
