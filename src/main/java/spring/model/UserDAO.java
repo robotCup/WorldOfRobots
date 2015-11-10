@@ -27,9 +27,9 @@ public class UserDAO {
 	}
 	
 	@Transactional
-	public Object findByLogin(String login, String pwd) {
+	public List <User> findByLogin(String login, String pwd) {
 		Session session = sessionFactory.getCurrentSession();
-		List Users = session.createQuery("select * from User where login = 'toto'").list();
+		List Users = session.createQuery("from User where login = '"+login+ "' and pwd = '"+ pwd + "'").list();
 		return Users;
 	}
 }

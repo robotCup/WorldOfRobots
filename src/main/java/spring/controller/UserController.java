@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spring.model.User;
 import spring.model.UserDAO;
 
 
@@ -35,10 +36,11 @@ public class UserController {
 	@RequestMapping(value="toConnect", method = RequestMethod.POST)
     public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model) {//page apr�s la connexion
 		//model.addAttribute("person", this.utilisateurService.findAll());
-		if (this.utilisateurService.findByLogin(connexion.getLogin(),connexion.getPwd())== null){
+		List user =this.utilisateurService.findByLogin(connexion.getLogin(),connexion.getPwd());
+		if (user.size()<1){
 		//if (!connexion.getLogin().equals("toto")){
        
-		this.utilisateurService.findByLogin(connexion.getLogin(),connexion.getPwd());
+
 		 return "connexion";
 		}
 		else{
