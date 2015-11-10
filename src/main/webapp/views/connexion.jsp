@@ -1,15 +1,28 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ include file="/resources/layout/top.jsp" %>
 
 
-	<form action="#" th:action="@{toConnect}" th:object="${connexion}" method="post" >
-		
-						<input placeholder="Login" type="text" th:field="*{login}"/>
-				
-						<input placeholder="Mot de passe" type="password" th:field="*{pwd}"/>
-				
+	<form:form method="post"  action="toConnect" commandName="connexion">
+		<fieldset>
+			<legend>Se connecter : </legend>
+			<table>
+				<tr>
+					<td>
+						<form:input placeholder="Login" path="login" id="login"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<form:password placeholder="Mot de passe"  path="pwd" id="pwd"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
 						<input type="submit" value="Valider" />
-				
-	</form>
+					</td>
+				</tr>			
+			</table>
+		</fieldset>
+	</form:form>
 			
 <%@ include file="/resources/layout/bot.jsp" %>

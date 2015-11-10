@@ -21,7 +21,7 @@ public class UserController {
 	@Autowired private UserDAO utilisateurService;
 
 	/*@RequestMapping(value="/connexion", method = RequestMethod.GET)
-    public String connexion(Model model) {//aller à la page de connexion
+    public String connexion(Model model) {//aller ï¿½ la page de connexion
         return "connexion";
     }*/
 	
@@ -29,15 +29,19 @@ public class UserController {
 	@RequestMapping(value="toConnect", method=RequestMethod.GET)
     public String greetingForm(Model model) {
         model.addAttribute("connexion", new Connexion());
+        this.utilisateurService.findAll();
         return "connexion";
     }
 	@RequestMapping(value="toConnect", method = RequestMethod.POST)
-    public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model) {//page après la connexion
+    public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model) {//page aprï¿½s la connexion
 		//model.addAttribute("person", this.utilisateurService.findAll());
-		//if (this.utilisateurService.findByLogin(connexion.getLogin(),connexion.getPwd())== null)
-		if (!connexion.getLogin().equals("toto"))
-        return "connexion";
-		else
-		return "competitions";
+		if (this.utilisateurService.findByLogin(connexion.getLogin(),connexion.getPwd())== null){
+		//if (!connexion.getLogin().equals("toto")){
+       
+		this.utilisateurService.findByLogin(connexion.getLogin(),connexion.getPwd());
+		 return "connexion";
+		}
+		else{
+		return "competitions";}
     }
 }

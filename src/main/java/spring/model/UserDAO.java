@@ -25,9 +25,11 @@ public class UserDAO {
 		List Users = session.createQuery("from User").list();
 		return Users;
 	}
-
+	
+	@Transactional
 	public Object findByLogin(String login, String pwd) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		List Users = session.createQuery("select * from User where login = 'toto'").list();
+		return Users;
 	}
 }
