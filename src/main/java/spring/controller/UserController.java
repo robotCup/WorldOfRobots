@@ -21,38 +21,37 @@ import spring.model.UserDAO;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	@Autowired private UserDAO utilisateurService;
-	
+
 	@RequestMapping(value="toConnect", method=RequestMethod.GET)
-    public String prepareConnexion(Model model) {
-        model.addAttribute("connexion", new Connexion());
-        this.utilisateurService.findAll();
-        return "connexion";
-    }
+	public String prepareConnexion(Model model) {
+		model.addAttribute("connexion", new Connexion());
+		return "connexion";
+	}
 	@RequestMapping(value="toConnect", method = RequestMethod.POST)
-    public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page apr�s la connexion
+	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page apr�s la connexion
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
 		if (user==null || (!(user.getLogin().equals(connexion.getLogin()))&& !(user.getPwd().equals(connexion.getPwd())))){
-		 return "connexion";
+			return "connexion";
 		}
 		else{
 			HttpSession session =request.getSession();
 			session.setAttribute("login", connexion.getLogin());
-		return "competitions";}
-    }
-	
+			return "competitions";}
+	}
+
 	@RequestMapping(value="mySpace", method=RequestMethod.GET)
-    public String monEspace(Model model,HttpServletRequest request) {
+	public String monEspace(Model model,HttpServletRequest request) {
 		HttpSession session =request.getSession();
 		if(session.getAttribute("login")!=null){
 			return "competitions";
 		}
 		else {
-        return this.prepareConnexion(model);
+			return this.prepareConnexion(model);
 		}
-    }
-	
-	
-	
+	}
+
+
+
 }
