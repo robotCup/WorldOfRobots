@@ -23,12 +23,6 @@ import spring.model.UserDAO;
 public class UserController {
 	
 	@Autowired private UserDAO utilisateurService;
-
-	/*@RequestMapping(value="/connexion", method = RequestMethod.GET)
-    public String connexion(Model model) {//aller � la page de connexion
-        return "connexion";
-    }*/
-	
 	
 	@RequestMapping(value="toConnect", method=RequestMethod.GET)
     public String prepareConnexion(Model model) {
@@ -38,12 +32,8 @@ public class UserController {
     }
 	@RequestMapping(value="toConnect", method = RequestMethod.POST)
     public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page apr�s la connexion
-		//model.addAttribute("person", this.utilisateurService.findAll());
-		List user =this.utilisateurService.findByLogin(connexion.getLogin(),connexion.getPwd());
-		if (user.size()<1){
-		//if (!connexion.getLogin().equals("toto")){
-       
-
+		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
+		if (user==null || (!(user.getLogin().equals(connexion.getLogin()))&& !(user.getPwd().equals(connexion.getPwd())))){
 		 return "connexion";
 		}
 		else{
@@ -52,9 +42,8 @@ public class UserController {
 		return "competitions";}
     }
 	
-	@RequestMapping(value="monEspace", method=RequestMethod.GET)
+	@RequestMapping(value="mySpace", method=RequestMethod.GET)
     public String monEspace(Model model,HttpServletRequest request) {
-        //model.addAttribute("connexion", new Connexion());
 		HttpSession session =request.getSession();
 		if(session.getAttribute("login")!=null){
 			return "competitions";
