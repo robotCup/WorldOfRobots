@@ -5,33 +5,33 @@
 <html lang="fr">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-<title>World of Robots</title>
-
-<!-- Bootstrap Core CSS -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/theme/css/bootstrap.min.css" />
-
-<!-- Custom CSS -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/theme/css/small-business.css" />
-
-<!-- General CSS -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/css/general.css" />
-
-<!-- jQuery -->
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/theme/js/jquery.js"></script>
-
-<!-- Menu CSS -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/theme/menu/styles.css" />
-
-<!-- Menu JS -->
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/theme/menu/script.js" /></script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<title>World of Robots</title>
+	
+	<!-- Bootstrap Core CSS -->
+	<link rel="stylesheet"
+		href="<%=request.getContextPath()%>/resources/theme/css/bootstrap.min.css" />
+	
+	<!-- Custom CSS -->
+	<link rel="stylesheet"
+		href="<%=request.getContextPath()%>/resources/theme/css/small-business.css" />
+	
+	<!-- General CSS -->
+	<link rel="stylesheet"
+		href="<%=request.getContextPath()%>/resources/css/general.css" />
+	
+	<!-- jQuery -->
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/resources/theme/js/jquery.js"></script>
+	
+	<!-- Menu CSS -->
+	<link rel="stylesheet"
+		href="<%=request.getContextPath()%>/resources/theme/menu/styles.css" />
+	
+	<!-- Menu JS -->
+	<script type="text/javascript"
+		src="<%=request.getContextPath()%>/resources/theme/menu/script.js" /></script>
 
 </head>
 
