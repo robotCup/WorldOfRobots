@@ -34,7 +34,9 @@
 			<input type="hidden" class="gps" value='${a.gps}' />
 			<a class="btn btn-default" href="#">Voir la fiche</a>
 		</div>
-	</c:forEach>
+
+	</c:forEach>	
+
 </div>
 <!-- /.row -->
 
