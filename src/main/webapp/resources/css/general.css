@@ -1,12 +1,12 @@
 #connexion{
-	width: 38px;
-	height: 34px;
+	margin-left: auto;
+	margin-right: auto;
+	width : 300px;	
 }
 #map{
 	width: 100%;
 	height: 300px;
 }
-
 #logo{
 	float:left;
 	margin-top:10px;
@@ -14,18 +14,8 @@
 #cssmenu{
 	float:left;
 }
-
-#service1{
-	top:30px;
-}
-#service2{
-	top:30px;
-}
-#service3{
-	top:30px;
-}
-#service4{
-	top:30px;
+#cssmenu > ul > li.service{
+	top:20px;
 }
 #image{
 	width:100px;

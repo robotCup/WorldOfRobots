@@ -17,10 +17,6 @@
 	<link rel="stylesheet"
 		href="<%=request.getContextPath()%>/resources/theme/css/small-business.css" />
 	
-	<!-- General CSS -->
-	<link rel="stylesheet"
-		href="<%=request.getContextPath()%>/resources/css/general.css" />
-	
 	<!-- jQuery -->
 	<script type="text/javascript"
 		src="<%=request.getContextPath()%>/resources/theme/js/jquery.js"></script>
@@ -33,6 +29,10 @@
 	<script type="text/javascript"
 		src="<%=request.getContextPath()%>/resources/theme/menu/script.js" /></script>
 
+	<!-- General CSS -->
+	<link rel="stylesheet"
+		href="<%=request.getContextPath()%>/resources/css/general.css" />
+	
 </head>
 
 <body>
@@ -45,18 +45,18 @@
 					<img src="<%=request.getContextPath()%>/resources/images/logos.png" alt="" id="image">
 				</a>
 			</li>
-			<li class='has-sub' id="service1"><a href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
+			<li class='has-sub service' ><a href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
 				<ul>
 					<li><a href="<%=request.getContextPath()%>/competitions/add"><span>Ajouter une compétition</span></a></li>					
 				</ul>
 			</li>
-			<li class='has-sub' id="service2"><a href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
+			<li class='has-sub service'><a href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
 				<ul>
 					<li><a href='<%=request.getContextPath()%>/robots/add'><span>Ajouter un robot</span></a></li>					
 				</ul>
 			</li>
-			<li class='has-sub' id="service3"> <a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>
-			<li class='last' id="service4"><a href='#'><span>Contact</span></a></li>
+			<li class="service"><a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>
+			<li class='last service'><a href='<%=request.getContextPath()%>/user/toConnect'><span>Connexion</span></a></li>
 		</ul>
 	</div>
 	</nav>

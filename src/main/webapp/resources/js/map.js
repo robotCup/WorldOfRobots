@@ -2,31 +2,24 @@ var map;
 var marker
 var coords = document.getElementsByClassName('gps');
 
-//animation marker
-function toggleBounce() {
-	if (marker.getAnimation() !== null) {
-		marker.setAnimation(null);
-	} else {
-		marker.setAnimation(google.maps.Animation.BOUNCE);
-	}
-}
-
 function addMarker(coord){
+	
 	marker = new google.maps.Marker({
-		map: map,
-		draggable: true,
-		animation: google.maps.Animation.DROP,
-		position: coord
-	});
-	marker.addListener('click', toggleBounce);
+		'map': map,
+		'draggable': true,
+		'animation': google.maps.Animation.DROP,
+		'position': coord,
+		'title' : map.getCenter().toUrlValue(),
+	});	
+	 marker.setMap(map);
 }
 function initMap() {
 
 	var myLatLng = {lat: 48.8448934, lng: 2.3541811999999998};
-
+	
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: myLatLng,
-		zoom: 10,
+		zoom: 8,
 		mapTypeControl: false,
 		scaleControl: false,
 		streetViewControl: false,
@@ -36,7 +29,6 @@ function initMap() {
 	
 	// ajout markers
 	for (i = 0 ; i <coords.length; i++) {
-		console.log(eval('(' + coords[i].value + ')'));		
 		addMarker(eval('(' + coords[i].value + ')'));
 	}
 	

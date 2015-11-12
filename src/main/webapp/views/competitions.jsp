@@ -8,7 +8,7 @@
 		<script type="text/javascript"
 			src="<%=request.getContextPath()%>/resources/js/map.js"></script>
 		<script async defer
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJMQnUVO7WPqS96NqQUObz4RtxuQzADTY&callback=initMap"></script>
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJMQnUVO7WPqS96NqQUObz4RtxuQzADTY&callback=initMap&v=3"></script>
 		<!-- <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt=""> -->
 	</div>
 	<!-- /.col-md-8 -->
