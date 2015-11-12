@@ -22,6 +22,7 @@
 <!-- /.row -->
 
 <hr>
+
 <div class="row">
 	<c:forEach var="a" items="${competitions}">
 		<div class="col-md-4">

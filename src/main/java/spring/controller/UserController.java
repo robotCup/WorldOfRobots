@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,7 +32,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="toConnect", method = RequestMethod.POST)
-	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page apr�s la connexion
+	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, ModelMap model,HttpServletRequest request) {//page apr�s la connexion
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
 		if (user==null || (!(user.getLogin().equals(connexion.getLogin()))&& !(user.getPwd().equals(connexion.getPwd())))){
 			return "connexion";
