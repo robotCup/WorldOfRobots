@@ -8,9 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import spring.model.Competition;
+import spring.model.CompetitionDAO;
+
 @Controller
 @RequestMapping("/")
 public class CompetitionController {	
+	
+	@Autowired private CompetitionDAO competitionDAO;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String Index(){
@@ -18,7 +23,11 @@ public class CompetitionController {
 	}
 	
 	@RequestMapping(value="/competitions", method = RequestMethod.GET)
-	public String Competitions(){
+	public String Competitions(Model model){
+		
+		List<Competition> competitions = competitionDAO.findAll();
+		model.addAttribute("competitions", competitions);
+		
 		return "competitions";
 	}	
 	
