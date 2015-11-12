@@ -10,9 +10,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="user")
 public class User {
+	
 	@Id @GeneratedValue
 	private long id;
-	
+
 	private String login;
 	private String pwd;
 	private String name;
@@ -29,12 +30,12 @@ public class User {
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
 	}
-	
+
 	public long getId(){
 		return this.id;
 	}
 	public void setId(long id){
 		this.id=id;
 	}
-	}
+}
 

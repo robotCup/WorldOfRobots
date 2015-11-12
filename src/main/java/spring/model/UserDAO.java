@@ -35,7 +35,5 @@ public class UserDAO {
         .setParameter("pwd", pwd)
         .uniqueResult();
 		return user;
-	}
-	
-	
+	}	
 }

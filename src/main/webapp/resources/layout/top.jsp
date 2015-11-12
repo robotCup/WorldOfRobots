@@ -2,69 +2,61 @@
 <html lang="fr">
 
 <head>
-    <meta charset="utf-8">    	
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <title>World of Robots</title>
+<meta charset="utf-8">
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<title>World of Robots</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/theme/css/bootstrap.min.css"/>
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/theme/css/bootstrap.min.css" />
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/theme/css/small-business.css"/>
+<!-- Custom CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/theme/css/small-business.css" />
 
-	<!-- General CSS -->
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/general.css"/>
-    
-    <!-- jQuery -->
-    <script type="text/javascript" src="<%=request.getContextPath()%>/resources/theme/js/jquery.js"></script>
-    
+<!-- General CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/general.css" />
+
+<!-- jQuery -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/theme/js/jquery.js"></script>
+
+<!-- Menu CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/theme/menu/styles.css" />
+
+<!-- Menu JS -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/theme/menu/script.js" /></script>
+
 </head>
 
 <body>
-  <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="<%=request.getContextPath()%>">
-                    <img src="http://placehold.it/150x50&text=Logo" alt="">
-                </a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="<%=request.getContextPath()%>/competitions">Compétitions</a>
-                    </li>
-                    <li>
-                        <a href="<%=request.getContextPath()%>/robots">Robots</a>
-                        <ul class="nav navbar-nav dropdown-menu">
-		                    <li class="nav navbar-nav dropdown-submenu">
-		                        <a href="<%=request.getContextPath()%>/robots/add">Ajouter un robot</a>
-		                    </li>
-	                    </ul>
-                    </li>
-                    <li>
-                        <a href="<%=request.getContextPath()%>/user/mySpace">Mon espace</a>
-                    </li>
-                    <li>
-                        <a href="<%=request.getContextPath()%>/user/toConnect">
-                        	<img id="connexion" alt="connexion" src="<%=request.getContextPath()%>/resources/images/icon_robot.png"/>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-    <!-- Page Content -->
-    <div class="container">
-
-        
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div id='cssmenu'>
+		<ul>
+			<li>
+				<a href='#'>			
+					<img src="http://placehold.it/150x50&amp;text=Logo" alt="">
+				</a>
+			</li>
+			<li class='has-sub'><a href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
+				<ul>
+					<li><a href="<%=request.getContextPath()%>/competitions/add"><span>Ajouter une compétition</span></a></li>					
+				</ul>
+			</li>
+			<li class='has-sub'><a href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
+				<ul>
+					<li><a href='<%=request.getContextPath()%>/robots/add'><span>Ajouter un robot</span></a></li>					
+				</ul>
+			</li>
+			<li><a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>
+			<li class='last'><a href='#'><span>Contact</span></a></li>
+		</ul>
+	</div>
+	</nav>
+	
+	<!-- Page Content -->
+	<div class="container">
