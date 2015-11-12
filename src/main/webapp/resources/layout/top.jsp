@@ -44,8 +44,8 @@
                     </li>
                     <li>
                         <a href="<%=request.getContextPath()%>/robots">Robots</a>
-                        <ul class="dropdown-menu">
-		                    <li class="dropdown-submenu">
+                        <ul class="nav navbar-nav dropdown-menu">
+		                    <li class="nav navbar-nav dropdown-submenu">
 		                        <a href="<%=request.getContextPath()%>/robots/add">Ajouter un robot</a>
 		                    </li>
 	                    </ul>
