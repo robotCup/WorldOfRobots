@@ -11,15 +11,21 @@
       return this.each(function() {
         cssmenu.prepend('<div id="menu-button">' + settings.title + '</div>');
         $(this).find("#menu-button").on('click', function(){
+      
           $(this).toggleClass('menu-opened');
           var mainmenu = $(this).next('ul');
           if (mainmenu.hasClass('open')) { 
+        	
             mainmenu.hide().removeClass('open');
+            
           }
           else {
             mainmenu.show().addClass('open');
             if (settings.format === "dropdown") {
-              mainmenu.find('ul').show();
+            	 
+            	mainmenu.find('ul').show();
+            	
+             
             }
           }
         });
@@ -47,10 +53,14 @@
         resizeFix = function() {
           if ($( window ).width() > 768) {
             cssmenu.find('ul').show();
+            $("#actionLogo").show();
+            $("#service").css("top","10px");
           }
 
           if ($(window).width() <= 768) {
             cssmenu.find('ul').hide().removeClass('open');
+            $("#actionLogo").hide();
+            $("#service").css("top","0px");
           }
         };
         resizeFix();
