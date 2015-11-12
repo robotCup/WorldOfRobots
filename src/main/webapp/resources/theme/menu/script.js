@@ -54,13 +54,19 @@
           if ($( window ).width() > 768) {
             cssmenu.find('ul').show();
             $("#actionLogo").show();
-            $("#service").css("top","10px");
+            $("#service1").css("top","30px");
+            $("#service2").css("top","30px");
+            $("#service3").css("top","30px");
+            $("#service4").css("top","30px");
           }
 
           if ($(window).width() <= 768) {
             cssmenu.find('ul').hide().removeClass('open');
             $("#actionLogo").hide();
-            $("#service").css("top","0px");
+            $("#service1").css("top","0px");
+            $("#service2").css("top","0px");
+            $("#service3").css("top","0px");
+            $("#service4").css("top","0px");
           }
         };
         resizeFix();

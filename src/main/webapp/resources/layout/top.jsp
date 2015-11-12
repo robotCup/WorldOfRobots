@@ -42,21 +42,21 @@
 		<ul>
 			<li id="actionLogo">
 				<a href='#'>			
-					<img src="http://placehold.it/150x50&amp;text=Logo" alt="">
+					<img src="<%=request.getContextPath()%>/resources/images/logos.png" alt="" id="image">
 				</a>
 			</li>
-			<li class='has-sub' id="service"><a href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
+			<li class='has-sub' id="service1"><a href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
 				<ul>
 					<li><a href="<%=request.getContextPath()%>/competitions/add"><span>Ajouter une compétition</span></a></li>					
 				</ul>
 			</li>
-			<li class='has-sub' id="service"><a href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
+			<li class='has-sub' id="service2"><a href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
 				<ul>
 					<li><a href='<%=request.getContextPath()%>/robots/add'><span>Ajouter un robot</span></a></li>					
 				</ul>
 			</li>
-			<li id="service"> <a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>
-			<li class='last' id="service"><a href='#'><span>Contact</span></a></li>
+			<li class='has-sub' id="service3"> <a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>
+			<li class='last' id="service4"><a href='#'><span>Contact</span></a></li>
 		</ul>
 	</div>
 	</nav>

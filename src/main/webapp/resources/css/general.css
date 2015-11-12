@@ -15,6 +15,19 @@
 	float:left;
 }
 
-#service{
-	top:10px;
+#service1{
+	top:30px;
+}
+#service2{
+	top:30px;
+}
+#service3{
+	top:30px;
+}
+#service4{
+	top:30px;
+}
+#image{
+	width:100px;
+	height:50px;
 }
