@@ -27,7 +27,6 @@ public class CompetitionController {
 		
 		List<Competition> competitions = competitionDAO.findAll();
 		model.addAttribute("competitions", competitions);
-		
 		return "competitions";
 	}	
 	

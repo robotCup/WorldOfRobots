@@ -1,4 +1,6 @@
+
 <%@ include file="/resources/layout/top.jsp"%>
+
 <!-- Heading Row -->
 <div class="row">
 	<div class="col-md-8">
@@ -20,6 +22,7 @@
 <!-- /.row -->
 
 <hr>
+
 <div class="row">
 	<c:forEach var="a" items="${competitions}">
 		<div class="col-md-4">
