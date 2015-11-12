@@ -40,6 +40,7 @@ public class UserController {
 		else{
 			HttpSession session =request.getSession();
 			session.setAttribute("login", connexion.getLogin());
+			session.setAttribute("user", user);
 			return "competitions";
 		}
 	}
@@ -53,5 +54,12 @@ public class UserController {
 		else {
 			return this.prepareConnexion(model);
 		}
+	}
+	
+	@RequestMapping(value="disconnect", method=RequestMethod.GET)
+	public String toDisconnect(Model model,HttpServletRequest request) {
+		HttpSession session =request.getSession();
+		session.invalidate();
+		return this.prepareConnexion(model);
 	}
 }

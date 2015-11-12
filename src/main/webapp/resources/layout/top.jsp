@@ -56,6 +56,9 @@
 				</ul>
 			</li>
 			<li class='has-sub' id="service3"> <a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>
+			<%  if(session.getAttribute("user") != null) { %>
+			<li class='has-sub' id="service3"> <a href="<%=request.getContextPath()%>/user/disconnect"><span>Déconnexion</span></a></li>
+			<% } %>
 			<li class='last' id="service4"><a href='#'><span>Contact</span></a></li>
 		</ul>
 	</div>
