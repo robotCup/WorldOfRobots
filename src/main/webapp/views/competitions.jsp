@@ -20,9 +20,16 @@
 <!-- /.row -->
 
 <hr>
-
-<!-- Content Row -->
 <div class="row">
+	<c:forEach var="a" items="${competitions}">
+		<div class="col-md-4">
+			<h2>${a.name}</h2>
+			<p>${a.description}</p>
+			<a class="btn btn-default" href="#">Voir la fiche</a>
+		</div>
+	</c:forEach>
+
+	<!--
 	<div class="col-md-4">
 		<h2>Compétition 1</h2>
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Saepe
@@ -30,7 +37,8 @@
 			suscipit, soluta quibusdam accusamus a veniam quaerat eveniet
 			eligendi dolor consectetur.</p>
 		<a class="btn btn-default" href="#">Voir la fiche</a>
-	</div>
+	</div>  
+	-->
 	<!-- /.col-md-4 -->
 	<div class="col-md-4">
 		<h2>Compétition 2</h2>
@@ -50,6 +58,10 @@
 		<a class="btn btn-default" href="#">Voir la fiche</a>
 	</div>
 	<!-- /.col-md-4 -->
+	
+	
+	
+	
 </div>
 <!-- /.row -->
 
