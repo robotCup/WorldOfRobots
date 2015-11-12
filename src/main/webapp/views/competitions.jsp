@@ -1,4 +1,6 @@
+
 <%@ include file="/resources/layout/top.jsp"%>
+
 <!-- Heading Row -->
 <div class="row">
 	<div class="col-md-8">
@@ -23,7 +25,7 @@
 <div class="row">
 	<c:forEach var="a" items="${competitions}">
 		<div class="col-md-4">
-			<h2>${a.name}</h2>
+			<h2><c:out value="${a.name}"/></h2>
 			<p>${a.description}</p>
 			<a class="btn btn-default" href="#">Voir la fiche</a>
 		</div>
