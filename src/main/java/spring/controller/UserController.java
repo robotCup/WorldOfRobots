@@ -31,6 +31,8 @@ public class UserController {
 		return "connexion";
 	}
 	
+	
+	
 	@RequestMapping(value="toConnect", method = RequestMethod.POST)
 	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, ModelMap model,HttpServletRequest request) {//page apr�s la connexion
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
@@ -48,8 +50,8 @@ public class UserController {
 	@RequestMapping(value="mySpace", method=RequestMethod.GET)
 	public String monEspace(Model model,HttpServletRequest request) {
 		HttpSession session =request.getSession();
-		if(session.getAttribute("login")!=null){
-			return "competitions";
+		if(session.getAttribute("user")!=null){
+			return "mySpace";
 		}
 		else {
 			return this.prepareConnexion(model);

@@ -55,9 +55,13 @@
 					<li><a href='<%=request.getContextPath()%>/robots/add'><span>Ajouter un robot</span></a></li>					
 				</ul>
 			</li>
-			<li class="service"> <a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>
 			<%  if(session.getAttribute("user") != null) { %>
+			<li class="service"> <a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>
+			
 				<li class="service"> <a href="<%=request.getContextPath()%>/user/disconnect"><span>Déconnexion</span></a></li>
+			<% } 
+			else{ %>
+				<li class="service"> <a href="<%=request.getContextPath()%>/user/disconnect"><span>Connexion</span></a></li>
 			<% } %>
 			<li class='last service'><a href='#'><span>Contact</span></a></li>
 		</ul>
