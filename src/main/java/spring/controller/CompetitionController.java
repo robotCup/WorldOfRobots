@@ -18,7 +18,10 @@ public class CompetitionController {
 	@Autowired private CompetitionDAO competitionDAO;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String Index(){
+	public String Index(Model model){
+
+		List<Competition> competitions = competitionDAO.findAll();
+		model.addAttribute("competitions", competitions);
 		return "competitions";
 	}
 	

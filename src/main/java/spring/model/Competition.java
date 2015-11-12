@@ -14,6 +14,7 @@ public class Competition {
 	@Id @GeneratedValue
 	private long id;
 	private String name;
+	private String gps;
 	private String description;
 	
 	public long getId(){
@@ -33,6 +34,12 @@ public class Competition {
 	}
 	public void setDescription(String description){
 		this.description = description;
+	}
+	public String getGps() {
+		return gps;
+	}
+	public void setGps(String gps) {
+		this.gps = gps;
 	}
 }
 

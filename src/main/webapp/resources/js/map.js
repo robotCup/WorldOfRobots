@@ -1,5 +1,6 @@
 var map;
 var marker
+var coords = document.getElementsByClassName('gps');
 
 //animation marker
 function toggleBounce() {
@@ -31,9 +32,14 @@ function initMap() {
 		streetViewControl: false,
 		rotateControl: false
 	});
-
+	
+	
 	// ajout markers
-	addMarker(myLatLng);
+	for (i = 0 ; i <coords.length; i++) {
+		console.log(eval('(' + coords[i].value + ')'));		
+		addMarker(eval('(' + coords[i].value + ')'));
+	}
+	
 
 	//-----géolocalisation
 
