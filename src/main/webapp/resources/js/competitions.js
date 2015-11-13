@@ -1,6 +1,6 @@
 $(function(){
 	$(document).ready(function() {
-	    $('#tab_robots').DataTable({
+	    $('#tab_competitions').DataTable({
 	    	'language': {
 	    	    "sProcessing":     "Traitement en cours...",
 	    	    "sSearch":         "Rechercher&nbsp;:",

@@ -19,18 +19,15 @@ public class CompetitionController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String Index(Model model){
-
+		List<Competition> competitions = competitionDAO.findAll();
+		model.addAttribute("competitions", competitions);
+		return "home";
+	}
+	
+	@RequestMapping(value="/competitions", method = RequestMethod.GET)
+	public String Competitions(Model model){		
 		List<Competition> competitions = competitionDAO.findAll();
 		model.addAttribute("competitions", competitions);
 		return "competitions";
 	}
-	
-	@RequestMapping(value="/competitions", method = RequestMethod.GET)
-	public String Competitions(Model model){
-		
-		List<Competition> competitions = competitionDAO.findAll();
-		model.addAttribute("competitions", competitions);
-		return "competitions";
-	}	
-	
 }

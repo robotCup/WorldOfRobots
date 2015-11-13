@@ -39,12 +39,12 @@ public class UserController {
 	@RequestMapping(value="toConnect", method = RequestMethod.POST)
 	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, ModelMap model,HttpServletRequest request) {//page apr�s la connexion
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
-		if (user==null || (!(user.getLogin().equals(connexion.getLogin()))&& !(user.getPwd().equals(connexion.getPwd())))){
+		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
 			return "connexion";
 		}
 		else{
 			HttpSession session =request.getSession();
-			session.setAttribute("login", connexion.getLogin());
+			//session.setAttribute("login", connexion.getLogin());
 			session.setAttribute("user", user);
 			List<Competition> competitions = competitionDAO.findAll();
 			model.addAttribute("competitions", competitions);
@@ -62,6 +62,18 @@ public class UserController {
 			return this.prepareConnexion(model);
 		}
 	}
+	
+	/*@RequestMapping(value="contact", method=RequestMethod.GET)
+	public String contact(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		
+		if(session.getAttribute("user") != null){
+			return "contact";
+		}
+		else {
+			return this.prepareConnexion(model);
+		}
+	}*/
 	
 	@RequestMapping(value="disconnect", method=RequestMethod.GET)
 	public String toDisconnect(Model model,HttpServletRequest request) {

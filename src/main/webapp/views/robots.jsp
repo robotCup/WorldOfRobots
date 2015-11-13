@@ -9,14 +9,14 @@
     <!-- Heading Row -->
         <div class="row">
             <div class="col-md-8">
-                <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt="">
+                <img class="img-responsive img-rounded" src="<%=request.getContextPath()%>/resources/images/slider_robots.png" alt="">
             </div>
             <!-- /.col-md-8 -->
-            <div class="col-md-4">
+            <!--<div class="col-md-4">
                 <h1>Titre du dernier robot</h1>
                 <p>Description du robot avec ses caractéristiques</p>
                 <a class="btn btn-primary btn-lg" href="#">Voir la fiche</a>
-            </div>
+            </div>-->
             <!-- /.col-md-4 -->
         </div>
         <!-- /.row -->
@@ -39,7 +39,7 @@
 		                <td>Robot 1</td>
 		                <td>3 ans</td>
 		                <td>Compet 1, Compet 2</td>
-		                <td>Voir la fiche</td>
+		                <td><a href="#">Voir la fiche</a></td>
 		            </tr>
 	            </tbody>
             </table>

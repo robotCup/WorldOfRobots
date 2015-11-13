@@ -1,43 +1,54 @@
+<%@ include file="/resources/layout/top.jsp" %>
 
-<%@ include file="/resources/layout/top.jsp"%>
+<!-- Import lib dataTables -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/css/jquery.dataTables.min.css"/>
 
-<!-- Heading Row -->
-<div class="row">
-	<div class="col-md-8">
-		<div id="map"></div>
-		<script type="text/javascript"
-			src="<%=request.getContextPath()%>/resources/js/map.js"></script>
-		<script async defer
-			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJMQnUVO7WPqS96NqQUObz4RtxuQzADTY&callback=initMap&v=3"></script>
-		<!-- <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt=""> -->
-	</div>
-	<!-- /.col-md-8 -->
-	<c:forEach var="a" items="${competitions}" end="0">
-		<div class="col-md-4">
-			<h2><c:out value="${a.name}"/></h2>
-			<p>${a.description}</p>
-			<input type="hidden" class="gps" value='${a.gps}' />
-			<a class="btn btn-primary btn-lg" href="#">Voir la fiche</a>
-		</div>
-	</c:forEach>	
-	<!-- /.col-md-4 -->
-</div>
-<!-- /.row -->
+<!-- Import js de la page -->    
+<script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/competitions.js"></script>   
+    <!-- Heading Row -->
+        <div class="row">
+            <div class="col-md-8">
+                <img class="img-responsive img-rounded" src="<%=request.getContextPath()%>/resources/images/slider_robots.png" alt="">
+            </div>
+            <!-- /.col-md-8 -->
+            <!--<div class="col-md-4">
+                <h1>Titre du dernier robot</h1>
+                <p>Description du robot avec ses caractéristiques</p>
+                <a class="btn btn-primary btn-lg" href="#">Voir la fiche</a>
+            </div>-->
+            <!-- /.col-md-4 -->
+        </div>
+        <!-- /.row -->
 
-<hr>
+        <hr>
 
-<div class="row">
-	<c:forEach var="a" items="${competitions}" begin="1" end="3">
-		<div class="col-md-4">
-			<h2><c:out value="${a.name}"/></h2>
-			<p>${a.description}</p>
-			<input type="hidden" class="gps" value='${a.gps}' />
-			<a class="btn btn-default" href="#">Voir la fiche</a>
-		</div>
+        <!-- Tableau de robots -->
+        <div class="row">
+            <table id="tab_competitions" class="display" cellspacing="0" width="100%">
+            	 <thead>
+		            <tr>
+		                <th>Nom</th>
+		                <th>Robots</th>
+		                <th>Lieu</th>
+		                <th>Début</th>
+		                <th>Fin</th>
+		                <th>Action</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr>
+		                <td>Compet 1 </td>
+		                <td>Robot</td>
+		                <td>123445 rue Linné Paris</td>
+		                <td>01/01/2010</td>
+		                <td>01/01/2010</td>
+		                <td><a href="#">Voir la fiche</a></td>
+		            </tr>
+	            </tbody>
+            </table>
+        </div>
+        <!-- /.row -->
 
-	</c:forEach>	
-
-</div>
-<!-- /.row -->
-
-<%@ include file="/resources/layout/bot.jsp"%>
+<%@ include file="/resources/layout/bot.jsp" %>
+   

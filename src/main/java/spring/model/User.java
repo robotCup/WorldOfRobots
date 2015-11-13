@@ -17,6 +17,8 @@ public class User {
 	private String login;
 	private String pwd;
 	private String name;
+	private boolean leader;
+	
 	//@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
 	public String getLogin() {
 		return login;
@@ -36,6 +38,18 @@ public class User {
 	}
 	public void setId(long id){
 		this.id=id;
+	}
+	public boolean isLeader() {
+		return leader;
+	}
+	public void setLeader(boolean leader) {
+		this.leader = leader;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 }
 

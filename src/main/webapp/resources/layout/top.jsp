@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
+<%@ page import="spring.model.User" %>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -41,29 +42,41 @@
 		<div id='cssmenu'>
 		<ul>
 			<li id="actionLogo">
-				<a href='#'>			
+				<a href='<%=request.getContextPath()%>'>			
 					<img src="<%=request.getContextPath()%>/resources/images/logos.png" alt="" id="image">
 				</a>
 			</li>
-			<li class='has-sub service' ><a href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
-				<ul>
-					<li><a href="<%=request.getContextPath()%>/competitions/add"><span>Ajouter une compétition</span></a></li>					
-				</ul>
-			</li>
-			<li class='has-sub service'><a href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
-				<ul>
-					<li><a href='<%=request.getContextPath()%>/robots/add'><span>Ajouter un robot</span></a></li>					
-				</ul>
+			
+			<% if(session.getAttribute("user") != null) { %>
+				<li class='has-sub service' ><a href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
+					<ul>
+						<li><a href="<%=request.getContextPath()%>/competitions/add"><span>Ajouter une compétition</span></a></li>	
+						<li><a href="<%=request.getContextPath()%>"><span>Mes compétitions</span></a></li>						
+					</ul>
+				<% } else { %>	
+					<li class='service'><a href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>	
+				<% } %>			
 			</li>
 			<%  if(session.getAttribute("user") != null) { %>
-			<li class="service"> <a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>
-			
+				<li class='has-sub service'><a href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
+					<ul>
+						<li><a href="<%=request.getContextPath()%>/robots/add"><span>Ajouter un robot</span></a></li>	
+						<%  if( ((User)session.getAttribute("user")).isLeader() != false) { %>
+							<li><a href="<%=request.getContextPath()%>"><span>Modifier mon robot</span></a></li>
+						<% } %>					
+					</ul>
+				<% } else { %>	
+					<li class='service'><a href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
+				<% } %>				
+			</li>
+			<%  if(session.getAttribute("user") != null) { %>
+				<li class="service"> <a href="<%=request.getContextPath()%>/user/mySpace"><span>Mon espace</span></a></li>			
 				<li class="service"> <a href="<%=request.getContextPath()%>/user/disconnect"><span>Déconnexion</span></a></li>
 			<% } 
 			else{ %>
 				<li class="service"> <a href="<%=request.getContextPath()%>/user/disconnect"><span>Connexion</span></a></li>
 			<% } %>
-			<li class='last service'><a href='#'><span>Contact</span></a></li>
+			<li class='last service'><a href="#"><span>Contact</span></a></li>
 		</ul>
 	</div>
 	</nav>
