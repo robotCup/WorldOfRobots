@@ -19,14 +19,15 @@ public class UserDAO {
 	/**
 	 * @Transactional annotation below will trigger Spring Hibernate transaction manager to automatically create
 	 * a hibernate session. See src/main/webapp/WEB-INF/servlet-context.xml	 */
-	@Transactional
+	
+	
 	public List<User> findAll() {
 		Session session = sessionFactory.getCurrentSession();
 		List Users = session.createQuery("from User").list();
 		return Users;
 	}
 	
-	@Transactional
+
 	public User findByLogin(String login, String pwd) {
 		Session session = sessionFactory.getCurrentSession();
 		User user=(User) session

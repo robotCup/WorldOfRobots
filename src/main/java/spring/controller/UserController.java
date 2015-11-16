@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.Competition;
-import spring.model.CompetitionDAO;
+
 import spring.model.User;
-import spring.model.UserDAO;
+
+import spring.service.CompetitionService;
+import spring.service.UserService;
 
 
 
@@ -25,8 +27,8 @@ import spring.model.UserDAO;
 @RequestMapping("/user")
 public class UserController {
 
-	@Autowired private UserDAO utilisateurService;
-	@Autowired private CompetitionDAO competitionDAO;
+	@Autowired private UserService utilisateurService;
+	@Autowired private CompetitionService competitionService;
 
 	@RequestMapping(value="toConnect", method=RequestMethod.GET)
 	public String prepareConnexion(Model model) {
@@ -46,7 +48,7 @@ public class UserController {
 			HttpSession session =request.getSession();
 			//session.setAttribute("login", connexion.getLogin());
 			session.setAttribute("user", user);
-			List<Competition> competitions = competitionDAO.findAll();
+			List<Competition> competitions = competitionService.findAll();
 			model.addAttribute("competitions", competitions);
 			return "competitions";
 		}

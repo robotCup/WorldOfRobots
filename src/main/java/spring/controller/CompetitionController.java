@@ -10,23 +10,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import spring.model.Competition;
 import spring.model.CompetitionDAO;
+import spring.service.CompetitionService;
 
 @Controller
 @RequestMapping("/")
 public class CompetitionController {	
 	
-	@Autowired private CompetitionDAO competitionDAO;
+	@Autowired private CompetitionService competitionService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String Index(Model model){
-		List<Competition> competitions = competitionDAO.findAll();
+		List<Competition> competitions = competitionService.findAll();
 		model.addAttribute("competitions", competitions);
 		return "home";
 	}
 	
 	@RequestMapping(value="/competitions", method = RequestMethod.GET)
 	public String Competitions(Model model){		
-		List<Competition> competitions = competitionDAO.findAll();
+		List<Competition> competitions = competitionService.findAll();
 		model.addAttribute("competitions", competitions);
 		return "competitions";
 	}
