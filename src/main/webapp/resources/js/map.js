@@ -1,23 +1,15 @@
 var map;
-var marker;
-var coords = document.getElementsByClassName('gps');
 
-function addMarker(coord){
-	
-	marker = new google.maps.Marker({
-		'map': map,
-		'draggable': true,
-		'animation': google.maps.Animation.DROP,
-		'position': coord,
-		'title' : map.getCenter().toUrlValue(),
-	});	
-	marker.setMap(map);
-}
+var coords = document.getElementsByClassName('gps');
+var adresses = document.getElementsByClassName('address');
+var names = document.getElementsByClassName('name');
 
 function initMap() {	
 
 	var myLatLng = {lat: 48.8448934, lng: 2.3541811999999998};
-
+	var infowindow = new google.maps.InfoWindow({
+	      maxWidth: 300
+	    });
 	map = new google.maps.Map(document.getElementById('map'), {
 		center: myLatLng,
 		zoom: 8,
@@ -42,7 +34,20 @@ function initMap() {
 	
 	// ajout markers
 	for (i = 0 ; i <coords.length; i++) {		
-		addMarker(eval('(' + coords[i].value + ')'));
+		//addMarker(eval('(' + coords[i].value + ')'));
+		marker = new google.maps.Marker({
+			'map': map,
+			'position': eval('(' + coords[i].value + ')'),
+			'title' : map.getCenter().toUrlValue(),
+		});	
+		marker.setMap(map);
+		google.maps.event.addListener(marker, 'click', (function(marker, i) {
+	        return function() {
+	          infowindow.setContent("<h1>"+names[i].value+"</h1><p>"  + adresses[i].value +"</p>");
+	          infowindow.open(map, marker);
+	        }
+	      })(marker, i));
+		
 	}
 }
 
