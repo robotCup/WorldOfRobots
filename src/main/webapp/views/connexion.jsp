@@ -3,7 +3,7 @@
 <div class="row">
 	<form:form method="post" action="toConnect" commandName="connexion">
 	<% if (request.getAttribute("testConnexion") != null && (Boolean)request.getAttribute("testConnexion")==false){%>
-	erreur pas bon login
+	Erreur lors de la connexion
 	<% } %>
 		<fieldset>
 			<legend>Se connecter : </legend>
@@ -21,9 +21,10 @@
 
 	<form:form method="post" action="toRegister" commandName="register">
 	<% if (request.getAttribute("testInscription") != null && (Boolean)request.getAttribute("testInscription")==false){%>
-	erreur login existe deja
-	<% } else if (request.getAttribute("testInscription") != null){%>
-	ok inscription veuillez vous connecter
+		Erreur lors de l'inscription
+	<% } 
+	else if (request.getAttribute("testInscription") != null){%>
+		L'inscription est un succès. Veuillez vous connectez
 	<% } %>
 		<fieldset>
 			<legend>S'inscrire : </legend>
