@@ -1,6 +1,7 @@
 package spring.model;
 
 import java.sql.Timestamp;
+
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
@@ -38,9 +39,6 @@ public class Competition {
 	public long getId(){
 		return this.id;
 	}
-	public void setId(long id){
-		this.id = id;
-	}
 	public String getName(){
 		return this.name;
 	}
@@ -57,10 +55,6 @@ public class Competition {
 	public int getRobot_max() {
 		return robot_max;
 	}
-	public void setRobot_max(int robot_max) {
-		this.robot_max = robot_max;
-	}
-
 	public Timestamp getStart_date() {
 		return start_date;
 	}
@@ -93,4 +87,3 @@ public class Competition {
 		this.place = place;
 	}
 }
-

@@ -18,4 +18,6 @@ public class CompetitionService {
 	public List<Competition> findAll() {
 		return this.competitionDAO.findAll();
 	}
+	
+
 }

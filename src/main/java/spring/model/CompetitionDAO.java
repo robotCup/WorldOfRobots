@@ -31,8 +31,11 @@ public class CompetitionDAO {
 		}
 		
 		return competitions;
+
 	}
 	
 	
+
 	
+
 }

@@ -11,14 +11,17 @@
 		<!-- <img class="img-responsive img-rounded" src="http://placehold.it/900x350" alt=""> -->
 	</div>
 	<!-- /.col-md-8 -->
-	<c:forEach var="a" items="${competitions}" end="0">
+	<c:forEach var="a" items="${competitions}" begin="0" end="0">
 		<div class="col-md-4">
-			<h2><c:out value="${a.name}"/></h2>
+			<h2>
+				<c:out value="${a.name}" />
+			</h2>
 			<p>${a.description}</p>
-			<input type="hidden" class="gps" value='${a.place.address}' />
+			<input type="hidden" class="gps" value="${a.place.geolocation}" /> 
 			<a class="btn btn-primary btn-lg" href="#">Voir la fiche</a>
 		</div>
-	</c:forEach>	
+	</c:forEach>
+
 	<!-- /.col-md-4 -->
 </div>
 <!-- /.row -->
@@ -30,12 +33,10 @@
 		<div class="col-md-4">
 			<h2><c:out value="${a.name}"/></h2>
 			<p>${a.description}</p>
-			<input type="hidden" class="gps" value='${a.place.address}' />
+			<input type="hidden" class="gps" value="${a.place.geolocation}" />
 			<a class="btn btn-default" href="#">Voir la fiche</a>
 		</div>
-
-	</c:forEach>	
-
+	</c:forEach>
 </div>
 <!-- /.row -->
 
