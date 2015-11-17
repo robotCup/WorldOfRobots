@@ -2,6 +2,9 @@
 <%@ include file="/resources/layout/top.jsp"%>
 <div class="row">
 	<form:form method="post" action="toConnect" commandName="connexion">
+	<% if (request.getAttribute("testConnexion") != null && (Boolean)request.getAttribute("testConnexion")==false){%>
+	erreur pas bon login
+	<% } %>
 		<fieldset>
 			<legend>Se connecter : </legend>
 			<table>
@@ -15,7 +18,12 @@
 		</fieldset>
 	</form:form>
 
-	<form:form method="post" action="toConnect" commandName="register">
+	<form:form method="post" action="toRegister" commandName="register">
+	<% if (request.getAttribute("testInscription") != null && (Boolean)request.getAttribute("testInscription")==false){%>
+	erreur login existe deja
+	<% } else if (request.getAttribute("testInscription") != null){%>
+	ok inscription veuillez vous connecter
+	<% } %>
 		<fieldset>
 			<legend>S'inscrire : </legend>
 			<table>
