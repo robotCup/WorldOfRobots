@@ -18,4 +18,9 @@ public class CompetitionService {
 	public List<Competition> findAll() {
 		return this.competitionDAO.findAll();
 	}
+	
+	@Transactional(readOnly=true)
+	public List<String> home() {
+		return this.competitionDAO.home();
+	}	
 }

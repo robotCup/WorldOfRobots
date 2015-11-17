@@ -20,7 +20,8 @@ public class CompetitionController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String Index(Model model){
-		List<Competition> competitions = competitionService.findAll();
+		//List<Competition> competitions = competitionService.findAll();
+		List<String> competitions = competitionService.home();
 		model.addAttribute("competitions", competitions);
 		return "home";
 	}
@@ -30,5 +31,10 @@ public class CompetitionController {
 		List<Competition> competitions = competitionService.findAll();
 		model.addAttribute("competitions", competitions);
 		return "competitions";
+	}
+	
+	@RequestMapping(value="/competitions/add", method = RequestMethod.GET)
+	public String add(Model model){		
+		return "addCompetition";
 	}
 }

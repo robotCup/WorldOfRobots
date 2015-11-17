@@ -24,4 +24,14 @@ public class CompetitionDAO {
 		List competitions = session.createQuery("from Competition").list();
 		return competitions;
 	}	
+	
+	public List<String> home() {
+		Session session = sessionFactory.getCurrentSession();
+		String query = "SELECT c ,  p.geolocation as gps "
+				+ "FROM Competition c , Place p "
+				+ "WHERE c.id_place = p.id "
+				+ "";
+		List result = session.createQuery(query).list();
+		return result;
+	}	
 }
