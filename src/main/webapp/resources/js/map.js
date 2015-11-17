@@ -3,7 +3,7 @@ var marker;
 var coords = document.getElementsByClassName('gps');
 
 function addMarker(coord){
-
+	
 	marker = new google.maps.Marker({
 		'map': map,
 		'draggable': true,
@@ -14,7 +14,7 @@ function addMarker(coord){
 	marker.setMap(map);
 }
 
-function initMap() {
+function initMap() {	
 
 	var myLatLng = {lat: 48.8448934, lng: 2.3541811999999998};
 
@@ -26,14 +26,6 @@ function initMap() {
 		streetViewControl: false,
 		rotateControl: false
 	});
-
-
-	// ajout markers
-	for (i = 0 ; i <coords.length; i++) {
-		addMarker(eval('(' + coords[i].value + ')'));
-	}
-
-
 	//-----géolocalisation
 
 	if (navigator.geolocation) {
@@ -46,6 +38,11 @@ function initMap() {
 
 			map.setCenter(pos);
 		});
+	}
+	
+	// ajout markers
+	for (i = 0 ; i <coords.length; i++) {		
+		addMarker(eval('(' + coords[i].value + ')'));
 	}
 }
 

@@ -22,6 +22,14 @@ public class CompetitionDAO {
 	public List<Competition> findAll() {
 		Session session = sessionFactory.getCurrentSession();
 		List competitions = session.createQuery("from Competition").list();
+		
+		for( int i=0; i<competitions.size();i++) {
+		    ((Competition) competitions.get(i)).setPlace((Place) session
+		            .createQuery("from Place p where p.id = :id")
+		            .setParameter("id", ((Competition) competitions.get(i)).getId_place())
+		            .uniqueResult());
+		}
+		
 		return competitions;
 	}	
 	

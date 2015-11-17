@@ -14,8 +14,7 @@
 <!-- Bootstrap Core JavaScript -->
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/theme/js/bootstrap.min.js"></script>
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJMQnUVO7WPqS96NqQUObz4RtxuQzADTY&signed_in=true&libraries=places&callback=initAutocomplete"
-        async defer></script>
+
 </body>
 
 </html>

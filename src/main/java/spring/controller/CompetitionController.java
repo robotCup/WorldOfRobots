@@ -20,8 +20,7 @@ public class CompetitionController {
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String Index(Model model){
-		//List<Competition> competitions = competitionService.findAll();
-		List<String> competitions = competitionService.home();
+		List<Competition> competitions = competitionService.findAll();
 		model.addAttribute("competitions", competitions);
 		return "home";
 	}
