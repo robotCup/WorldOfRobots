@@ -1,7 +1,8 @@
 $(document).ready(function() {	
 	
 	$('#tab_competitions').DataTable({
-		'language': {
+		colReorder: true,		 
+		language: {
 			"sProcessing":     "Traitement en cours...",
 			"sSearch":         "Rechercher&nbsp;:",
 			"sLengthMenu":     "Afficher _MENU_ &eacute;l&eacute;ments",
