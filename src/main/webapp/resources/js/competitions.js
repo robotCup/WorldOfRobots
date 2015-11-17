@@ -1,11 +1,12 @@
 $(document).ready(function() {
 	
 	$('.slider').slick({
-		lazyLoad: 'ondemand',
-		slidesToShow: 3,
-		slidesToScroll: 1,
-		autoplay: true,
-		autoplaySpeed: 2000,
+		dots: true,
+		slidesToShow: 1,
+		  slidesToScroll: 1,
+		  autoplay: true,
+		  autoplaySpeed: 2000,
+		  touchMove: true
 	});
 	
 	$('#tab_competitions').DataTable({

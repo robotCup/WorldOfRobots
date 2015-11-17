@@ -16,7 +16,7 @@ public class User {
 
 	private String login;
 	private String pwd;
-	private String name;
+	private String email;
 	private boolean leader;
 	
 	//@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
@@ -45,11 +45,11 @@ public class User {
 	public void setLeader(boolean leader) {
 		this.leader = leader;
 	}
-	public String getName() {
-		return name;
+	public String getEmail() {
+		return email;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }
 

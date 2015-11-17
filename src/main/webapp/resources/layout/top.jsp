@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false"%>
 <%@ page import="spring.model.User"%>
@@ -7,8 +7,7 @@
 <html lang="fr">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<meta charset="utf-8" />
 	<title>World of Robots</title>
 	
 	<!-- Bootstrap Core CSS -->
@@ -21,7 +20,10 @@
 	
 	<!-- jQuery -->
 	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/resources/theme/js/jquery.js"></script>
+		src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	
+	<script type="text/javascript"
+		src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 	
 	<!-- Menu CSS -->
 	<link rel="stylesheet"
@@ -52,17 +54,17 @@
 					if (session.getAttribute("user") != null) {
 				%>
 				<li class='has-sub service'><a
-					href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
+					href="<%=request.getContextPath()%>/competitions"><span>CompÃ©titons</span></a>
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/competitions/add"><span>Ajouter
-									une compétition</span></a></li>
+									une compÃ©tition</span></a></li>
 						<li><a href="<%=request.getContextPath()%>"><span>Mes
-									compétitions</span></a></li>
+									compÃ©titions</span></a></li>
 					</ul> <%
  	} else {
  %>
 				<li class='service'><a
-					href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
+					href="<%=request.getContextPath()%>/competitions"><span>CompÃ©titons</span></a>
 					<%
 						}
 					%></li>
@@ -97,7 +99,7 @@
 					href="<%=request.getContextPath()%>/user/mySpace"><span>Mon
 							espace</span></a></li>
 				<li class="service"><a
-					href="<%=request.getContextPath()%>/user/disconnect"><span>Déconnexion</span></a></li>
+					href="<%=request.getContextPath()%>/user/disconnect"><span>DÃ©connexion</span></a></li>
 				<%
 					} else {
 				%>

@@ -1,7 +1,25 @@
+body{
+	background-color: #EBEFF0;
+}
+.container{
+	background-color: white;
+}
 #connexion{
 	margin-left: auto;
 	margin-right: auto;
-	width : 300px;	
+	width : 500px;		
+}
+#connexion > tr > td{
+	margin-left: 10px;
+}
+#register{
+	margin-left: auto;
+	margin-right: auto;
+	width : 500px;	
+	padding-top: 10px;
+}
+#register > tr {
+	margin-top: 10px;
 }
 #map{
 	width: 100%;
@@ -20,4 +38,18 @@
 #image{
 	width:100px;
 	height:50px;
+}
+
+
+/* --------- Page de liste compétitions */
+
+.slider{
+	width: auto;
+	height: auto;
+	margin: auto;
+}
+
+.back_carousel{
+	background-color: black;
+	margin: auto;
 }

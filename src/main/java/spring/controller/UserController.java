@@ -33,10 +33,9 @@ public class UserController {
 	@RequestMapping(value="toConnect", method=RequestMethod.GET)
 	public String prepareConnexion(Model model) {
 		model.addAttribute("connexion", new Connexion());
+		model.addAttribute("register", new Register());
 		return "connexion";
 	}
-	
-	
 	
 	@RequestMapping(value="toConnect", method = RequestMethod.POST)
 	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, ModelMap model,HttpServletRequest request) {//page apr�s la connexion
