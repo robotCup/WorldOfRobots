@@ -1,21 +1,20 @@
 <%@ include file="/resources/layout/top.jsp"%>
-
-<!-- Import lib dataTables -->
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/js/jquery.dataTables.min.js"></script>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/css/jquery.dataTables.min.css" />
-
 <!-- Import js de la page -->
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/robots.js"></script>
-	
+
 <!-- Slider -->
 	<link rel="stylesheet" type="text/css"
 		href="<%=request.getContextPath()%>/resources/lib/slider/slick/slick.css" />
 	<link rel="stylesheet" type="text/css"
 		href="<%=request.getContextPath()%>/resources/lib/slider/slick/slick-theme.css" />
-
+	
+<!-- DataTables -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/css/jquery.dataTables.min.css" />
+	
 
 <!-- Heading Row -->
 <div class="row">

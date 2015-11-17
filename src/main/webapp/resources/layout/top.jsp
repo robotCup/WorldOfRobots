@@ -7,36 +7,41 @@
 <html lang="fr">
 
 <head>
-	<meta charset="utf-8" />
-	<title>World of Robots</title>
+<meta charset="utf-8" />
+<title>World of Robots</title>
+
+<!-- Bootstrap Core CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/theme/css/bootstrap.min.css" />
+
+<!-- Custom CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/theme/css/small-business.css" />
+
+<!-- jQuery -->
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	
-	<!-- Bootstrap Core CSS -->
-	<link rel="stylesheet"
-		href="<%=request.getContextPath()%>/resources/theme/css/bootstrap.min.css" />
-	
-	<!-- Custom CSS -->
-	<link rel="stylesheet"
-		href="<%=request.getContextPath()%>/resources/theme/css/small-business.css" />
-	
-	<!-- jQuery -->
-	<script type="text/javascript"
-		src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	
-	<script type="text/javascript"
-		src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-	
-	<!-- Menu CSS -->
-	<link rel="stylesheet"
-		href="<%=request.getContextPath()%>/resources/theme/menu/styles.css" />
-	
-	<!-- Menu JS -->
-	<script type="text/javascript"
-		src="<%=request.getContextPath()%>/resources/theme/menu/script.js" /></script>
-	
-	<!-- General CSS -->
-	<link rel="stylesheet"
-		href="<%=request.getContextPath()%>/resources/css/general.css" />
-	
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<!-- Menu CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/theme/menu/styles.css" />
+
+<!-- Menu JS -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/theme/menu/script.js" /></script>
+
+<!-- General CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/resources/css/general.css" />
+
 </head>
 
 <body>
@@ -104,7 +109,7 @@
 					} else {
 				%>
 				<li class="service"><a
-					href="<%=request.getContextPath()%>/user/disconnect"><span>Connexion</span></a></li>
+					href="<%=request.getContextPath()%>/user/toConnect"><span>Connexion</span></a></li>
 				<%
 					}
 				%>

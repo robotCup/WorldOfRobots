@@ -18,7 +18,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 
-
 @Entity
 @Table(name="competition")
 public class Competition {

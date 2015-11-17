@@ -6,9 +6,10 @@
 			<legend>Se connecter : </legend>
 			<table>
 				<tr>
-					<td><form:input placeholder="Login" path="login" id="login" value=""/>
-					</td>
-					<td><form:password placeholder="Mot de passe" path="pwd" id="pwd" value=""/></td>
+					<td><form:input placeholder="Login" path="login" id="login"
+							value="" /></td>
+					<td><form:password placeholder="Mot de passe" path="pwd"
+							id="pwd" value="" /></td>
 					<td><input type="submit" value="Valider" /></td>
 				</tr>
 			</table>
@@ -21,19 +22,21 @@
 			<table>
 				<tr>
 					<td><form:input type="text" placeholder="Login" path="login"
-							id="login" value=""/></td>
+							id="login" value="" /></td>
+					<td><form:input type="email" placeholder="Adresse mail" path="email"
+							id="email" value="" /></td>
 				</tr>
 				<tr>
 					<td><form:password placeholder="Mot de passe" path="pwd"
-							id="pwd" value=""/></td>
-				</tr>
-				<tr>
+							id="pwd" value="" /></td>
 					<td><input type="password"
 						placeholder="Confirmation mot de passe" id="pwd_confirm" value="" /></td>
 				</tr>
 				<tr>
-					<td><form:input placeholder="Adresse mail" path="email"
-							id="email" value=""/></td>
+
+				</tr>
+				<tr>
+
 				</tr>
 				<tr>
 					<td><input type="submit" value="Valider" /></td>
