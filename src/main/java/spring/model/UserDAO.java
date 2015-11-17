@@ -4,9 +4,12 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 @Repository
 @SuppressWarnings({"unchecked", "rawtypes"})
@@ -38,14 +41,13 @@ public class UserDAO {
 		return user;
 	}	
 	
-	public int createUser(String login, String pwd, String email) {
+	public void createUser(String login, String pwd, String email) throws MySQLIntegrityConstraintViolationException,ConstraintViolationException{
 		Session session = sessionFactory.getCurrentSession();
-		int user=session
-        .createQuery("Insert into  User (login,pwd,email)  values (:login,:pwd,:email)")
-        .setParameter("login", login)
-        .setParameter("pwd", pwd)
-        .setParameter("email", email)
-        .executeUpdate();
-		return user;
+		User user = new User();
+		user.setEmail(email);
+		user.setLogin(login);
+		user.setPwd(pwd);
+		session.persist(user);
+
 	}	
 }
