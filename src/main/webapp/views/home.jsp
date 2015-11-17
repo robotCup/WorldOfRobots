@@ -15,7 +15,7 @@
 		<div class="col-md-4">
 			<h2><c:out value="${a.name}"/></h2>
 			<p>${a.description}</p>
-			<input type="hidden" class="gps" value='${a.gps}' />
+			<input type="hidden" class="gps" value='${a.place.address}' />
 			<a class="btn btn-primary btn-lg" href="#">Voir la fiche</a>
 		</div>
 	</c:forEach>	
@@ -30,7 +30,7 @@
 		<div class="col-md-4">
 			<h2><c:out value="${a.name}"/></h2>
 			<p>${a.description}</p>
-			<input type="hidden" class="gps" value='${a.gps}' />
+			<input type="hidden" class="gps" value='${a.place.address}' />
 			<a class="btn btn-default" href="#">Voir la fiche</a>
 		</div>
 
