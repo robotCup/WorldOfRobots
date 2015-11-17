@@ -37,4 +37,15 @@ public class UserDAO {
         .uniqueResult();
 		return user;
 	}	
+	
+	public int createUser(String login, String pwd, String email) {
+		Session session = sessionFactory.getCurrentSession();
+		int user=session
+        .createQuery("Insert into  User (login,pwd,email)  values (:login,:pwd,:email)")
+        .setParameter("login", login)
+        .setParameter("pwd", pwd)
+        .setParameter("email", email)
+        .executeUpdate();
+		return user;
+	}	
 }
