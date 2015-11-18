@@ -14,6 +14,7 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/theme/css/bootstrap.min.css" />
 
+
 <!-- Custom CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/theme/css/small-business.css" />
@@ -27,7 +28,7 @@
 
 <link rel="stylesheet"
 	href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-	
+
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 <!-- Menu CSS -->

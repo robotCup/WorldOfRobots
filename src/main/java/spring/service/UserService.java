@@ -22,7 +22,7 @@ public class UserService {
 		return this.userDAO.findAll();
 	}
 	
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public User findByLogin(String login, String pwd) {
 		return this.userDAO.findByLogin(login, pwd);
 	}

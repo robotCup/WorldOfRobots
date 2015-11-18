@@ -34,7 +34,7 @@ public class UserController {
 	@Autowired private CompetitionService competitionService;
 
 	@RequestMapping(value="toConnect", method=RequestMethod.GET)
-	public String prepareConnexion(Model model) {
+	public static String prepareConnexion(Model model) {
 		
 		model.addAttribute("connexion", new Connexion());
 		model.addAttribute("register", new Register());
@@ -43,7 +43,9 @@ public class UserController {
 	
 	@RequestMapping(value="toConnect", method = RequestMethod.POST)
 	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page apr�s la connexion
+		
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
+		
 		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
 			request.setAttribute("testConnexion", false);
 			return this.prepareConnexion(model);
@@ -51,6 +53,7 @@ public class UserController {
 		else{
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
+			session.setMaxInactiveInterval(10000000);
 			List<Competition> competitions = competitionService.findAll();
 			model.addAttribute("competitions", competitions);
 			return "competitions";
@@ -58,18 +61,18 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="toRegister", method = RequestMethod.POST)
-	public String toRegister(@ModelAttribute ("register") Register register, Model model,HttpServletRequest request) {//page apr�s la connexion
+	public String toRegister(@ModelAttribute ("register") Register register, Model model,HttpServletRequest request) {
 		
 		try{
-		this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
-		model.addAttribute("testInscription", false);
-		return this.prepareConnexion(model);
+			this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
+			model.addAttribute("testInscription", true);
+			return this.prepareConnexion(model);
 		}
 		catch(Exception e){
 			request.setAttribute("testInscription", false);
 			return this.prepareConnexion(model);
 		}			
-		}
+	}
 	
 
 	@RequestMapping(value="mySpace", method=RequestMethod.GET)
