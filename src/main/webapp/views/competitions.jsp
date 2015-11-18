@@ -16,22 +16,25 @@
 		<thead>
 			<tr>
 				<th>Nom</th>
-				<th>Robots</th>
 				<th>Lieu</th>
 				<th>Début</th>
 				<th>Fin</th>
+				<th>Nombre maximum de robots</th>
 				<th>Action</th>
+
 			</tr>
 		</thead>
 		<tbody>
+	<c:forEach var="a" items="${competitions}">
 			<tr>
-				<td>Compet 1</td>
-				<td>Robot</td>
-				<td>123445 rue Linné Paris</td>
-				<td>01/01/2010</td>
-				<td>01/01/2010</td>
-				<td><a href="#">Voir la fiche</a></td>
+				<td>${a.name}</td>
+				<td>${a.address}</td>
+				<td>${a.start_date}</td>
+				<td>${a.end_date}</td>
+				<td>${a.robot_max}</td>
+				<td><a href="<%=request.getContextPath()%>/competitions/card?id=${a.id}"> Voir la fiche</a></td>
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>

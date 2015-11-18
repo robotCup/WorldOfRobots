@@ -18,6 +18,12 @@ public class CompetitionService {
 	public List<Competition> findAll() {
 		return this.competitionDAO.findAll();
 	}
+
+	@Transactional(readOnly=true)
+	public Competition findById(int id) {
+		// TODO Auto-generated method stub
+		return this.competitionDAO.findByID(id);
+	}
 	
 
 }

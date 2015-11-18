@@ -1,7 +1,7 @@
 package spring.model;
 
 import java.sql.Timestamp;
-
+import java.util.List;
 
 import javax.persistence.Entity;
 
@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 
@@ -22,7 +23,8 @@ public class Battle {
 	private Integer id_winner;
 	private int id_competition;
 	private Timestamp date;
-
+	@Transient
+	private List <Robot> robots;
 
 	
 //	@OneToMany(mappedBy = "Robot", fetch = FetchType.LAZY)
@@ -46,6 +48,16 @@ public class Battle {
 	}
 	public void setId_winner(int id_winner) {
 		this.id_winner = id_winner;
+	}
+	public List <Robot> getRobots() {
+		return robots;
+	}
+	public void setRobots(List <Robot> robots) {
+		this.robots = robots;
+	}
+	
+	public int getId(){
+		return this.id;
 	}
 
 

@@ -17,8 +17,8 @@
 				<c:out value="${a.name}" />
 			</h2>
 			<p>${a.description}</p>
-			<input type="hidden" class="gps" value="${a.place.geolocation}" />
-			<input type="hidden" class="address" value="${a.place.address}" />
+			<input type="hidden" class="gps" value="${a.geolocation}" />
+			<input type="hidden" class="address" value="${a.address}" />
 			<input type="hidden" class="name" value="${a.name}" /> 
 			<a class="btn btn-primary btn-lg" href="#">Voir la fiche</a>
 		</div>
@@ -35,8 +35,8 @@
 		<div class="col-md-4">
 			<h2><c:out value="${a.name}"/></h2>
 			<p>${a.description}</p>
-			<input type="hidden" class="gps" value="${a.place.geolocation}" />
-			<input type="hidden" class="address" value="${a.place.address}" />
+			<input type="hidden" class="gps" value="${a.geolocation}" />
+			<input type="hidden" class="address" value="${a.address}" />
 			<input type="hidden" class="name" value="${a.name}" /> 
 			<a class="btn btn-default" href="#">Voir la fiche</a>
 		</div>

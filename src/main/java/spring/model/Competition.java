@@ -23,19 +23,19 @@ import javax.persistence.Transient;
 public class Competition {
 	
 	@Id @GeneratedValue
-	private long id;
+	private int id;
 	private String name;
-	private Integer id_place;
 	private String description;
 	private Timestamp start_date;
 	private Timestamp end_date;
 	private int robot_max;
+	private String address;
+	private String geolocation;
 	@Transient
 	private List<Battle> battles;
-	@Transient
-	private Place place;
+
 	
-	public long getId(){
+	public int getId(){
 		return this.id;
 	}
 	public String getName(){
@@ -67,22 +67,24 @@ public class Competition {
 		this.end_date = end_date;
 	}
 
-	public int getId_place() {
-		return id_place;
-	}
-	public void setId_place(int id_place) {
-		this.id_place = id_place;
-	}
+
 	public List<Battle> getBattles() {
 		return battles;
 	}
 	public void setBattles(List<Battle> battles) {
 		this.battles = battles;
 	}
-	public Place getPlace() {
-		return place;
+
+	public String getGeolocation() {
+		return geolocation;
 	}
-	public void setPlace(Place place) {
-		this.place = place;
+	public void setGeolocation(String geolocation) {
+		this.geolocation = geolocation;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }
