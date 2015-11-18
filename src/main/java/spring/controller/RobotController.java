@@ -58,7 +58,7 @@ public class RobotController {
 	                stream.write(bytes);  
 	                stream.close();       
 	                
-	                Robot robot=this.robotService.createRobot(addRobot.getName(),addRobot.getCreation_date(),serverFile.getAbsolutePath());
+	                Robot robot=this.robotService.createRobot(addRobot.getName(),addRobot.getCreation_date(),file.getOriginalFilename());
 	                model.addAttribute("robot",robot);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
