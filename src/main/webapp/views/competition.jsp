@@ -1,8 +1,5 @@
 <%@ include file="/resources/layout/top.jsp"%>
 
-
-
-
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css"
 	rel="stylesheet" type="text/css">
 <link

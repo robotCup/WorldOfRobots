@@ -28,8 +28,7 @@ public class UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List Users = session.createQuery("from User").list();
 		return Users;
-	}
-	
+	}	
 
 	public User findByLogin(String login, String pwd) {
 		Session session = sessionFactory.getCurrentSession();
@@ -48,6 +47,5 @@ public class UserDAO {
 		user.setLogin(login);
 		user.setPwd(pwd);
 		session.persist(user);
-
 	}	
 }

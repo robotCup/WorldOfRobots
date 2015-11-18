@@ -24,16 +24,12 @@ public class Competition {
 	
 	@Id @GeneratedValue
 	private int id;
-	private String name;
-	private String description;
-	private Timestamp start_date;
-	private Timestamp end_date;
-	private int robot_max;
-	private String address;
-	private String geolocation;
+	private String name, description, address, geolocation;
+	private Timestamp start_date, end_date;
+	private int robot_max, id_user;
+
 	@Transient
 	private List<Battle> battles;
-
 	
 	public int getId(){
 		return this.id;
@@ -50,9 +46,11 @@ public class Competition {
 	public void setDescription(String description){
 		this.description = description;
 	}
-
 	public int getRobot_max() {
 		return robot_max;
+	}
+	public void setRobot_max(int robot_max ) {
+		this.robot_max = robot_max;
 	}
 	public Timestamp getStart_date() {
 		return start_date;
@@ -67,14 +65,12 @@ public class Competition {
 		this.end_date = end_date;
 	}
 
-
 	public List<Battle> getBattles() {
 		return battles;
 	}
 	public void setBattles(List<Battle> battles) {
 		this.battles = battles;
 	}
-
 	public String getGeolocation() {
 		return geolocation;
 	}
@@ -86,5 +82,11 @@ public class Competition {
 	}
 	public void setAddress(String address) {
 		this.address = address;
+	}
+	public int getId_user() {
+		return id_user;
+	}
+	public void setId_user(int id_user) {
+		this.id_user = id_user;
 	}
 }

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class User {
 	
 	@Id @GeneratedValue
-	private long id;
+	private int id;
 
 	private String login;
 	private String pwd;
@@ -33,11 +33,11 @@ public class User {
 		this.pwd = pwd;
 	}
 
-	public long getId(){
+	public int getId(){
 		return this.id;
 	}
-	public void setId(long id){
-		this.id=id;
+	public void setId(int id){
+		this.id = id;
 	}
 	public boolean isLeader() {
 		return leader;

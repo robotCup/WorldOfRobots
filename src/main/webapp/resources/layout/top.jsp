@@ -13,6 +13,7 @@
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/theme/css/bootstrap.min.css" />
+	
 
 <!-- Custom CSS -->
 <link rel="stylesheet"
