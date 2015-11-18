@@ -49,8 +49,7 @@ public class UserController {
 			return this.prepareConnexion(model);
 		}
 		else{
-			HttpSession session =request.getSession();
-			//session.setAttribute("login", connexion.getLogin());
+			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			List<Competition> competitions = competitionService.findAll();
 			model.addAttribute("competitions", competitions);

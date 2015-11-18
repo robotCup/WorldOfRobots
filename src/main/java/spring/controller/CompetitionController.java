@@ -36,13 +36,17 @@ public class CompetitionController {
 	
 	@RequestMapping(value="/competitions/add", method = RequestMethod.GET)
 	public String add(Model model){		
+		
+		model.addAttribute("add", new CardCompetition());
 		return "addCompetition";
 	}
 	
+
 	@RequestMapping(value="/competitions/card", method = RequestMethod.GET)
 	public String cardCompetition(Model model,@RequestParam(value="id") final int id){		
 		Competition competitions = competitionService.findById(id);
 		model.addAttribute("competition", competitions);
 		return "competition";
 	}
+
 }

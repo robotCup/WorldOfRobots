@@ -3,10 +3,10 @@
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/competition.js"></script>
 
-<form:form method="post">
+<form:form method="post" commandName="add">
 	<table class="first">
 		<tr>
-			<td><forminput type="radio" class="date_choice" name="date_choice"
+			<td><input type="radio" class="date_choice" name="date_choice"
 				value="0" checked />Choix unique de dates de début</td>
 
 			<td><input type="radio" class="date_choice" name="date_choice"
@@ -14,24 +14,24 @@
 		</tr>
 
 		<tr class="date_choice_unique">
-			<td><label>Première date :</label></td>
-			<td><form:input type="text" class="start_date" path="start_date" value="" /></td>
+			<td><label>Date :</label></td>
+			<td><form:input type="text" class="start_date" path="date_start_1" value="" /></td>
 		</tr>
 		
 		<tr class="date_choice_multiple">
 			<td><label>Première date :</label></td>
-			<td><form:input type="text" class="start_date" path="start_date_1" value="" /></td>
+			<td><form:input type="text" class="start_date" path="date_start_1" value="" /></td>
 
 			<td><label>Deuxième date :</label></td>
-			<td><form:input type="text" class="start_date" path="start_date_2" value="" /></td>
+			<td><form:input type="text" class="start_date" path="date_start_2" value="" /></td>
 		</tr>
 
 		<tr class="date_choice_multiple">
 			<td><label>Troisième date :</label></td>
-			<td><form:input type="text" class="start_date" path="start_date_3" value="" /></td>
+			<td><form:input type="text" class="start_date" path="date_start_3" value="" /></td>
 
 			<td><label>Quatrième date :</label></td>
-			<td><form:input type="text" class="start_date" path="start_date_4" value="" /></td>
+			<td><form:input type="text" class="start_date" path="date_start_4" value="" /></td>
 		</tr>
 	</table>
 

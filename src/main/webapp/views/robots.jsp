@@ -11,9 +11,9 @@
 	
 <!-- DataTables -->
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/js/jquery.dataTables.min.js"></script>
+	src="https://cdn.datatables.net/1.10.10/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/resources/lib/DataTables-1.10.10/media/css/jquery.dataTables.min.css" />
+	href="https://cdn.datatables.net/1.10.10/css/jquery.dataTables.min.css" />
 	
 
 <!-- Heading Row -->
