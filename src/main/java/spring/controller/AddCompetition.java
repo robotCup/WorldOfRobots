@@ -1,6 +1,6 @@
 package spring.controller;
 
-public class CardCompetition {
+public class AddCompetition {
 
 	private String name, description, address, geolocation;
 	private int robot_max, duration;

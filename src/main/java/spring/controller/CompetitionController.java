@@ -39,12 +39,12 @@ public class CompetitionController {
 	
 	@RequestMapping(value="/competitions/add", method = RequestMethod.GET)
 	public String prepareToAdd(Model model){		
-		model.addAttribute("add", new CardCompetition());
+		model.addAttribute("add", new AddCompetition());
 		return "addCompetition";
 	}	
 	
 	@RequestMapping(value="/competitions/toAdd", method = RequestMethod.POST)
-	public String toAdd(@ModelAttribute ("add") CardCompetition cardCompetition, Model model, HttpServletRequest request) {
+	public String toAdd(@ModelAttribute ("add") AddCompetition cardCompetition, Model model, HttpServletRequest request) {
 		
 		User user = (User) request.getSession().getAttribute("user");
 		if(user == null){

@@ -1,14 +1,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ include file="/resources/layout/top.jsp"%>
 
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/js/competition.js"></script>
-
 <!-- Datetime picker -->
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/lib/datetimepicker/js/moment.js"></script>
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/lib/datetimepicker/js/bootstrap-datetimepicker.js"></script>
+	src="<%=request.getContextPath()%>/resources/lib/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/lib/datetimepicker/js/fr.js"></script>
 <link
@@ -128,9 +125,12 @@
 		</tr>
 	</table>
 </form:form>
-
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/competition.js"></script>
+	
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/js/map.js" /></script>
+
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJMQnUVO7WPqS96NqQUObz4RtxuQzADTY&signed_in=true&libraries=places&callback=initAutocomplete"
 	async defer></script>
