@@ -48,18 +48,20 @@
 		<thead>
 			<tr>
 				<th>Nom</th>
-				<th>Age</th>
-				<th>Expérience</th>
+				<th>Date création</th>
+				<th>Points forts</th>
 				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
+			<c:forEach var="a" items="${robots}">
 			<tr>
-				<td>Robot 1</td>
-				<td>3 ans</td>
-				<td>Compet 1, Compet 2</td>
-				<td><a href="#">Voir la fiche</a></td>
+				<td>${a.name}</td>
+				<td>${a.creation_date}</td>
+				<td>${a.strong_point}</td>
+				<td><a href="<%=request.getContextPath()%>/robots/card?id=${a.id}"> Voir la fiche</a></td>
 			</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>
