@@ -115,7 +115,7 @@ public class UserController {
 		try{
 			if (this.utilisateurService.findByLogin(update.getLogin(), update.getPwdOld())!=null){
 				String pwd= update.getPwd();
-				if (update.getPwd()==null){
+				if (update.getPwd().equals("")){
 					pwd = update.getPwdOld();
 				}
 				this.utilisateurService.updateUser(update.getId(),update.getLogin(),pwd,update.getEmail());
