@@ -101,7 +101,7 @@
 
 		if ($childNodesCount > 0) {
 			// if it can be expanded then change the cursor
-			$nodeCell.append('<div><img class="cover" src="images/orgchart.minus.png"/></div>');
+			$nodeCell.append('<div><img class="cover" src="./images/orgchart.minus.png"/></div>');
 		}
 										 
 		// Expand and contract nodes
@@ -178,7 +178,7 @@
 					$nodeRow.nextAll('tr').css('display', 'none');
 					$nodeRow.removeClass('expanded');
 					$nodeRow.addClass('contracted');
-					$nodeRow.find('img.cover').attr('src', 'images/orgchart.plus.png');
+					$nodeRow.find('img.cover').attr('src', './images/orgchart.plus.png');
 				} else {
 					$nodeDiv.addClass(item);
 				}

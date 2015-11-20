@@ -1,54 +1,3 @@
-.container{
-	background-color: white;
-}
-#connexion{
-	margin-left: auto;
-	margin-right: auto;
-	width : 500px;		
-}
-#connexion > tr > td{
-	margin-left: 10px;
-}
-#register{
-	margin-left: auto;
-	margin-right: auto;
-	width : 500px;	
-	padding-top: 10px;
-}
-#register > tr {
-	margin-top: 10px;
-}
-#map{
-	width: 100%;
-	height: 300px;
-}
-#logo{
-	float:left;
-	margin-top:10px;
-}
-#cssmenu{
-	float:left;
-}
-#cssmenu > ul > li.service{
-	top:20px;
-}
-#image{
-	width:100px;
-	height:50px;
-}
-
-/* --------- Slider */
-
-.slider{
-	width: auto;
-	height: auto;
-	margin: auto;
-}
-
-.back_carousel{
-	width: 77%;
-	margin: 20px auto auto;
-}
 /* ------------------------- general */
 
 body{
@@ -84,4 +33,59 @@ input[type='text'], input[type='password'], input[type='email']{
 
 form{
 	padding-top: 10px;
+}
+
+.invalid{
+	border-color: red !important;
+}
+/* ------------------------- connexion & inscription */
+#connexion{
+	margin-left: auto;
+	margin-right: auto;
+	width : 500px;		
+}
+#connexion > tr > td{
+	margin-left: 10px;
+}
+#register{
+	margin-left: auto;
+	margin-right: auto;
+	width : 500px;	
+	padding-top: 10px;
+}
+#register > tr {
+	margin-top: 10px;
+}
+/* ------------------------- home */
+#map{
+	width: 100%;
+	height: 300px;
+}
+/* ------------------------- menu header */
+#logo{
+	float:left;
+	margin-top:10px;
+}
+#cssmenu{
+	float:left;
+}
+#cssmenu > ul > li.service{
+	top:20px;
+}
+#image{
+	width:100px;
+	height:50px;
+}
+
+/* ------------------------- slider */
+
+.slider{
+	width: auto;
+	height: auto;
+	margin: auto;
+}
+
+.back_carousel{
+	width: 77%;
+	margin: 20px auto auto;
 }

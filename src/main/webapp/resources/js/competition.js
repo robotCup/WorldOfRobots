@@ -42,19 +42,62 @@ $(document).ready(function() {
 			$('.date_choice_unique').toggle();
 		}
 	});
-
-	//chart
-	/*$("#tree-data").jOrgChart({
-		chartElement: $("#tree-view"), 
-		nodeClicked: nodeClicked
+	
+	$("#add").validate({
+		rules : {
+			'date_start' : {
+				depends : function(element){
+					return $("#date_choice_unique").is(':checked');
+				}
+			},
+			'name' : {
+				required : true,
+				minlength: 2
+			},
+			'description' : {
+				required : true,
+				minlength: 2
+			},
+			'robot_max' : {
+				required : true,
+				minlength: 2,
+				number: true
+			},
+			'address' : {
+				required : true,
+				minlength: 2
+			},
+			'duration' : {
+				required : true,
+				minlength: 2,
+				number: true
+			},
+			'date_start_1' : {
+				depends : function(element){
+					return $("#date_choice_multiple").is(':checked');
+				}
+			},
+			'date_start_2' : {
+				depends : function(element){
+					return $("#date_choice_multiple").is(':checked');
+				}
+			},
+			'date_start_3' : {
+				depends : function(element){
+					return $("#date_choice_multiple").is(':checked');
+				}
+			},
+			'date_start_4' : {
+				depends : function(element){
+					return $("#date_choice_multiple").is(':checked');
+				}
+			}			
+		},
+		errorPlacement: function(error, element) {
+			element.addClass("error");			
+		},
+		errorClass: "invalid",
+		onkeyup: true
 	});
-
-	// lighting a node in the selection
-	function nodeClicked(node, type) {
-		node = node || $(this);
-		$('.jOrgChart .selected').removeClass('selected');
-		node.addClass('selected');
-	}*/
-
 
 });

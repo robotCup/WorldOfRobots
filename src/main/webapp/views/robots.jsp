@@ -56,10 +56,10 @@
 		<tbody>
 			<c:forEach var="a" items="${robots}">
 			<tr>
-				<td>${a.name}</td>
+				<td>${a.name}</td>				
 				<td>${a.creation_date}</td>
 				<td>${a.strong_point}</td>
-				<td><a href="<%=request.getContextPath()%>/robots/card?id=${a.id}"> Voir la fiche</a></td>
+				<td><a href="<%=request.getContextPath()%>/robots/card?id=${a.id}">Voir la fiche</a></td>
 			</tr>
 			</c:forEach>
 		</tbody>

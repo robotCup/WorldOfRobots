@@ -19,8 +19,6 @@ public class AddRobot {
 		this.name = name;
 	}
 
-
-
 	public MultipartFile getImage() {
 		return image;
 	}

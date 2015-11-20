@@ -43,6 +43,10 @@
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/css/general.css" />
 
+<!-- Validate -->
+<script type="text/javascript"
+			src="<%=request.getContextPath()%>/resources/lib/validate/dist/jquery.validate.min.js"></script>
+
 </head>
 
 <body>

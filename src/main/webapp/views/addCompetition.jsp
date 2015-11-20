@@ -26,16 +26,15 @@
 <form:form method="post" action="toAdd" commandName="add">
 	<table class="first">
 		<tr>
-			<td><input type="radio" class="date_choice" name="date_choice"
+			<td><input type="radio" id="date_choice_unique" class="date_choice" name="date_choice"
 				value="0" checked />Choix unique de dates de début</td>
 
-			<td><input type="radio" class="date_choice" name="date_choice"
+			<td><input type="radio" id="date_choice_multiple" class="date_choice" name="date_choice"
 				value="1" />Choix multitple de dates de début (soumis aux votes)</td>
 		</tr>
 
 		<tr class="date_choice_unique">
 			<td><label>Date :</label></td>
-			<!-- <td><form:input type="text" class="start_date" path="date_start" value="" /></td>-->
 			<td>
 				<div class='input-group date datetimepicker'>
 					<form:input type='text' class="form-control start_date" path="date_start" />

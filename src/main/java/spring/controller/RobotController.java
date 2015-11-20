@@ -4,7 +4,6 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,59 +23,53 @@ import spring.service.RobotService;
 
 @Controller
 public class RobotController {
-	
+
 	@Autowired private RobotService robotService;
-	
+
 	@RequestMapping(value="/robots", method = RequestMethod.GET)
 	public String Robots(Model model){
 		List <Robot> robots = this.robotService.findAll();
 		model.addAttribute("robots", robots);
 		return "robots";
 	}
-	
+
 	@RequestMapping(value="/robots/add", method = RequestMethod.GET)
 	public String prepareAddRobot(Model model){
 		model.addAttribute("AddRobot", new AddRobot());
 		return "addRobot";
 	}
-	
+
 	@RequestMapping(value="/robots/add", method = RequestMethod.POST)
 	public String toAddRobot(Model model,@ModelAttribute ("AddRobot") AddRobot addRobot, @RequestParam("image") MultipartFile file,HttpServletRequest request){
 
-		 if (!addRobot.getImage().isEmpty()) {
-			 
-	           
-	                byte[] bytes;
-					try {
-						bytes = addRobot.getImage().getBytes();
-					
-	 
-	                File serverFile = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/"+addRobot.getImage().getOriginalFilename());
-	                
-	                BufferedOutputStream stream = new BufferedOutputStream(
-	                        new FileOutputStream(serverFile));
-	                stream.write(bytes);  
-	                stream.close();       
-	                
-	                Robot robot=this.robotService.createRobot(addRobot.getName(),addRobot.getCreation_date(),file.getOriginalFilename());
-	                model.addAttribute("robot",robot);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	        		
-	}
-	           
-		 
-		 return "robot";
+		if (!addRobot.getImage().isEmpty()) {			 
+
+			byte[] bytes;
+			try {
+				bytes = addRobot.getImage().getBytes();
+
+				File serverFile = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/"+addRobot.getImage().getOriginalFilename());
+
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(serverFile));
+				stream.write(bytes);  
+				stream.close();       
+
+				Robot robot=this.robotService.createRobot(addRobot.getName(),addRobot.getCreation_date(),file.getOriginalFilename());
+				model.addAttribute("robot",robot);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return "robot";
 	}
 
-	
 	@RequestMapping(value="/robots/card", method = RequestMethod.GET)
 	public String cardRobot(Model model,@RequestParam(value="id") final int id){
 		Robot robot = this.robotService.findById(id);
 		model.addAttribute("robot", robot);
 		return "robot";
 	}
-	
+
 }

@@ -23,7 +23,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/kevin/Downloads/commons-fileupload-1.2.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/kevin/Downloads/commons-io-2.4-bin/commons-io-2.4/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ouassila Namane/Downloads/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ouassila Namane/Downloads/commons-io-2.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

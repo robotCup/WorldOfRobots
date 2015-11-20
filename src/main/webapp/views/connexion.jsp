@@ -1,5 +1,10 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ include file="/resources/layout/top.jsp"%>
+
+<!-- JS de la page -->
+<script type="text/javascript"
+			src="<%=request.getContextPath()%>/resources/js/connexion.js"></script>
+						
 <div class="row">
 	<form:form method="post" action="toConnect" commandName="connexion">
 	<% if (request.getAttribute("testConnexion") != null && (Boolean)request.getAttribute("testConnexion")==false){%>
@@ -9,10 +14,10 @@
 			<legend>Se connecter : </legend>
 			<table>
 				<tr>
-					<td><form:input placeholder="Login" path="login" id="login"
+					<td><form:input placeholder="Login" path="login" name="login"
 							value="" /></td>
 					<td><form:password placeholder="Mot de passe" path="pwd"
-							id="pwd" value="" /></td>
+							name="pwd" value="" /></td>
 					<td><input type="submit" value="Valider" /></td>
 				</tr>
 			</table>
@@ -39,14 +44,8 @@
 					<td><form:password placeholder="Mot de passe" path="pwd"
 							id="pwd" value="" /></td>
 					<td><input type="password"
-						placeholder="Confirmation mot de passe" id="pwd_confirm" value="" /></td>
-				</tr>
-				<tr>
-
-				</tr>
-				<tr>
-
-				</tr>
+						placeholder="Confirmez votre mot de passe" id="pwd_confirm" name="pwd_confirm" value="" /></td>
+				</tr>				
 				<tr>
 					<td><input type="submit" value="Valider" /></td>
 				</tr>
