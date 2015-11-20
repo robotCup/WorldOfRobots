@@ -20,21 +20,17 @@
 <div class="row">
 	<div class="back_carousel">
 		<div class="slider">
+		<c:forEach var="a" items="${robots}">
 			<div>
 				<img
-					src="<%=request.getContextPath()%>/resources/images/slider_robots.png"
-					alt="img01" />
+					src="<%=request.getContextPath()%>/resources/images/${a.path_picture}"
+					alt="img01" class="images_robots" />
 			</div>
-			<div>
-				<img
-					src="<%=request.getContextPath()%>/resources/images/slider_robots.png"
-					alt="img01" />
-			</div>
-			<div>
-				<img
-					src="<%=request.getContextPath()%>/resources/images/slider_robots.png"
-					alt="img01" />
-			</div>
+				
+				
+			</c:forEach>
+			
+			
 		</div>
 	</div>
 </div>

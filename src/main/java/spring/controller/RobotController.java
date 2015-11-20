@@ -51,15 +51,16 @@ public class RobotController {
 						bytes = addRobot.getImage().getBytes();
 					
 	 
-	                File serverFile = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/"+addRobot.getImage().getOriginalFilename());
+	                File serverFile = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/"+addRobot.getName()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
 	                
 	                BufferedOutputStream stream = new BufferedOutputStream(
 	                        new FileOutputStream(serverFile));
 	                stream.write(bytes);  
 	                stream.close();       
 	                
-	                Robot robot=this.robotService.createRobot(addRobot.getName(),addRobot.getCreation_date(),file.getOriginalFilename());
-	                model.addAttribute("robot",robot);
+	                Robot robot=this.robotService.createRobot(addRobot.getName(),addRobot.getCreation_date(),addRobot.getName()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
+	                
+	                model.addAttribute("robot",this.robotService.findById(robot.getId()));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

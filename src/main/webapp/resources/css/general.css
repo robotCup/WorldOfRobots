@@ -37,6 +37,12 @@
 	height:50px;
 }
 
+.images_robots{
+	max-width:900px;
+	max-height: 350px;
+	margin:auto;
+}
+
 /* --------- Slider */
 
 .slider{
