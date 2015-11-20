@@ -46,9 +46,11 @@ $(document).ready(function() {
 	$("#add").validate({
 		rules : {
 			'date_start' : {
-				depends : function(element){
-					return $("#date_choice_unique").is(':checked');
-				}
+				required : {
+					depends : function(element){
+						return $("#date_choice_unique").is(':checked');
+					}
+				}				
 			},
 			'name' : {
 				required : true,
@@ -60,7 +62,7 @@ $(document).ready(function() {
 			},
 			'robot_max' : {
 				required : true,
-				minlength: 2,
+				min: 1,
 				number: true
 			},
 			'address' : {
@@ -69,28 +71,36 @@ $(document).ready(function() {
 			},
 			'duration' : {
 				required : true,
-				minlength: 2,
+				min: 1,
 				number: true
 			},
 			'date_start_1' : {
-				depends : function(element){
-					return $("#date_choice_multiple").is(':checked');
-				}
+				required : {
+					depends : function(element){
+						return $("#date_choice_multiple").is(':checked');
+					}
+				}				
 			},
 			'date_start_2' : {
-				depends : function(element){
-					return $("#date_choice_multiple").is(':checked');
-				}
+				required : {
+					depends : function(element){
+						return $("#date_choice_multiple").is(':checked');
+					}
+				}	
 			},
 			'date_start_3' : {
-				depends : function(element){
-					return $("#date_choice_multiple").is(':checked');
-				}
+				required : {
+					depends : function(element){
+						return $("#date_choice_multiple").is(':checked');
+					}
+				}	
 			},
 			'date_start_4' : {
-				depends : function(element){
-					return $("#date_choice_multiple").is(':checked');
-				}
+				required : {
+					depends : function(element){
+						return $("#date_choice_multiple").is(':checked');
+					}
+				}	
 			}			
 		},
 		errorPlacement: function(error, element) {

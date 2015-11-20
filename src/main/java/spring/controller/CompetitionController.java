@@ -37,6 +37,15 @@ public class CompetitionController {
 		return "competitions";
 	}
 	
+	@RequestMapping(value="/competitions/myCompetitions", method = RequestMethod.GET)
+	public String myCompetitions(Model model, HttpServletRequest request){		
+		
+		User user = (User) request.getSession().getAttribute("user");
+		List<Competition> competitions = competitionService.findAllMyCompetitions(user.getId());
+		model.addAttribute("competitions", competitions);
+		return "myCompetitions";
+	}
+	
 	@RequestMapping(value="/competitions/add", method = RequestMethod.GET)
 	public String prepareToAdd(Model model){		
 		model.addAttribute("add", new AddCompetition());

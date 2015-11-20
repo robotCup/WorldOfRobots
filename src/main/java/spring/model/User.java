@@ -18,6 +18,7 @@ public class User {
 	private String pwd;
 	private String email;
 	private boolean leader;
+	private int id_robot;
 	
 	//@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
 	public String getLogin() {
@@ -50,6 +51,12 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public int getId_robot() {
+		return id_robot;
+	}
+	public void setId_robot(int id_robot) {
+		this.id_robot = id_robot;
 	}
 }
 

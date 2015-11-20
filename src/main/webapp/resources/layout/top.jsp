@@ -45,7 +45,7 @@
 
 <!-- Validate -->
 <script type="text/javascript"
-			src="<%=request.getContextPath()%>/resources/lib/validate/dist/jquery.validate.js"></script>
+	src="<%=request.getContextPath()%>/resources/lib/validate/dist/jquery.validate.js"></script>
 
 </head>
 
@@ -68,7 +68,8 @@
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/competitions/add"><span>Ajouter
 									une compétition</span></a></li>
-						<li><a href="<%=request.getContextPath()%>"><span>Mes
+						<li><a
+							href="<%=request.getContextPath()%>/competitions/myCompetitions"><span>Mes
 									compétitions</span></a></li>
 					</ul> <%
  	} else {
@@ -89,8 +90,10 @@
 						<%
 							if (((User) session.getAttribute("user")).isLeader() != false) {
 						%>
-						<li><a href="<%=request.getContextPath()%>"><span>Modifier
-									mon robot</span></a></li>
+						<li>
+						<a
+							href="<%=request.getContextPath()%>/robots/card?id=<%=((User)session.getAttribute("user")).getId_robot() %>"> <span>Mon
+									robot</span></a></li>
 						<%
 							}
 						%>
@@ -118,7 +121,6 @@
 				<%
 					}
 				%>
-				<li class='last service'><a href="#"><span>Contact</span></a></li>
 			</ul>
 		</div>
 	</nav>

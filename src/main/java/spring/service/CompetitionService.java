@@ -21,6 +21,11 @@ public class CompetitionService {
 	public List<Competition> findAll() {
 		return this.competitionDAO.findAll();
 	}
+	
+	@Transactional(readOnly = true)
+	public List<Competition> findAllMyCompetitions(int id_user) {
+		return this.competitionDAO.findAllMyCompetitions(id_user);
+	}
 
 	@Transactional(readOnly=true)
 	public Competition findById(int id) {
