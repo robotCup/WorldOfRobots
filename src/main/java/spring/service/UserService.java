@@ -32,4 +32,15 @@ public class UserService {
 		// TODO Auto-generated method stub
 		 this.userDAO.createUser(login, pwd, email);
 	}
+
+	@Transactional(readOnly = true)
+	public User findById(int id) {
+		// TODO Auto-generated method stub
+		return this.userDAO.findById(id);
+	}
+	@Transactional
+	public void updateUser(int id, String login, String pwd, String email) {
+		this.userDAO.updateUser(id, login, pwd, email);
+		
+	}
 }
