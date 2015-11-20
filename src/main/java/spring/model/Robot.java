@@ -1,11 +1,13 @@
 package spring.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="robot")
@@ -17,6 +19,10 @@ public class Robot {
 	private Timestamp creation_date;
 	private String strong_point;
 	private String path_picture;
+	
+	@Transient
+	private List<Technology> technologies;
+	
 	public String getPath_picture() {
 		return path_picture;
 	}
@@ -46,5 +52,11 @@ public class Robot {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public List<Technology> getTechnologies() {
+		return technologies;
+	}
+	public void setTechnologies(List<Technology> technologies) {
+		this.technologies = technologies;
 	}
 }

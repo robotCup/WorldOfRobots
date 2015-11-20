@@ -27,7 +27,7 @@
 	<table class="first">
 		<tr>
 			<td><input type="radio" id="date_choice_unique" class="date_choice" name="date_choice"
-				value="0" checked />Choix unique de dates de début</td>
+				value="0" checked="true" />Choix unique de dates de début</td>
 
 			<td><input type="radio" id="date_choice_multiple" class="date_choice" name="date_choice"
 				value="1" />Choix multitple de dates de début (soumis aux votes)</td>

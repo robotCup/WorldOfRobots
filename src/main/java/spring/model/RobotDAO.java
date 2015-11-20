@@ -50,4 +50,36 @@ public class RobotDAO {
 		return robot;
 	}
 
+	public Robot findTechnologyById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		Robot robot = (Robot) session
+				.createQuery("from Technology t where t.id = :id")
+		        .setParameter("id", id)
+		        .uniqueResult();
+		return robot;
+	}
+	
+	public Robot findTechnologiesByRobot(int id_robot) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		Robot robot = (Robot) session
+				.createQuery("from Robot r where r.id = :id")
+		        .setParameter("id", id_robot)
+		        .uniqueResult();
+		
+		List<Technology> technologies = session.createQuery("from Technology t where t.id_robot = :id")
+		        .setParameter("id", robot.getId())
+		        .list();
+		
+		robot.setTechnologies(technologies);
+		
+		return robot;
+	}
+	
+	
+	public List<Robot> findAllTechnologies() {
+		Session session = sessionFactory.getCurrentSession();
+		List technologies = session.createQuery("from Technology").list();
+		return technologies;
+	}
 }

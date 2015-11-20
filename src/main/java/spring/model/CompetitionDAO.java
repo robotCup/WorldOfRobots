@@ -34,12 +34,22 @@ public class CompetitionDAO {
 
 	}
 	
+	public List<Competition> findAllMyCompetitions(int id_user) {
+		Session session = sessionFactory.getCurrentSession();
+
+		List competitions = session.createQuery("from Competition c where c.id_user = :id")
+				.setParameter("id", id_user)
+				.list();
+		return competitions;
+
+	}
+	
 	public Competition findByID(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		Competition competition = (Competition) session.createQuery("from Competition c where c.id = :id")
         .setParameter("id", id)
         .uniqueResult();
-		List<Battle> battles =session.createQuery("from Battle b where b.id_competition = :id")
+		List<Battle> battles = session.createQuery("from Battle b where b.id_competition = :id")
 		        .setParameter("id", competition.getId())
 		        .list();
 		for (int i =0; i<battles.size();i++){
