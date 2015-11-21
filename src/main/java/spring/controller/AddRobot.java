@@ -6,10 +6,9 @@ import spring.model.Technology;
 
 public class AddRobot {
 
-	private String name;
-	private String creation_date;
+	private String name, creation_date, strong_point;
 	private MultipartFile image;
-	private List<Technology> technologies;
+	private List<Integer> technologies;
 	
 	public String getName() {
 		return name;
@@ -35,12 +34,19 @@ public class AddRobot {
 		this.creation_date = creation_date;
 	}
 
-	public List<Technology> getTechnologies() {
+	public List<Integer> getTechnologies() {
 		return technologies;
 	}
 
-	public void setTechnologies(List<Technology> technologies) {
+	public void setTechnologies(List<Integer> technologies) {
 		this.technologies = technologies;
 	}
 
+	public String getStrong_point() {
+		return strong_point;
+	}
+
+	public void setStrong_point(String strong_point) {
+		this.strong_point = strong_point;
+	}
 }

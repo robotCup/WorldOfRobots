@@ -11,42 +11,57 @@
 <link
 	href="<%=request.getContextPath()%>/resources/lib/datetimepicker/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" type="text/css">
-<form:form method="post" action="add" commandName="AddRobot"
-	enctype="multipart/form-data">
-	<fieldset>
-		<legend>Ajouter un robot : </legend>
-		<table>
-			<tr>
-				<td><form:input placeholder="Nom" path="name" id="name" /></td>
-			</tr>
 
-			<tr>
-				<td><form:input type="file" path="image" id="test" /></td>
-			</tr>
-			<tr>
-				<td>
-					<form:select name="technologies" path="technologies" multiple/>
-					<c:forEach var="t" items="${technologies}">
-						<option value="${t.name}">${t.name}</option>
-					</c:forEach>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<div class='input-group date datetimepicker'>
-						<form:input type='text' class="form-control" path="creation_date"
-							id="creation_date" />
-						<span class="input-group-addon"> <span
-							class="glyphicon glyphicon-calendar"></span>
-						</span>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="submit" value="Ajouter" /></td>
-			</tr>
+<div class="row">
+	<div class="col-md-8">
+		<div class="col-md-4">
+			<form:form method="post" action="add" commandName="AddRobot"
+				enctype="multipart/form-data">
+				<fieldset>
+					<legend>Ajouter un robot : </legend>
+					<table>
+						<tr>
+							<td><label>Nom : </label></td>
+							<td><form:input placeholder="Nom du robot" path="name"
+									id="name" /></td>
+						</tr>
 
-		</table>
-	</fieldset>
-</form:form>
+						<tr>
+							<td><label>Photo principale : </label></td>
+							<td><form:input type="file" path="image" id="test" /></td>
+						</tr>
+						<tr>
+							<td><label>Points forts : </label></td>
+							<td><form:input placeholder="Points forts"
+									path="strong_point" id="strong_point" /></td>
+						</tr>
+						<tr>
+							<td><label>Technologies utilisées : </label></td>
+							<td><form:select path="technologies" multiple="true">
+									<form:options items="${technologies}" itemValue="id"
+										itemLabel="name" />
+								</form:select></td>
+						</tr>
+						<tr>
+							<td><label>Date de création : </label></td>
+							<td>
+								<div class='input-group date datetimepicker'>
+									<form:input type='text' class="form-control"
+										path="creation_date" id="creation_date" />
+									<span class="input-group-addon"> 
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td><input class="btn btn-primary btn-lg" type="submit" value="Ajouter" /></td>
+						</tr>
+					</table>
+				</fieldset>
+			</form:form>
+		</div>
+	</div>
+</div>
+
 <%@ include file="/resources/layout/bot.jsp"%>

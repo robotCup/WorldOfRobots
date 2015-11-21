@@ -104,7 +104,7 @@ $(document).ready(function() {
 			}			
 		},
 		errorPlacement: function(error, element) {
-			element.addClass("error");			
+			element.addClass(errorClass);			
 		},
 		errorClass: "invalid",
 		onkeyup: true

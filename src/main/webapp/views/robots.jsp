@@ -20,17 +20,13 @@
 <div class="row">
 	<div class="back_carousel">
 		<div class="slider">
-		<c:forEach var="a" items="${robots}">
+		<c:forEach var="i" items="${list_images}">
 			<div>
 				<img
-					src="<%=request.getContextPath()%>/resources/images/${a.path_picture}"
-					alt="img01" class="images_robots" />
-			</div>
-				
-				
-			</c:forEach>
-			
-			
+					src="<%=request.getContextPath()%>/resources/images/robots/${i}"
+					alt="picture" class="images_robots" />
+			</div>			
+			</c:forEach>		
 		</div>
 	</div>
 </div>
@@ -44,7 +40,7 @@
 		<thead>
 			<tr>
 				<th>Nom</th>
-				<th>Date création</th>
+				<th>Date de création</th>
 				<th>Points forts</th>
 				<th>Action</th>
 			</tr>
@@ -53,7 +49,7 @@
 			<c:forEach var="a" items="${robots}">
 			<tr>
 				<td>${a.name}</td>				
-				<td>${a.creation_date}</td>
+				<td>${dates[a.id]}</td>
 				<td>${a.strong_point}</td>
 				<td><a href="<%=request.getContextPath()%>/robots/card?id=${a.id}">Voir la fiche</a></td>
 			</tr>

@@ -27,7 +27,7 @@
 		<c:forEach var="a" items="${competition.battles}" varStatus="loop">
 			<table>
 				<tr>
-					<td><h2>${loop.index+1 }ecombat :</h2></td>
+					<td><h2>${loop.index+1 }e combat :</h2></td>
 				</tr>
 				<tr>
 					<td><label>Date : </label></td>

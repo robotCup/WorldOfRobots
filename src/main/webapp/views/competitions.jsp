@@ -23,18 +23,17 @@
 				<th>Fin</th>
 				<th>Nombre maximum de robots</th>
 				<th>Action</th>
-
 			</tr>
 		</thead>
 		<tbody>
-	<c:forEach var="a" items="${competitions}">
+	<c:forEach var="c" items="${competitions}">
 			<tr>
-				<td>${a.name}</td>
-				<td>${a.address}</td>
-				<td>${a.start_date}</td>
-				<td>${a.end_date}</td>
-				<td>${a.robot_max}</td>
-				<td><a href="<%=request.getContextPath()%>/competitions/card?id=${a.id}"> Voir la fiche</a></td>
+				<td>${c.name}</td>
+				<td>${c.address}</td>
+				<td>${dates_start[c.id]}</td>
+				<td>${dates_end[c.id]}</td>
+				<td>${c.robot_max}</td>
+				<td><a href="<%=request.getContextPath()%>/competitions/card?id=${c.id}"> Voir la fiche</a></td>
 			</tr>
 			</c:forEach>
 		</tbody>

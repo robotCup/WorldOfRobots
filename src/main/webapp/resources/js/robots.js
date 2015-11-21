@@ -34,6 +34,10 @@ $(document).ready(function() {
 				"sSortAscending":  ": activer pour trier la colonne par ordre croissant",
 				"sSortDescending": ": activer pour trier la colonne par ordre d&eacute;croissant"
 			}
-		}
+		},
+		"order": [[ 1, 'desc' ]],
+		"columnDefs": [
+		               { "orderable": false, "targets": 3 }
+		             ]
 	});
 } );

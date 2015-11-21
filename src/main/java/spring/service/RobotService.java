@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import spring.model.Robot;
 import spring.model.RobotDAO;
+import spring.model.Technology;
 
 
 @Service
@@ -22,15 +23,20 @@ public class RobotService {
 	public List<Robot> findAll() {
 		return this.robotDAO.findAll();
 	}
-
+	
+	@Transactional(readOnly=true)
+	public List<Technology> findAllTechnologies() {
+		return this.robotDAO.findAllTechnologies();
+	}
+	
 	@Transactional(readOnly=true)
 	public Robot findById(int id) {
 		return this.robotDAO.findById(id);
 	}
 	
 	@Transactional
-	public Robot createRobot(String name, String creation_date, String string) {
-		return this.robotDAO.createRobot(name,creation_date,string);
+	public Robot createRobot(List<Integer> technologies, String strong_point, String name, String creation_date, String image) {
+		return this.robotDAO.createRobot(technologies, strong_point, name, creation_date, image);
 		
 	}
 

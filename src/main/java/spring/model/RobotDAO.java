@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class RobotDAO {
 	@Autowired private SessionFactory sessionFactory;
-	
+
 	public List<Robot> findAll() {
 		Session session = sessionFactory.getCurrentSession();
 		List robots = session.createQuery("from Robot").list();
@@ -29,24 +29,44 @@ public class RobotDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Robot robot = (Robot) session
 				.createQuery("from Robot r where r.id = :id")
-		        .setParameter("id", id)
-		        .uniqueResult();
+				.setParameter("id", id)
+				.uniqueResult();		
+
+		List<Technology> technologies = session
+				.createQuery("Select t from RobotTechnology rt, Technology t where rt.id_robot = :id and rt.id_technology = t.id")
+				.setParameter("id", id)
+				.list();
+
+		robot.setTechnologies(technologies);
+
 		return robot;
 	}
 
-	public Robot createRobot(String name, String creation_date, String image) {
+	public Robot createRobot(List<Integer> technologies, String strong_point, String name, String creation_date, String image) {
 		Session session = sessionFactory.getCurrentSession();
+
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-		Robot robot = new Robot();
+		Robot robot = new Robot();		
+
 		robot.setName(name);
+		robot.setStrong_point(strong_point);
 		robot.setPath_picture(image);
+
 		try {
 			robot.setCreation_date(new Timestamp(formatter.parse(creation_date).getTime()));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		session.persist(robot);		
+		session.persist(robot);	
+
+		for(Integer id_technology : technologies){
+			RobotTechnology robot_technology = new RobotTechnology();
+
+			robot_technology.setId_robot(robot.getId());
+			robot_technology.setId_technology(id_technology);
+			session.persist(robot_technology);	
+		}
 		return robot;
 	}
 
@@ -54,30 +74,12 @@ public class RobotDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Robot robot = (Robot) session
 				.createQuery("from Technology t where t.id = :id")
-		        .setParameter("id", id)
-		        .uniqueResult();
+				.setParameter("id", id)
+				.uniqueResult();
 		return robot;
 	}
-	
-	public Robot findTechnologiesByRobot(int id_robot) {
-		
-		Session session = sessionFactory.getCurrentSession();
-		Robot robot = (Robot) session
-				.createQuery("from Robot r where r.id = :id")
-		        .setParameter("id", id_robot)
-		        .uniqueResult();
-		
-		List<Technology> technologies = session.createQuery("from Technology t where t.id_robot = :id")
-		        .setParameter("id", robot.getId())
-		        .list();
-		
-		robot.setTechnologies(technologies);
-		
-		return robot;
-	}
-	
-	
-	public List<Robot> findAllTechnologies() {
+
+	public List<Technology> findAllTechnologies() {
 		Session session = sessionFactory.getCurrentSession();
 		List technologies = session.createQuery("from Technology").list();
 		return technologies;

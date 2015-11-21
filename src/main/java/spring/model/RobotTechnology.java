@@ -25,4 +25,10 @@ public class RobotTechnology {
 	public void setId_robot(int id_robot) {
 		this.id_robot = id_robot;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 }

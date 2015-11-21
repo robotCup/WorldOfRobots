@@ -32,4 +32,10 @@ public class UserService {
 		// TODO Auto-generated method stub
 		 this.userDAO.createUser(login, pwd, email);
 	}
+
+	public void createRobot(int id_user, int id_robot) {
+		// TODO Auto-generated method stub
+		this.userDAO.createRobot(id_user, id_robot);
+		
+	}
 }

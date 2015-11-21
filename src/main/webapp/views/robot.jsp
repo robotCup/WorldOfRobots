@@ -1,12 +1,13 @@
 <%@ include file="/resources/layout/top.jsp"%>
 
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-4">
 		<img
-			src="<%=request.getContextPath()%>/resources/images/${robot.path_picture}"
+		id="picture_robot"
+			src="<%=request.getContextPath()%>/resources/images/robots/${name_file}"
 			alt="image_robot" />
 	</div>
-	<div class="col-md-4">
+	<div class="col-md-8">
 		<table>
 			<fieldset>
 				<legend>Fiche du robot " ${robot.name}"</legend>
@@ -20,7 +21,7 @@
 				</tr>
 				<tr>
 					<td><label>Technologies utilisées :</label></td>
-					<td></td>
+					<td>${technologies}</td>
 				</tr>
 				<tr>
 					<td><label>Expérience des compétitions :</label></td>
@@ -36,8 +37,8 @@
 				</tr>
 			</fieldset>
 		</table>
-	</div>
-	<a class="btn btn-primary btn-lg" href="<%=request.getContextPath()%>/robots">Modifier</a>
+		<a class="btn btn-primary btn-lg" href="<%=request.getContextPath()%>/robots">Modifier</a>
+	</div>	
 </div>
 
 <%@ include file="/resources/layout/bot.jsp"%>

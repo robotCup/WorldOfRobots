@@ -85,21 +85,19 @@
 				<li class='has-sub service'><a
 					href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
 					<ul>
-						<li><a href="<%=request.getContextPath()%>/robots/add"><span>Ajouter
-									un robot</span></a></li>
-						<%
-							if (((User) session.getAttribute("user")).isLeader() != false) {
-						%>
+						
+						<% if (((User) session.getAttribute("user")).isLeader() != false) { %>
 						<li>
-						<a
-							href="<%=request.getContextPath()%>/robots/card?id=<%=((User)session.getAttribute("user")).getId_robot() %>"> <span>Mon
-									robot</span></a></li>
-						<%
-							}
-						%>
-					</ul> <%
- 	} else {
- %>
+							<a href="<%=request.getContextPath()%>/robots/card?id=<%=((User)session.getAttribute("user")).getId_robot() %>"> 
+								<span>Mon robot</span>
+							</a>
+						</li>
+						<% } else {  %>
+						<li>
+							<a href="<%=request.getContextPath()%>/robots/add"><span>Ajouter un robot</span></a></li>
+						<% } %>
+					</ul>
+					<% } else { %>
 				<li class='service'><a
 					href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
 					<%

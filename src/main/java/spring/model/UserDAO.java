@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -47,5 +48,20 @@ public class UserDAO {
 		user.setLogin(login);
 		user.setPwd(pwd);
 		session.persist(user);
+	}
+
+	public void createRobot(int id_user, int id_robot) {
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		User user=(User) session
+		        .createQuery("from User u where u.id = :id")
+		        .setParameter("id", id_user)
+		        .uniqueResult();
+		
+		user.setId_robot(id_robot);
+		user.setLeader(true);
+		session.update(user);
+		tx.commit();
 	}	
 }
