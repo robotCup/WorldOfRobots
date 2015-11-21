@@ -23,6 +23,16 @@ public class CompetitionService {
 	}
 	
 	@Transactional(readOnly = true)
+	public List<Competition> findAllFuture() {
+		return this.competitionDAO.findAllFuture();
+	}
+	
+	@Transactional(readOnly = true)
+	public List<Competition> findAllPast() {
+		return this.competitionDAO.findAllPast();
+	}
+	
+	@Transactional(readOnly = true)
 	public List<Competition> findAllMyCompetitions(int id_user) {
 		return this.competitionDAO.findAllMyCompetitions(id_user);
 	}

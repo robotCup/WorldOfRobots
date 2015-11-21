@@ -36,6 +36,8 @@
 
 <!-- Tableau de robots -->
 <div class="row">
+	<h1>Liste des robots</h1>
+	<br><br>
 	<table id="tab_robots" class="display" cellspacing="0" width="100%">
 		<thead>
 			<tr>

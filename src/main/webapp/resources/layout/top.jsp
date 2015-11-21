@@ -54,34 +54,28 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div id='cssmenu'>
 			<ul>
-				<li id="actionLogo"><a href='<%=request.getContextPath()%>'>
-						<img
-						src="<%=request.getContextPath()%>/resources/images/logos.png"
-						alt="" id="image">
-				</a></li>
-
-				<%
-					if (session.getAttribute("user") != null) {
-				%>
-				<li class='has-sub service'><a
-					href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
+				<li id="actionLogo">
+					<a href='<%=request.getContextPath()%>'>
+							<img src="<%=request.getContextPath()%>/resources/images/logos.png" alt="" id="image">
+					</a>
+				</li>
+				
+				<li class='has-sub service'>
+					<a href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
 					<ul>
+						<li>
+							<a href="<%=request.getContextPath()%>/competitions/past"><span>Compétitons terminées</span></a>
+						</li>
+					<% if (session.getAttribute("user") != null) { %>
 						<li><a href="<%=request.getContextPath()%>/competitions/add"><span>Ajouter
 									une compétition</span></a></li>
 						<li><a
 							href="<%=request.getContextPath()%>/competitions/myCompetitions"><span>Mes
 									compétitions</span></a></li>
-					</ul> <%
- 	} else {
- %>
-				<li class='service'><a
-					href="<%=request.getContextPath()%>/competitions"><span>Compétitons</span></a>
-					<%
-						}
-					%></li>
-				<%
-					if (session.getAttribute("user") != null) {
-				%>
+					<% } %>
+					</ul> 				
+				</li>
+				<% if (session.getAttribute("user") != null) { %>
 				<li class='has-sub service'><a
 					href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
 					<ul>

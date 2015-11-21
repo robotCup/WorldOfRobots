@@ -30,22 +30,23 @@ public class CompetitionController {
 	@Autowired private CompetitionService competitionService;
 
 	@RequestMapping(method = RequestMethod.GET)
-
 	public String Index(Model model,HttpServletRequest request){
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		session.setAttribute("user", user);
-		List<Competition> competitions = competitionService.findAll();
+		List<Competition> competitions = competitionService.findAllFuture();
 		model.addAttribute("competitions", competitions);
 		return "home";
 	}
 
 	@RequestMapping(value="/competitions", method = RequestMethod.GET)
-	public String Competitions(Model model,HttpServletRequest request){
+	public String CompetitionsFuture(Model model,HttpServletRequest request){
+		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		session.setAttribute("user", user);
-		List<Competition> competitions = competitionService.findAll();
+		List<Competition> competitions = competitionService.findAllFuture();
+		
 		//liste de dates au format francais
 		Map<Integer, String> french_dates_start = new HashMap<Integer, String>();
 		//liste de dates au format francais
@@ -63,10 +64,40 @@ public class CompetitionController {
 		}
 		model.addAttribute("dates_start", french_dates_start);
 		model.addAttribute("dates_end", french_dates_end);
+		model.addAttribute("title", "à venir");
 		model.addAttribute("competitions", competitions);
 		return "competitions";
 	}
+	
+	@RequestMapping(value="/competitions/past", method = RequestMethod.GET)
+	public String CompetitionsPast(Model model,HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		session.setAttribute("user", user);
+		List<Competition> competitions = competitionService.findAllPast();
+		
+		//liste de dates au format francais
+		Map<Integer, String> french_dates_start = new HashMap<Integer, String>();
+		//liste de dates au format francais
+		Map<Integer, String> french_dates_end = new HashMap<Integer, String>();
 
+		for(Competition competition : competitions){
+			if(competition.getEnd_date() == null && competition.getStart_date() == null){
+				french_dates_start.put(competition.getId(), "A définir");
+				french_dates_end.put(competition.getId(), "A définir");
+			}
+			else{
+				french_dates_start.put(competition.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(competition.getStart_date()));
+				french_dates_end.put(competition.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(competition.getEnd_date()));
+			}			
+		}
+		model.addAttribute("dates_start", french_dates_start);
+		model.addAttribute("dates_end", french_dates_end);
+		model.addAttribute("title", " terminées");
+		model.addAttribute("competitions", competitions);
+		return "competitions";
+	}
 	@RequestMapping(value="/competitions/myCompetitions", method = RequestMethod.GET)
 	public String myCompetitions(Model model, HttpServletRequest request){		
 

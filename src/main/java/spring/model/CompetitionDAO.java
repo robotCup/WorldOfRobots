@@ -29,9 +29,31 @@ public class CompetitionDAO {
 
 	public List<Competition> findAll() {
 		Session session = sessionFactory.getCurrentSession();
-		List competitions = session.createQuery("from Competition").list();
+		
+		List competitions = session.createQuery("from Competition c where c.start_date > :now order by c.start_date").list();
 		return competitions;
-
+	}
+	
+	public List<Competition> findAllFuture() {
+		Session session = sessionFactory.getCurrentSession();
+		Date now = new Date();
+		Timestamp now_timestamp = new Timestamp(now.getTime());
+		
+		List competitions = session.createQuery("from Competition c where c.start_date > :now order by c.start_date")
+				.setParameter("now", now_timestamp)
+				.list();
+		return competitions;
+	}
+	
+	public List<Competition> findAllPast() {
+		Session session = sessionFactory.getCurrentSession();
+		Date now = new Date();
+		Timestamp now_timestamp = new Timestamp(now.getTime());
+		
+		List competitions = session.createQuery("from Competition c where c.start_date < :now order by c.start_date")
+				.setParameter("now", now_timestamp)
+				.list();
+		return competitions;
 	}
 	
 	public List<Competition> findAllMyCompetitions(int id_user) {
