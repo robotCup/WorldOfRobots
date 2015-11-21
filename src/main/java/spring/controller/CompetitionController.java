@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,15 +30,21 @@ public class CompetitionController {
 	@Autowired private CompetitionService competitionService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String Index(Model model){
 
-		List<Competition> competitions = competitionService.findAll();		
+	public String Index(Model model,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		session.setAttribute("user", user);
+		List<Competition> competitions = competitionService.findAll();
 		model.addAttribute("competitions", competitions);
 		return "home";
 	}
 
 	@RequestMapping(value="/competitions", method = RequestMethod.GET)
-	public String Competitions(Model model){		
+	public String Competitions(Model model,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		session.setAttribute("user", user);
 		List<Competition> competitions = competitionService.findAll();
 		//liste de dates au format francais
 		Map<Integer, String> french_dates_start = new HashMap<Integer, String>();
@@ -70,37 +77,48 @@ public class CompetitionController {
 	}
 
 	@RequestMapping(value="/competitions/add", method = RequestMethod.GET)
-	public String prepareToAdd(Model model){		
-		model.addAttribute("add", new AddCompetition());
-		return "addCompetition";
-	}	
-
-	@RequestMapping(value="/competitions/toAdd", method = RequestMethod.POST)
-	public String toAdd(@ModelAttribute ("add") AddCompetition cardCompetition, Model model, HttpServletRequest request) {
-
-		User user = (User) request.getSession().getAttribute("user");
+	public String prepareToAdd(Model model,HttpServletRequest request){		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 		if(user == null){
 			return UserController.prepareConnexion(model);
 		}
 		else{
-			try{
-				if(cardCompetition.getDate_start() != ""){
-					this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
-							cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), "", "", "", "");
-				}
-				else if(cardCompetition.getDate_start_1() != "" && (cardCompetition.getDate_start_2() != "" || cardCompetition.getDate_start_3() != "" || cardCompetition.getDate_start_4() != "")){
-					this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
-							cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), cardCompetition.getDate_start_1(), cardCompetition.getDate_start_2(), cardCompetition.getDate_start_3(), cardCompetition.getDate_start_4());
-				}
+			session.setAttribute("user", user);
+			model.addAttribute("add", new AddCompetition());
+			return "addCompetition";
 
-				model.addAttribute("isAddCompetition", true);
-				return this.prepareToAdd(model);
+		}	
+	}
+
+		@RequestMapping(value="/competitions/toAdd", method = RequestMethod.POST)
+	public String toAdd(@ModelAttribute ("add") AddCompetition cardCompetition, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
+		if(user == null){
+				return UserController.prepareConnexion(model);
 			}
-			catch(Exception e){
-				request.setAttribute("isAddCompetition", false);
-				return this.prepareToAdd(model);
-			}
-		}					
+			else{
+				try{
+					if(cardCompetition.getDate_start() != ""){
+						this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
+								cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), "", "", "", "");
+					}
+					else if(cardCompetition.getDate_start_1() != "" && (cardCompetition.getDate_start_2() != "" || cardCompetition.getDate_start_3() != "" || cardCompetition.getDate_start_4() != "")){
+						this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
+								cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), cardCompetition.getDate_start_1(), cardCompetition.getDate_start_2(), cardCompetition.getDate_start_3(), cardCompetition.getDate_start_4());
+					}
+					session.setAttribute("user", user);
+					model.addAttribute("isAddCompetition", true);
+					return this.prepareToAdd(model, request);
+				}
+				catch(Exception e){
+					session.setAttribute("user", user);
+					request.setAttribute("isAddCompetition", false);
+					return this.prepareToAdd(model, request);
+				}
+			}					
 	}
 
 	@RequestMapping(value="/competitions/card", method = RequestMethod.GET)

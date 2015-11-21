@@ -36,6 +36,16 @@ public class UserService {
 	public void createRobot(int id_user, int id_robot) {
 		// TODO Auto-generated method stub
 		this.userDAO.createRobot(id_user, id_robot);
-		
+	}
+	
+	@Transactional(readOnly = true)
+	public User findById(int id) {
+		// TODO Auto-generated method stub
+		return this.userDAO.findById(id);
+	}
+	
+	@Transactional
+	public void updateUser(int id, String login, String pwd, String email) {
+		this.userDAO.updateUser(id, login, pwd, email);		
 	}
 }

@@ -63,5 +63,23 @@ public class UserDAO {
 		user.setLeader(true);
 		session.update(user);
 		tx.commit();
+	}
+	public User findById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		User user=(User) session
+        .createQuery("from User u where u.id = :id")
+        .setParameter("id", id)
+        .uniqueResult();
+		return user;
+	}
+
+	public void updateUser(int id, String login, String pwd, String email) {
+		Session session = sessionFactory.getCurrentSession();
+		User user = new User();
+		user.setEmail(email);
+		user.setId(id);
+		user.setLogin(login);
+		user.setPwd(pwd);
+		session.update(user);
 	}	
 }
