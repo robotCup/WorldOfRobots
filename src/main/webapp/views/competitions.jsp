@@ -13,7 +13,7 @@
 
 <!-- Tableau de robots -->
 <div class="row">
-	<h1>Compétitions ${title}</h1>
+	<h1>${title}</h1>
 	<br><br>
 	<table id="tab_competitions" class="display" cellspacing="0"
 		width="100%">

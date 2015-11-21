@@ -41,12 +41,12 @@ public class CompetitionController {
 
 	@RequestMapping(value="/competitions", method = RequestMethod.GET)
 	public String CompetitionsFuture(Model model,HttpServletRequest request){
-		
+
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		session.setAttribute("user", user);
 		List<Competition> competitions = competitionService.findAllFuture();
-		
+
 		//liste de dates au format francais
 		Map<Integer, String> french_dates_start = new HashMap<Integer, String>();
 		//liste de dates au format francais
@@ -64,19 +64,19 @@ public class CompetitionController {
 		}
 		model.addAttribute("dates_start", french_dates_start);
 		model.addAttribute("dates_end", french_dates_end);
-		model.addAttribute("title", "à venir");
+		model.addAttribute("title", "Compétitions à venir");
 		model.addAttribute("competitions", competitions);
 		return "competitions";
 	}
-	
+
 	@RequestMapping(value="/competitions/past", method = RequestMethod.GET)
 	public String CompetitionsPast(Model model,HttpServletRequest request){
-		
+
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		session.setAttribute("user", user);
 		List<Competition> competitions = competitionService.findAllPast();
-		
+
 		//liste de dates au format francais
 		Map<Integer, String> french_dates_start = new HashMap<Integer, String>();
 		//liste de dates au format francais
@@ -94,7 +94,7 @@ public class CompetitionController {
 		}
 		model.addAttribute("dates_start", french_dates_start);
 		model.addAttribute("dates_end", french_dates_end);
-		model.addAttribute("title", " terminées");
+		model.addAttribute("title", "Compétitions terminées");
 		model.addAttribute("competitions", competitions);
 		return "competitions";
 	}
@@ -103,8 +103,28 @@ public class CompetitionController {
 
 		User user = (User) request.getSession().getAttribute("user");
 		List<Competition> competitions = competitionService.findAllMyCompetitions(user.getId());
+		
+		//liste de dates au format francais
+		Map<Integer, String> french_dates_start = new HashMap<Integer, String>();
+		//liste de dates au format francais
+		Map<Integer, String> french_dates_end = new HashMap<Integer, String>();
+
+		for(Competition competition : competitions){
+			if(competition.getEnd_date() == null && competition.getStart_date() == null){
+				french_dates_start.put(competition.getId(), "A définir");
+				french_dates_end.put(competition.getId(), "A définir");
+			}
+			else{
+				french_dates_start.put(competition.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(competition.getStart_date()));
+				french_dates_end.put(competition.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(competition.getEnd_date()));
+			}			
+		}
+
+		model.addAttribute("dates_start", french_dates_start);
+		model.addAttribute("dates_end", french_dates_end);
+		model.addAttribute("title", "Mes compétitions");
 		model.addAttribute("competitions", competitions);
-		return "myCompetitions";
+		return "competitions";
 	}
 
 	@RequestMapping(value="/competitions/add", method = RequestMethod.GET)
@@ -118,38 +138,37 @@ public class CompetitionController {
 			session.setAttribute("user", user);
 			model.addAttribute("add", new AddCompetition());
 			return "addCompetition";
-
 		}	
 	}
 
-		@RequestMapping(value="/competitions/toAdd", method = RequestMethod.POST)
+	@RequestMapping(value="/competitions/toAdd", method = RequestMethod.POST)
 	public String toAdd(@ModelAttribute ("add") AddCompetition cardCompetition, Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		
+
 		if(user == null){
-				return UserController.prepareConnexion(model);
+			return UserController.prepareConnexion(model);
+		}
+		else{
+			try{
+				if(cardCompetition.getDate_start() != ""){
+					this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
+							cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), "", "", "", "");
+				}
+				else if(cardCompetition.getDate_start_1() != "" && (cardCompetition.getDate_start_2() != "" || cardCompetition.getDate_start_3() != "" || cardCompetition.getDate_start_4() != "")){
+					this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
+							cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), cardCompetition.getDate_start_1(), cardCompetition.getDate_start_2(), cardCompetition.getDate_start_3(), cardCompetition.getDate_start_4());
+				}
+				session.setAttribute("user", user);
+				model.addAttribute("isAddCompetition", true);
+				return this.prepareToAdd(model, request);
 			}
-			else{
-				try{
-					if(cardCompetition.getDate_start() != ""){
-						this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
-								cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), "", "", "", "");
-					}
-					else if(cardCompetition.getDate_start_1() != "" && (cardCompetition.getDate_start_2() != "" || cardCompetition.getDate_start_3() != "" || cardCompetition.getDate_start_4() != "")){
-						this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
-								cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), cardCompetition.getDate_start_1(), cardCompetition.getDate_start_2(), cardCompetition.getDate_start_3(), cardCompetition.getDate_start_4());
-					}
-					session.setAttribute("user", user);
-					model.addAttribute("isAddCompetition", true);
-					return this.prepareToAdd(model, request);
-				}
-				catch(Exception e){
-					session.setAttribute("user", user);
-					request.setAttribute("isAddCompetition", false);
-					return this.prepareToAdd(model, request);
-				}
-			}					
+			catch(Exception e){
+				session.setAttribute("user", user);
+				request.setAttribute("isAddCompetition", false);
+				return this.prepareToAdd(model, request);
+			}
+		}					
 	}
 
 	@RequestMapping(value="/competitions/card", method = RequestMethod.GET)

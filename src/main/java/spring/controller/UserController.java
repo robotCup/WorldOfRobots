@@ -56,9 +56,9 @@ public class UserController {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			session.setMaxInactiveInterval(1000);
-			List<Competition> competitions = competitionService.findAll();
+			List<Competition> competitions = competitionService.findAllFuture();
 			model.addAttribute("competitions", competitions);
-			return "competitions";
+			return "home";
 		}
 	}
 	
