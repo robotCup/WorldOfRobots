@@ -70,8 +70,8 @@ form{
 	float:left;
 	margin-top:10px;
 }
-#cssmenu{
-	float:left;
+li.last {
+	float : right !important;
 }
 #cssmenu > ul > li.service{
 	top:20px;

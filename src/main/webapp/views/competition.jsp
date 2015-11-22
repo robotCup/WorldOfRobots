@@ -1,66 +1,85 @@
 <%@ include file="/resources/layout/top.jsp"%>
-
-<link href="http://www.jqueryscript.net/css/jquerysctipttop.css"
-	rel="stylesheet" type="text/css">
+<!-- diagramme pour le classement -->
 <link
 	href="<%=request.getContextPath()%>/resources/lib/chart/orgchart.css"
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/lib/chart/orgchart.js"></script>
+	
+<!-- Confirm Jquery -->
+<link
+	href="<%=request.getContextPath()%>/resources/lib/confirm/jquery-confirm.min.css"
+	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/js/chart.js"></script>
+	src="<%=request.getContextPath()%>/resources/lib/confirm/jquery-confirm.min.js"></script>
+
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/cardCompetition.js"></script>
 
 <div class="row">
-	<table>
-		<tr>
-			<td><h1>Fiche descriptive de la compétition "
-					${competition.name} "</h1></td>
-		</tr>
-		<tr>
-			<td><label>Description :</label></td>
-		</tr>
-		<tr>
-			<td>
-				<p>${competition.description}</p>
-			</td>
-		</tr>
-		<c:forEach var="a" items="${competition.battles}" varStatus="loop">
-			<table>
-				<tr>
-					<td><h2>${loop.index+1 }e combat :</h2></td>
-				</tr>
-				<tr>
-					<td><label>Date : </label></td>
-					<td>
-						<p>${a.date}</p>
-					</td>
-					<c:forEach var="b" items="${a.robots}">
-						<td><label>Nom du robot : </label>
-							<p>${b.name}</p></td>
-						<td><label>Points forts : </label>
-							<p>${b.strong_point}</p></td>
-					</c:forEach>
-				</tr>
-			</table>
-		</c:forEach>
-	</table>
-	
-	<div class="col-md-4">
-		<ul id="org" style="display:none">
-		  <li>Food:
-		    <ul>
-		      <li>Beer</li>
-		      <li class=collapsed>Vegetables
-		        <ul>
-		          <li>Carrot</li>
-		          <li>Pea</li>
-		        </ul>
-		      </li>
-		      <li>Chocolate</li>
-		    </ul>
-		  </li>
+	<div class="col-md-8">
+		<table>
+			<tr>
+				<td><h1>Fiche de la compétition " ${competition.name} "</h1></td>
+			</tr>
+			<tr>
+				<td><label>Description :</label></td>
+			</tr>
+			<tr>
+				<td>
+					<p>${competition.description}</p>
+				</td>
+			</tr>
+			<c:forEach var="a" items="${competition.battles}" varStatus="loop">
+				<table>
+					<tr>
+						<td><h2>${loop.index+1 }e combat:</h2></td>
+					</tr>
+					<tr>
+						<td><label>Date : </label></td>
+						<td>
+							<p>${a.date}</p>
+						</td>
+						<c:forEach var="b" items="${a.robots}">
+							<td><label>Nom du robot : </label>
+								<p>${b.name}</p></td>
+							<td><label>Points forts : </label>
+								<p>${b.strong_point}</p></td>
+						</c:forEach>
+					</tr>
+				</table>
+			</c:forEach>
+		</table>
+		<%
+			if (session.getAttribute("user") == null) {
+		%>
+		<a class="btn btn-primary"
+			href="<%=request.getContextPath()%>/user/toConnect">Participer</a>
+		<%
+			} else if( ((User)session.getAttribute("user")).getId_robot() != 0 && ((User)session.getAttribute("user")).isLeader() && (Boolean) request.getAttribute("isParticiped") == false) {
+		%>
+		<button class="btn btn-primary" id="link_participe">Participer</button>
+		<input type="hidden" id="url_participate" value="<%=request.getContextPath()%>/competitions/participate?id=${competition.id}" />
+		<%
+			} else if((Integer) request.getAttribute("id_user_competition") == ((User)session.getAttribute("user")).getId()) {
+		%>
+			<button class="btn btn-warning-outline" id="link_participe">Clôturer les inscriptions</button>
+		<% } %>
+		<span id="result_participate"></span>		
+		<ul id="org" style="display: none">
+			<li>Food:
+				<ul>
+					<li>Beer</li>
+					<li class=collapsed>Vegetables
+						<ul>
+							<li>Carrot</li>
+							<li>Pea</li>
+						</ul>
+					</li>
+					<li>Chocolate</li>
+				</ul>
+			</li>
 		</ul>
 	</div>
 </div>
-
 <%@ include file="/resources/layout/bot.jsp"%>

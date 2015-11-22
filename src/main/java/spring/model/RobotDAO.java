@@ -60,13 +60,17 @@ public class RobotDAO {
 		}
 		session.persist(robot);	
 
-		for(Integer id_technology : technologies){
-			RobotTechnology robot_technology = new RobotTechnology();
+		if(!technologies.isEmpty()){
+			
+			for(Integer id_technology : technologies){
+				RobotTechnology robot_technology = new RobotTechnology();
 
-			robot_technology.setId_robot(robot.getId());
-			robot_technology.setId_technology(id_technology);
-			session.persist(robot_technology);	
+				robot_technology.setId_robot(robot.getId());
+				robot_technology.setId_technology(id_technology);
+				session.persist(robot_technology);	
+			}
 		}
+		
 		return robot;
 	}
 

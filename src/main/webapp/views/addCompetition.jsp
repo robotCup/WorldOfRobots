@@ -10,18 +10,7 @@
 	src="<%=request.getContextPath()%>/resources/lib/datetimepicker/js/fr.js"></script>
 <link
 	href="<%=request.getContextPath()%>/resources/lib/datetimepicker/css/bootstrap-datetimepicker.min.css"
-	rel="stylesheet" type="text/css">	
-	
-<% if (request.getAttribute("isAddCompetition") != null && (Boolean)request.getAttribute("isAddCompetition") == false ){ %>
-	 <div class="alert alert-danger">
-		<strong>Erreur!</strong><br>L'insertion d'une nouvelle compétition a échoué. Veuillez saisir à nouveau les données
-	</div>
-	<% } 
-	if (request.getAttribute("isAddCompetition") != null && (Boolean)request.getAttribute("isAddCompetition") == true ){ %>
-		<div class="alert alert-success">
-			<strong>Validé!</strong><br>Votre compétition a bien été ajoutée
-		</div>
-<% } %>
+	rel="stylesheet" type="text/css">		
 
 <form:form method="post" action="toAdd" commandName="add">
 	<table class="first">

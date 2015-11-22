@@ -37,7 +37,7 @@ public class CompetitionService {
 		return this.competitionDAO.findAllMyCompetitions(id_user);
 	}
 
-	@Transactional(readOnly=true)
+	@Transactional(readOnly = true)
 	public Competition findById(int id) {
 		// TODO Auto-generated method stub
 		return this.competitionDAO.findByID(id);
@@ -48,6 +48,20 @@ public class CompetitionService {
 			throws MySQLIntegrityConstraintViolationException, ConstraintViolationException {
 		// TODO Auto-generated method stub
 		 this.competitionDAO.createCompetition(id_user, name, desc,start_date, robot_max,address, geolocation, duration, start_date_1, start_date_2, start_date_3, start_date_4);
+	}
+	@Transactional(readOnly = true)
+	public long getNbFighters(int id_competition) {
+		// TODO Auto-generated method stub
+		return this.competitionDAO.getNbFighters(id_competition);
+	}
+	@Transactional(readOnly = true)
+	public Boolean isParticiped(int id_user, int id_competition) {
+		return this.competitionDAO.isParticiped(id_user, id_competition);
+	}
+	@Transactional
+	public void toParticipate(int id_robot, int id_competition) {
+		// TODO Auto-generated method stub
+		this.competitionDAO.toParticipate(id_robot, id_competition);
 	}
 
 }

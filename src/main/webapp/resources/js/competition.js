@@ -42,7 +42,7 @@ $(document).ready(function() {
 			$('.date_choice_unique').toggle();
 		}
 	});
-	
+	//ajout d'une compet
 	$("#add").validate({
 		rules : {
 			'date_start' : {
@@ -109,5 +109,5 @@ $(document).ready(function() {
 		errorClass: "invalid",
 		onkeyup: true
 	});
-
+	
 });

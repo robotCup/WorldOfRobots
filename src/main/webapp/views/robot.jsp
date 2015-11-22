@@ -37,7 +37,8 @@
 				</tr>
 			</fieldset>
 		</table>
-		<a class="btn btn-primary btn-lg" href="<%=request.getContextPath()%>/robots">Modifier</a>
+		<a class="btn btn-default" href="<%=request.getContextPath()%>/robots">Modifier</a>
+		<a class="btn btn-danger" href="<%=request.getContextPath()%>/robots/remove?id=${robot.id}">Supprimer</a>		
 	</div>	
 </div>
 

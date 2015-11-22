@@ -67,7 +67,6 @@ public class RobotController {
 	public String prepareAddRobot(Model model){
 		
 		List<Technology> technologies = this.robotService.findAllTechnologies();
-
 		model.addAttribute("technologies", technologies);
 		model.addAttribute("AddRobot", new AddRobot());
 		return "addRobot";
@@ -95,19 +94,33 @@ public class RobotController {
 
 				Robot robot = this.robotService.createRobot(addRobot.getTechnologies(), addRobot.getStrong_point(), addRobot.getName(),addRobot.getCreation_date(), name_file);
 				this.userService.createRobot(user.getId(), robot.getId());
+				
+				request.setAttribute("result", true);
+				model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
 				model.addAttribute("robot",this.robotService.findById(robot.getId()));
+				
 			} catch (IOException e) {
-				e.printStackTrace();			
+				e.printStackTrace();
+				request.setAttribute("result", false);
+				model.addAttribute("message", "L'ajout de votre robot a échoué");
 			}
 		}
 		else{
 			Robot robot = this.robotService.createRobot(addRobot.getTechnologies(), addRobot.getStrong_point(), addRobot.getName(),addRobot.getCreation_date(), null);
 			this.userService.createRobot(user.getId(), robot.getId());
 			model.addAttribute("robot" , this.robotService.findById(robot.getId()));
+			
+			request.setAttribute("result", true);
+			model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
 		}
 		return "robot";
 	}
 
+	@RequestMapping(value="/robots/remove", method = RequestMethod.GET)
+	public String removeRobot(Model model,@RequestParam(value="id") final int id){
+		
+		return "robots";
+	}
 	@RequestMapping(value="/robots/card", method = RequestMethod.GET)
 	public String cardRobot(Model model,@RequestParam(value="id") final int id){
 		

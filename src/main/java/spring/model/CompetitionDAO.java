@@ -157,5 +157,42 @@ public class CompetitionDAO {
 		catch (ParseException e) {
 			System.out.println("Exception :" + e);
 		}		
+	}
+
+	public long getNbFighters(int id_competition) {
+		Session session = sessionFactory.getCurrentSession();		
+		
+		long count = (Long) session.createQuery("select count (*) from RobotCompetition rc where rc.id_competition = :id")
+				.setParameter("id", id_competition)
+				.uniqueResult();
+		
+		return count;
+	}
+
+	public Boolean isParticiped(int id_user, int id_competition) {
+		Session session = sessionFactory.getCurrentSession();	
+		
+		int id_robot = (Integer) session.createQuery("select u.id_robot from User u where u.id = :id_user")
+				.setParameter("id_user", id_user)				
+				.uniqueResult();
+		
+		Long count = (Long) session.createQuery("select count (rc.id) from RobotCompetition rc where rc.id_competition = :id_competition and rc.id_robot = :id_robot")
+				.setParameter("id_competition", id_competition)
+				.setParameter("id_robot", id_robot)
+				.uniqueResult();		
+		
+		if(count != 0){
+			return true;
+		}
+		return false;
+	}
+
+	public void toParticipate(int id_robot, int id_competition) {
+		Session session = sessionFactory.getCurrentSession();	
+		
+		RobotCompetition robot_competition = new RobotCompetition();
+		robot_competition.setId_competition(id_competition);
+		robot_competition.setId_robot(id_robot);
+		session.persist(robot_competition);			
 	}	
 }

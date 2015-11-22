@@ -34,22 +34,23 @@ public class UserController {
 	@Autowired private UserService utilisateurService;
 	@Autowired private CompetitionService competitionService;
 	@Autowired private RobotService robotService;
-	
-	@RequestMapping(value="toConnect", method=RequestMethod.GET)
+
+	@RequestMapping(value="/toConnect", method=RequestMethod.GET)
 	public static String prepareConnexion(Model model) {
-		
+
 		model.addAttribute("connexion", new Connexion());
 		model.addAttribute("register", new Register());
 		return "connexion";
 	}
-	
-	@RequestMapping(value="toConnect", method = RequestMethod.POST)
+
+	@RequestMapping(value="/toConnect", method = RequestMethod.POST)
 	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page apr�s la connexion
-		
+
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
-		
+
 		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
-			request.setAttribute("testConnexion", false);
+			request.setAttribute("result", false);
+			model.addAttribute("message", "La connexion a échoué.");
 			return this.prepareConnexion(model);
 		}
 		else{
@@ -61,28 +62,34 @@ public class UserController {
 			return "home";
 		}
 	}
-	
-	@RequestMapping(value="toRegister", method = RequestMethod.POST)
+
+	@RequestMapping(value="/toRegister", method = RequestMethod.POST)
 	public String toRegister(@ModelAttribute ("register") Register register, Model model,HttpServletRequest request) {
-		
+
 		try{
 			this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
-			model.addAttribute("testInscription", true);
+			model.addAttribute("result", true);
+			model.addAttribute("message", "L'inscription a bien été enregistrée");
 		}
 		catch(Exception e){
-			request.setAttribute("testInscription", false);
+			request.setAttribute("result", false);
+			model.addAttribute("message", "L'inscription a échoué");
 		}
 		return this.prepareConnexion(model);
 	}
-	
 
-	@RequestMapping(value="mySpace", method=RequestMethod.GET)
+
+	@RequestMapping(value="/mySpace", method=RequestMethod.GET)
 	public String monEspacePrepare(Model model,HttpServletRequest request) {
-		HttpSession session =request.getSession();
+		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		if(user!=null){
+
+		if(user != null){
 			session.setAttribute("user", session.getAttribute("user"));
+			Robot robot = this.robotService.findById(user.getId_robot());
+
 			model.addAttribute("update", new UpdateUser());
+			model.addAttribute("robot", robot);
 			model.addAttribute("user", this.utilisateurService.findById(user.getId()));
 			return "mySpace";
 		}
@@ -90,13 +97,14 @@ public class UserController {
 			return this.prepareConnexion(model);
 		}
 	}
-	
-	
-	@RequestMapping(value="mySpace", method=RequestMethod.POST)
+
+
+	@RequestMapping(value="/mySpace", method=RequestMethod.POST)
 	public String monEspace(Model model,HttpServletRequest request) {
 		HttpSession session =request.getSession();
 		User user = (User) session.getAttribute("user");
-		if(user!=null){
+
+		if(user != null){
 			User userRobot = this.utilisateurService.findById(user.getId());
 			session.setAttribute("user", userRobot);
 			Robot robotUser = this.robotService.findById(userRobot.getId_robot());
@@ -105,13 +113,15 @@ public class UserController {
 			return "mySpace";
 		}
 		else {
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant de modifier vos données personnelles");
 			return this.prepareConnexion(model);
 		}
 	}
-	
-	@RequestMapping(value="modifyMySpace", method = RequestMethod.POST)
+
+	@RequestMapping(value="/modifyMySpace", method = RequestMethod.POST)
 	public String toModifyMySpace(@ModelAttribute ("update") UpdateUser update, Model model,HttpServletRequest request) {
-		
+
 		try{
 			if (this.utilisateurService.findByLogin(update.getLogin(), update.getPwdOld())!=null){
 				String pwd= update.getPwd();
@@ -119,34 +129,23 @@ public class UserController {
 					pwd = update.getPwdOld();
 				}
 				this.utilisateurService.updateUser(update.getId(),update.getLogin(),pwd,update.getEmail());
-				model.addAttribute("testUpdate", "Modification effectuée");
+				request.setAttribute("result", true);
+				model.addAttribute("message", "La modification de vos données personelles a bien été enregistrée");
 			}
 			else {
-				model.addAttribute("testUpdate", "Problème lors de la Modification");
+				request.setAttribute("result", false);
+				model.addAttribute("message", "La prise en compte de vos modifications a échoué");
 			}
 		}
 		catch(Exception e){
 			System.out.println(e);
-			request.setAttribute("testUpdate", false);
+			request.setAttribute("result", false);
+			model.addAttribute("message", "La prise en compte de vos modifications a échoué");
 		}
 		return this.monEspacePrepare(model, request);
-		}
-	
-	
-	
-	/*@RequestMapping(value="contact", method=RequestMethod.GET)
-	public String contact(Model model, HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		
-		if(session.getAttribute("user") != null){
-			return "contact";
-		}
-		else {
-			return this.prepareConnexion(model);
-		}
-	}*/
-	
-	@RequestMapping(value="disconnect", method=RequestMethod.GET)
+	}
+
+	@RequestMapping(value="/disconnect", method=RequestMethod.GET)
 	public String toDisconnect(Model model,HttpServletRequest request) {
 		HttpSession session =request.getSession();
 		session.invalidate();
