@@ -8,9 +8,8 @@ $(document).ready(function() {
 			login : "required" ,
 			pwd : "required" ,
 		},
-		debug: true,
 		errorPlacement: function(error, element) {
-			element.addClass(errorClass);			
+			element.addClass("invalid");			
 		},
 		errorClass: "invalid",
 	});
@@ -41,6 +40,6 @@ $(document).ready(function() {
 			element.addClass("invalid");			
 		},
 		errorClass: "invalid",	
-		debug: true,
+		
 	});
 });

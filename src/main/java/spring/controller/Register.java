@@ -2,7 +2,8 @@ package spring.controller;
 
 public class Register {
 
-	private String login, pwd, email;
+	private String login, pwd, email,captcha;
+	private int idCaptcha;
 	
 	public String getLogin() {
 		return login;
@@ -21,5 +22,17 @@ public class Register {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getCaptcha() {
+		return captcha;
+	}
+	public void setCaptcha(String captcha) {
+		this.captcha = captcha;
+	}
+	public int getIdCaptcha() {
+		return idCaptcha;
+	}
+	public void setIdCaptcha(int idCaptcha) {
+		this.idCaptcha = idCaptcha;
 	}
 }

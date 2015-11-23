@@ -2,6 +2,7 @@ package spring.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,14 @@ public class CompetitionController {
 		List<Competition> competitions = competitionService.findAllFuture();
 		model.addAttribute("competitions", competitions);
 		session.setAttribute("user", user);
+		Date datePwd;
+		if (user == null){
+			datePwd = new Date();
+		}
+		else {
+			datePwd = user.getLast_date_pwd();
+		}
+		model.addAttribute("lastDatePwd", datePwd);
 		return "home";
 	}
 
