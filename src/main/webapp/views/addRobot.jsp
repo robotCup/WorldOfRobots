@@ -11,10 +11,16 @@
 <link
 	href="<%=request.getContextPath()%>/resources/lib/datetimepicker/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" type="text/css">
+	
+<!-- Selectize  -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/lib/selectize/js/standalone/selectize.min.js"></script>
+<link
+	href="<%=request.getContextPath()%>/resources/lib/selectize/css/selectize.css"
+	rel="stylesheet" type="text/css">
 
 <div class="row">
-	<div class="col-md-8">
-		<div class="col-md-4">
+	<div class="col-md-10">
 			<form:form method="post" action="add" commandName="AddRobot"
 				enctype="multipart/form-data">
 				<fieldset>
@@ -37,10 +43,12 @@
 						</tr>
 						<tr>
 							<td><label>Technologies utilisées : </label></td>
-							<td><form:select path="technologies" multiple="true">
-									<form:options items="${technologies}" itemValue="id"
+							<td>
+							<form:select path="technologies" multiple="true">
+									<form:options items="${technologies}" itemValue="name"
 										itemLabel="name" />
-								</form:select></td>
+								</form:select>
+								</td>
 						</tr>
 						<tr>
 							<td><label>Date de création : </label></td>
@@ -60,7 +68,6 @@
 					</table>
 				</fieldset>
 			</form:form>
-		</div>
 	</div>
 </div>
 

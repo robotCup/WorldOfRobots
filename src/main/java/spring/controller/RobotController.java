@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,16 +38,16 @@ public class RobotController {
 	@RequestMapping(value="/robots", method = RequestMethod.GET)
 	public String Robots(Model model){
 		List <Robot> robots = this.robotService.findAll();
-		
+
 		//liste de dates au format francais
 		Map<Integer, String> french_dates = new HashMap<Integer, String>();
 		//slider d'images
 		ArrayList<String> list_images = new ArrayList<String>();
-		
+
 		for(Robot robot : robots){
 			//images
 			File image = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
-			
+
 			if(image.exists() && !image.isDirectory()){
 				list_images.add(robot.getPath_picture());
 			}
@@ -56,7 +57,7 @@ public class RobotController {
 		if(list_images.isEmpty()){
 			list_images.add("no-image.png");
 		}
-		
+
 		model.addAttribute("list_images", list_images);
 		model.addAttribute("dates", french_dates);
 		model.addAttribute("robots", robots);
@@ -65,7 +66,7 @@ public class RobotController {
 
 	@RequestMapping(value="/robots/add", method = RequestMethod.GET)
 	public String prepareAddRobot(Model model){
-		
+
 		List<Technology> technologies = this.robotService.findAllTechnologies();
 		model.addAttribute("technologies", technologies);
 		model.addAttribute("AddRobot", new AddRobot());
@@ -74,17 +75,19 @@ public class RobotController {
 
 	@RequestMapping(value="/robots/add", method = RequestMethod.POST)
 	public String toAddRobot(Model model,@ModelAttribute ("AddRobot") AddRobot addRobot, @RequestParam("image") MultipartFile file,HttpServletRequest request){
-		
+
+		HttpSession session = request.getSession();
 		User user = (User) request.getSession().getAttribute("user");
-		
+		System.out.println(addRobot.getTechnologies());
+
 		if (!addRobot.getImage().isEmpty()) {
 			byte[] bytes;
 			try {
 				bytes = addRobot.getImage().getBytes();
-				
+
 				String name_file = addRobot.getName()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 				name_file = name_file.replace(' ', '_');
-				
+
 				File server_file = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+name_file);
 
 				BufferedOutputStream stream = new BufferedOutputStream(
@@ -94,11 +97,11 @@ public class RobotController {
 
 				Robot robot = this.robotService.createRobot(addRobot.getTechnologies(), addRobot.getStrong_point(), addRobot.getName(),addRobot.getCreation_date(), name_file);
 				this.userService.createRobot(user.getId(), robot.getId());
-				
+
 				request.setAttribute("result", true);
 				model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
 				model.addAttribute("robot",this.robotService.findById(robot.getId()));
-				
+
 			} catch (IOException e) {
 				e.printStackTrace();
 				request.setAttribute("result", false);
@@ -107,26 +110,36 @@ public class RobotController {
 		}
 		else{
 			Robot robot = this.robotService.createRobot(addRobot.getTechnologies(), addRobot.getStrong_point(), addRobot.getName(),addRobot.getCreation_date(), null);
-			this.userService.createRobot(user.getId(), robot.getId());
-			model.addAttribute("robot" , this.robotService.findById(robot.getId()));
-			
-			request.setAttribute("result", true);
-			model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
+
+			if(robot != null){
+				session.setAttribute("user", user);
+				this.userService.createRobot(user.getId(), robot.getId());
+				model.addAttribute("robot" , this.robotService.findById(robot.getId()));
+
+				request.setAttribute("result", true);
+				model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
+				session.setAttribute("user", user);
+			}
+			else{
+				request.setAttribute("result", false);
+				model.addAttribute("message", "L'ajout de votre robot a échoué");
+			}
+
 		}
 		return "robot";
 	}
 
 	@RequestMapping(value="/robots/remove", method = RequestMethod.GET)
 	public String removeRobot(Model model,@RequestParam(value="id") final int id){
-		
+
 		return "robots";
 	}
 	@RequestMapping(value="/robots/card", method = RequestMethod.GET)
 	public String cardRobot(Model model,@RequestParam(value="id") final int id){
-		
+
 		Robot robot = this.robotService.findById(id);
 		String list_technologies = "";
-		
+
 		for(int i= 0 ; i < robot.getTechnologies().size(); i++ ){
 
 			list_technologies += robot.getTechnologies().get(i).getName();
@@ -137,19 +150,22 @@ public class RobotController {
 				list_technologies += ", ";
 			}
 		}
-		
+
 		File image = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
 		String name_file = "";
-		
+
 		if(image.exists() && !image.isDirectory()){
 			name_file = image.getName();
 		}
 		else{
 			name_file = "no-image.png";
 		}
-		
+
 		model.addAttribute("technologies", list_technologies);
 		model.addAttribute("name_file", name_file);
+		model.addAttribute("participate", 0);
+		model.addAttribute("win", 0);
+		model.addAttribute("lose", 0);
 		model.addAttribute("robot", robot);
 		return "robot";
 	}

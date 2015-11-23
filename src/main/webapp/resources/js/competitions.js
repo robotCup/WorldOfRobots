@@ -11,8 +11,8 @@ $(document).ready(function() {
 			"sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
 			"sInfoPostFix":    "",
 			"sLoadingRecords": "Chargement en cours...",
-			"sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-			"sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+			"sZeroRecords":    "Aucune comp&eacute;tition &agrave; afficher",
+			"sEmptyTable":     "Aucune comp&eacute;tition disponible sur cette liste",
 			"oPaginate": {
 				"sFirst":      "Premier",
 				"sPrevious":   "Pr&eacute;c&eacute;dent",
@@ -41,8 +41,8 @@ $(document).ready(function() {
 			"sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
 			"sInfoPostFix":    "",
 			"sLoadingRecords": "Chargement en cours...",
-			"sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-			"sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+			"sZeroRecords":    "Aucune comp&eacute;tition &agrave; afficher",
+			"sEmptyTable":     "Aucune comp&eacute;tition disponible sur cette liste",
 			"oPaginate": {
 				"sFirst":      "Premier",
 				"sPrevious":   "Pr&eacute;c&eacute;dent",

@@ -22,8 +22,8 @@ $(document).ready(function() {
 			"sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
 			"sInfoPostFix":    "",
 			"sLoadingRecords": "Chargement en cours...",
-			"sZeroRecords":    "Aucun &eacute;l&eacute;ment &agrave; afficher",
-			"sEmptyTable":     "Aucune donn&eacute;e disponible dans le tableau",
+			"sZeroRecords":    "Aucun robot &agrave; afficher",
+			"sEmptyTable":     "Aucun robot disponible",
 			"oPaginate": {
 				"sFirst":      "Premier",
 				"sPrevious":   "Pr&eacute;c&eacute;dent",

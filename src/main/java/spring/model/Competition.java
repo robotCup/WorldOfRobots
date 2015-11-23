@@ -27,6 +27,7 @@ public class Competition {
 	private String name, description, address, geolocation;
 	private Timestamp start_date, end_date;
 	private int robot_max, id_user;
+	private boolean close_participate, close_vote;
 
 	@Transient
 	private List<Battle> battles;
@@ -88,5 +89,21 @@ public class Competition {
 	}
 	public void setId_user(int id_user) {
 		this.id_user = id_user;
+	}
+	public boolean getClose_participate() {
+		return close_participate;
+	}
+	public void setClose_participate(boolean close_participate) {
+		this.close_participate = close_participate;
+	}
+	public boolean getClose_vote() {
+		return close_vote;
+	}
+	public void setClose_vote(boolean close_vote) {
+		this.close_vote = close_vote;
+	}
+	public void setId(int id) {
+		// TODO Auto-generated method stub
+		this.id = id;
 	}
 }

@@ -8,12 +8,12 @@ public class AddRobot {
 
 	private String name, creation_date, strong_point;
 	private MultipartFile image;
-	private List<Integer> technologies;
+	private List<String> technologies;
 	
 	public String getName() {
 		return name;
 	}
-
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -34,19 +34,19 @@ public class AddRobot {
 		this.creation_date = creation_date;
 	}
 
-	public List<Integer> getTechnologies() {
-		return technologies;
-	}
-
-	public void setTechnologies(List<Integer> technologies) {
-		this.technologies = technologies;
-	}
-
 	public String getStrong_point() {
 		return strong_point;
 	}
 
 	public void setStrong_point(String strong_point) {
 		this.strong_point = strong_point;
+	}
+
+	public List<String> getTechnologies() {
+		return technologies;
+	}
+
+	public void setTechnologies(List<String> technologies) {
+		this.technologies = technologies;
 	}
 }

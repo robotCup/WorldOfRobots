@@ -63,7 +63,9 @@
 		<%
 			} else if((Integer) request.getAttribute("id_user_competition") == ((User)session.getAttribute("user")).getId()) {
 		%>
-			<button class="btn btn-warning-outline" id="link_participe">Clôturer les inscriptions</button>
+			<button class="btn btn-warning-outline" id="close_participe">Clôturer les inscriptions</button>
+			<input type="hidden" id="url_close_participate" value="<%=request.getContextPath()%>/competitions/closeParticipate?id=${competition.id}" />
+			
 		<% } %>
 		<span id="result_participate"></span>		
 		<ul id="org" style="display: none">

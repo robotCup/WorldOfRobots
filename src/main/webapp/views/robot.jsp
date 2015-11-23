@@ -24,21 +24,21 @@
 					<td>${technologies}</td>
 				</tr>
 				<tr>
-					<td><label>Expérience des compétitions :</label></td>
-					<td></td>
+					<td><label>Nombre de participation :</label></td>
+					<td>${participate}</td>
 				</tr>
 				<tr>
 					<td><label>Nombre de victoires :</label></td>
-					<td></td>
+					<td>${win}</td>
 				</tr>
 				<tr>
 					<td><label>Nombre de défaites :</label></td>
-					<td></td>
+					<td>${lose}</td>
 				</tr>
 			</fieldset>
 		</table>
 		<a class="btn btn-default" href="<%=request.getContextPath()%>/robots">Modifier</a>
-		<a class="btn btn-danger" href="<%=request.getContextPath()%>/robots/remove?id=${robot.id}">Supprimer</a>		
+		<a class="btn btn-danger-outline" href="<%=request.getContextPath()%>/robots/remove?id=${robot.id}">Supprimer</a>		
 	</div>	
 </div>
 

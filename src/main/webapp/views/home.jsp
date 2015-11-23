@@ -2,6 +2,8 @@
 
 <!-- Heading Row -->
 <div class="row">
+	<h1>Les compétitions à la Une</h1>
+	<br>
 	<div class="col-md-8">
 		<div id="map"></div>
 		<script type="text/javascript"
@@ -17,10 +19,12 @@
 				<c:out value="${c.name}" />
 			</h2>
 			<p>${c.description}</p>
-			<input type="hidden" class="gps" value="${c.geolocation}" />
-			<input type="hidden" class="address" value="${c.address}" />
-			<input type="hidden" class="name" value="${c.name}" /> 
-			<a class="btn btn-primary btn-lg" href="<%=request.getContextPath()%>/competitions/card?id=${c.id}">Voir la fiche</a>
+			<input type="hidden" class="gps" value="${c.geolocation}" /> <input
+				type="hidden" class="address" value="${c.address}" /> <input
+				type="hidden" class="name" value="${c.name}" /> <a
+				class="btn btn-primary btn-lg"
+				href="<%=request.getContextPath()%>/competitions/card?id=${c.id}">Voir
+				la fiche</a>
 		</div>
 	</c:forEach>
 
@@ -33,12 +37,16 @@
 <div class="row">
 	<c:forEach var="c" items="${competitions}" begin="1" end="3">
 		<div class="col-md-4">
-			<h2><c:out value="${c.name}"/></h2>
+			<h2>
+				<c:out value="${c.name}" />
+			</h2>
 			<p>${c.description}</p>
-			<input type="hidden" class="gps" value="${c.geolocation}" />
-			<input type="hidden" class="address" value="${c.address}" />
-			<input type="hidden" class="name" value="${c.name}" /> 
-			<a class="btn btn-default" href="<%=request.getContextPath()%>/competitions/card?id=${c.id}">Voir la fiche</a>
+			<input type="hidden" class="gps" value="${c.geolocation}" /> <input
+				type="hidden" class="address" value="${c.address}" /> <input
+				type="hidden" class="name" value="${c.name}" /> <a
+				class="btn btn-default"
+				href="<%=request.getContextPath()%>/competitions/card?id=${c.id}">Voir
+				la fiche</a>
 		</div>
 	</c:forEach>
 </div>

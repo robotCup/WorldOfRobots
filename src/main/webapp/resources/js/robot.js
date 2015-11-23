@@ -24,7 +24,8 @@ $(document).ready(function() {
 	
 	$('.datetimepicker').datetimepicker({
 		format: "DD/MM/YYYY HH:mm",
-		locale : 'fr'
+		locale : 'fr',
+		maxDate : new Date()
 	});
 	
 	$("#add").validate({
@@ -47,5 +48,16 @@ $(document).ready(function() {
 		},
 		errorClass: "invalid",
 		onkeyup: true
+	});
+	
+	$('#technologies').selectize({
+	    delimiter: ',',
+	    persist: false,
+	    create: function(input) {
+	        return {
+	            value: input,
+	            text: input
+	        }
+	    }
 	});
 });

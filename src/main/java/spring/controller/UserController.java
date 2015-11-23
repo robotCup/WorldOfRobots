@@ -50,7 +50,7 @@ public class UserController {
 
 		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
 			request.setAttribute("result", false);
-			model.addAttribute("message", "La connexion a échoué.");
+			model.addAttribute("message", "La connexion a échoué: l'utilisateur est inconnu");
 			return this.prepareConnexion(model);
 		}
 		else{

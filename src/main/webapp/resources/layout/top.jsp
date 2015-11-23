@@ -7,7 +7,7 @@
 <html lang="fr">
 
 <head>
-<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <title>World of Robots</title>
 
 <!-- Bootstrap Core CSS -->
@@ -83,7 +83,7 @@
 							href="<%=request.getContextPath()%>/robots/card?id=<%=((User)session.getAttribute("user")).getId_robot() %>">
 								<span>Mon robot</span>
 						</a></li>
-						<% } else {  %>
+						<% } else if (((User) session.getAttribute("user")).getId_robot() == 0) {  %>
 						<li><a href="<%=request.getContextPath()%>/robots/add"><span>Ajouter
 									un robot</span></a></li>
 						<% } %>

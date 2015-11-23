@@ -19,7 +19,7 @@ table.first{
 
 table{
 	margin-top: 20px;
-	width: auto;
+	width: 100%;
 	height: auto;
 }
 
@@ -27,12 +27,12 @@ td, th {
     padding: 15px;
 }
 
-input[type='text'], input[type='password'], input[type='email']{
+input[type='text'], input[type='password'], input[type='email'], input[type='number'], textarea{
 	width: 260px;
 }
 
 form{
-	padding-top: 10px;
+	padding-top: 10px;	
 }
 
 .invalid{
@@ -41,6 +41,9 @@ form{
 #picture_robot{
 	width: 100% !important;
 	height: 100% !important;
+}
+.add{
+	float: right;
 }
 /* ------------------------- connexion & inscription */
 #connexion{
@@ -100,3 +103,9 @@ li.last {
 	margin:auto;
 }
 
+/* ------------------------- add competition */
+#date_unique {
+	width: 300px;
+	float: left;
+	margin-left: 30%;
+}

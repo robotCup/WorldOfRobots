@@ -35,7 +35,7 @@ public class RobotService {
 	}
 	
 	@Transactional
-	public Robot createRobot(List<Integer> technologies, String strong_point, String name, String creation_date, String image) {
+	public Robot createRobot(List<String> technologies, String strong_point, String name, String creation_date, String image) {
 		return this.robotDAO.createRobot(technologies, strong_point, name, creation_date, image);
 		
 	}

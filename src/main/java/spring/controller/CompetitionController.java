@@ -169,15 +169,15 @@ public class CompetitionController {
 		else{
 			try{
 				if(cardCompetition.getDate_start() != ""){
-					this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
+					this.competitionService.createCompetition(user.getId(), user.getId_robot(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
 							cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), "", "", "", "");
 				}
 				else if(cardCompetition.getDate_start_1() != "" && (cardCompetition.getDate_start_2() != "" || cardCompetition.getDate_start_3() != "" || cardCompetition.getDate_start_4() != "")){
-					this.competitionService.createCompetition(user.getId(), cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
+					this.competitionService.createCompetition(user.getId(), user.getId_robot(),cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
 							cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), cardCompetition.getDate_start_1(), cardCompetition.getDate_start_2(), cardCompetition.getDate_start_3(), cardCompetition.getDate_start_4());
 				}
 				session.setAttribute("user", user);
-				request.setAttribute("result", false);
+				request.setAttribute("result", true);
 				model.addAttribute("message", "L'ajout de votre compétition a bien été enregistrée");
 				return this.prepareToAdd(model, request);
 			}
@@ -208,6 +208,7 @@ public class CompetitionController {
 		model.addAttribute("competition", competition);
 		return "competition";
 	}
+	
 	@RequestMapping(value="/competitions/participate", method = RequestMethod.GET)
 	public String participeCompetition(Model model, @RequestParam(value="id") final int id, HttpServletRequest request){
 		
@@ -222,6 +223,25 @@ public class CompetitionController {
 		}
 		else{
 			this.competitionService.toParticipate(user.getId_robot(), competition.getId());			
+			return "competition";
+		}
+	}
+	
+	@RequestMapping(value="/competitions/closeParticipate", method = RequestMethod.GET)
+	public String closeParticipate(Model model, @RequestParam(value="id") final int id, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
+		if(user == null){
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant de clôturer la compétition");		
+			return UserController.prepareConnexion(model);
+		}
+		else{
+			this.competitionService.closeParticipate(id);
+			request.setAttribute("result", true);
+			model.addAttribute("message", "La clôturer des inscriptions de votre compétition a bien été prise en compte");
 			return "competition";
 		}
 	}

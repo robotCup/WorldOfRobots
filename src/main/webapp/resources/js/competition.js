@@ -12,7 +12,6 @@ $.datepicker.regional['fr'] = {
 		                               dayNamesShort: ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'],
 		                               dayNamesMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
 		                               weekHeader: 'Sm',
-		                               //dateFormat: 'dd/mm/yy',
 		                               dateFormat: 'dd/mm/yy',
 		                               firstDay: 1,
 		                               isRTL: false,
@@ -28,7 +27,8 @@ $(document).ready(function() {
 
 	$('.datetimepicker').datetimepicker({
 		format: "DD/MM/YYYY HH:mm",
-		locale : 'fr'
+		locale : 'fr',
+		minDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
 	});
 
 	$('.date_choice').on('change', function(){		

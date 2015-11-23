@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -87,7 +88,7 @@ public class CompetitionDAO {
 		return competition;
 	}
 	
-	public void createCompetition(int id_user, String name, String desc, String start_date, int robot_max, String address, String geolocation, int duration, String start_date_1, String start_date_2, String start_date_3, String start_date_4) 
+	public void createCompetition(int id_user, int id_robot, String name, String desc, String start_date, int robot_max, String address, String geolocation, int duration, String start_date_1, String start_date_2, String start_date_3, String start_date_4) 
 			throws MySQLIntegrityConstraintViolationException,ConstraintViolationException{
 		
 		Session session = sessionFactory.getCurrentSession();
@@ -101,8 +102,13 @@ public class CompetitionDAO {
 		competition.setAddress(address);
 		competition.setId_user(id_user);
 		
-		session.persist(competition);		
-
+		session.persist(competition);
+		
+		RobotCompetition robot_competition = new RobotCompetition();
+		robot_competition.setId_competition(competition.getId());
+		robot_competition.setId_robot(id_robot);
+		session.persist(robot_competition);
+		
 		try {
 			DateFormat formatter;
 			formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -194,5 +200,16 @@ public class CompetitionDAO {
 		robot_competition.setId_competition(id_competition);
 		robot_competition.setId_robot(id_robot);
 		session.persist(robot_competition);			
+	}
+
+	public void closeParticipate(int id_competition) {
+		Session session = sessionFactory.getCurrentSession();	
+		Transaction tx = session.beginTransaction();
+		
+		Competition competition = this.findByID(id_competition);
+		competition.setClose_participate(true);
+		
+		session.update(competition);
+		tx.commit();
 	}	
 }

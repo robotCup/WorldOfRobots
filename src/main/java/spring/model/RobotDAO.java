@@ -42,7 +42,7 @@ public class RobotDAO {
 		return robot;
 	}
 
-	public Robot createRobot(List<Integer> technologies, String strong_point, String name, String creation_date, String image) {
+	public Robot createRobot(List<String> technologies, String strong_point, String name, String creation_date, String image) {
 		Session session = sessionFactory.getCurrentSession();
 
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -62,11 +62,18 @@ public class RobotDAO {
 
 		if(!technologies.isEmpty()){
 			
-			for(Integer id_technology : technologies){
+			for(String name_technology : technologies){
+				
+				Technology technology = this.findTechnologyByName(name_technology);
+				if(technology == null){
+					technology = new Technology();
+					technology.setName(name_technology);
+					session.persist(technology);
+				}
 				RobotTechnology robot_technology = new RobotTechnology();
 
 				robot_technology.setId_robot(robot.getId());
-				robot_technology.setId_technology(id_technology);
+				robot_technology.setId_technology(technology.getId());
 				session.persist(robot_technology);	
 			}
 		}
@@ -74,13 +81,27 @@ public class RobotDAO {
 		return robot;
 	}
 
-	public Robot findTechnologyById(int id) {
+	public Technology findTechnologyById(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		Robot robot = (Robot) session
+		
+		Technology technology = (Technology) session
 				.createQuery("from Technology t where t.id = :id")
 				.setParameter("id", id)
 				.uniqueResult();
-		return robot;
+		
+		return technology;
+	}
+	
+	public Technology findTechnologyByName(String name) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		name = name.trim();
+		Technology technology = (Technology) session
+				.createQuery("from Technology t where t.name = :name")
+				.setParameter("name", name)
+				.uniqueResult();
+		
+		return technology;
 	}
 
 	public List<Technology> findAllTechnologies() {
