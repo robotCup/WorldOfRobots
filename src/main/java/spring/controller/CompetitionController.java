@@ -121,7 +121,9 @@ public class CompetitionController {
 		User user = (User) request.getSession().getAttribute("user");
 		
 		if(user == null){
-			return UserController.prepareConnexion(model);
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
 		}
 		
 		List<Competition> competitions = competitionService.findAllMyCompetitions(user.getId());
@@ -154,7 +156,9 @@ public class CompetitionController {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		if(user == null){
-			return UserController.prepareConnexion(model);
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
 		}
 		else{
 			session.setAttribute("user", user);
@@ -171,7 +175,9 @@ public class CompetitionController {
 		if(user == null){
 			request.setAttribute("result", false);
 			model.addAttribute("message", "Veuillez vous connecter avant d'ajouter une compétition");		
-			return UserController.prepareConnexion(model);
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
 		}
 		else{
 			try{
@@ -228,7 +234,9 @@ public class CompetitionController {
 		if(user == null){
 			request.setAttribute("result", false);
 			model.addAttribute("message", "Veuillez vous connecter avant de participer à une compétition");		
-			return UserController.prepareConnexion(model);
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
 		}
 		else{
 			this.competitionService.toParticipate(user.getId_robot(), competition.getId());			
@@ -245,7 +253,9 @@ public class CompetitionController {
 		if(user == null){
 			request.setAttribute("result", false);
 			model.addAttribute("message", "Veuillez vous connecter avant de clôturer la compétition");		
-			return UserController.prepareConnexion(model);
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
 		}
 		else{
 			
@@ -256,4 +266,19 @@ public class CompetitionController {
 		}
 	}
 
+	/*@RequestMapping(value="/competitions/voteCompetition", method = RequestMethod.GET)
+	public String prepareVote(Model model, @RequestParam(value="id") final int id, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
+		if(user == null){
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant de consulter les votes");		
+			return UserController.prepareConnexion(model);
+		}
+		else{
+			return "voteCompetition";
+		}
+	}*/
 }

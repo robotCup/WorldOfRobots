@@ -57,7 +57,7 @@ public class UserController {
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
 		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
 			request.setAttribute("result", false);
-			model.addAttribute("message", "La connexion a échoué: l'utilisateur est inconnu");
+			model.addAttribute("message", "La connexion a échoué");
 			return this.prepareConnexion(model);
 		}
 		else{
@@ -78,11 +78,17 @@ public class UserController {
 		
 		try{
 			if(captcha.getValue().equals(register.getCaptcha())){
-			User user =this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
-			model.addAttribute("result", true);
-			model.addAttribute("message", "L'inscription a bien été enregistrée");
-			 Timer timer = new Timer();
-			 timer.schedule(new CheckUpdatePassword(user.getId(),this.utilisateurService), 60000 );
+				if(register.getPwd().equals(register.getPwd_confirm())){
+					User user =this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
+					model.addAttribute("result", true);
+					model.addAttribute("message", "L'inscription a bien été enregistrée");
+					Timer timer = new Timer();
+					timer.schedule(new CheckUpdatePassword(user.getId(),this.utilisateurService), 60000 );
+				}
+				else {
+					request.setAttribute("result", false);
+					model.addAttribute("message", "L'inscription a échoué : Veuillez saisir deux fois le même mot de passe");
+					}
 			}
 			else {
 				request.setAttribute("result", false);

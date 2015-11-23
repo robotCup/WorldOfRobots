@@ -1,12 +1,23 @@
+$.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp);
+            return this.optional(element) || re.test(value);
+        },
+        "Please check your input."
+);
 $(document).ready(function() {
 
-	$("p.info").remove();
-	
-	
 	$("#connexion").validate({
 		rules : {
-			login : "required" ,
-			pwd : "required" ,
+			login : {
+				required : true,
+				regex : "^([A-Z]|[a-z])[a-z]*(_)?[a-z]+$"
+			},
+			pwd : {
+				required : true,
+				regex : "^([A-Z]|[a-z])[a-z]*(_)?[a-z]+$"
+			},
 		},
 		errorPlacement: function(error, element) {
 			element.addClass("invalid");			
@@ -18,17 +29,18 @@ $(document).ready(function() {
 		rules : {
 			login : {
 				required : true,
-				minlength: 2
+				minlength: 2,
+				regex : "^([A-Z]|[a-z])[a-z]*(_)?[a-z]+$"
 			},
 			pwd : {
 				required : true,
 				minlength: 2,
-				equalTo : "#pwd_confirm"
+				regex : "^([A-Z]|[a-z])[a-z]*(_)?[a-z]+$"
 			},
 			pwd_confirm : {
 				required : true,
 				minlength: 2,
-				equalTo : "#pwd"
+				regex : "^([A-Z]|[a-z])[a-z]*(_)?[a-z]+$"
 			},
 			email : {
 				email : true,
@@ -37,8 +49,9 @@ $(document).ready(function() {
 			},
 		},
 		errorPlacement: function(error, element) {
-			element.addClass("invalid");			
+			element.addClass("invalid");
 		},
+
 		errorClass: "invalid",	
 		
 	});
