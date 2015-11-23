@@ -36,7 +36,7 @@ public class UserController {
 	@Autowired private RobotService robotService;
 
 	@RequestMapping(value="/toConnect", method=RequestMethod.GET)
-	public static String prepareConnexion(Model model) {
+	public String prepareConnexion(Model model) {
 
 		model.addAttribute("connexion", new Connexion());
 		model.addAttribute("register", new Register());
@@ -50,7 +50,7 @@ public class UserController {
 
 		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
 			request.setAttribute("result", false);
-			model.addAttribute("message", "La connexion a échoué: l'utilisateur est inconnu");
+			model.addAttribute("message", "La connexion a échoué");
 			return this.prepareConnexion(model);
 		}
 		else{
@@ -67,9 +67,15 @@ public class UserController {
 	public String toRegister(@ModelAttribute ("register") Register register, Model model,HttpServletRequest request) {
 
 		try{
-			this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
-			model.addAttribute("result", true);
-			model.addAttribute("message", "L'inscription a bien été enregistrée");
+			if(!register.getPwd().equals(register.getPwd_confirm())){
+				request.setAttribute("result", false);
+				model.addAttribute("message", "L'inscription a échoué : Veuillez saisir deux fois le même mot de passe");
+			}
+			else{
+				this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
+				model.addAttribute("result", true);
+				model.addAttribute("message", "L'inscription a bien été enregistrée");
+			}
 		}
 		catch(Exception e){
 			request.setAttribute("result", false);

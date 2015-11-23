@@ -34,10 +34,8 @@
 								path="email" id="email" value="" /></td>
 					</tr>
 					<tr>
-						<td><form:password placeholder="Mot de passe" path="pwd" name="pwd"
-								id="pwd" value="" /></td>
-						<td><input type="password"
-							placeholder="Confirmez votre mot de passe" id="pwd_confirm" name="pwd_confirm" value="" /></td>
+						<td><form:password placeholder="Mot de passe" path="pwd" name="pwd" value="" /></td>
+						<td><form:password path="pwd_confirm" placeholder="Confirmez votre mot de passe" name="pwd_confirm" value="" /></td>
 					</tr>
 					<tr>
 						<td><input type="submit" class="btn btn-success" id="btn_register"

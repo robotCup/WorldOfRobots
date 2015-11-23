@@ -2,7 +2,7 @@ package spring.controller;
 
 public class Register {
 
-	private String login, pwd, email;
+	private String login, pwd, email, pwd_confirm;
 	
 	public String getLogin() {
 		return login;
@@ -21,5 +21,11 @@ public class Register {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getPwd_confirm() {
+		return pwd_confirm;
+	}
+	public void setPwd_confirm(String pwd_confirm) {
+		this.pwd_confirm = pwd_confirm;
 	}
 }
