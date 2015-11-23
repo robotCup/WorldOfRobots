@@ -45,7 +45,7 @@
 
 <!-- Validate -->
 <script type="text/javascript"
-	src="<%=request.getContextPath()%>/resources/lib/validate/dist/jquery.validate.js"></script>
+	src="<%=request.getContextPath()%>/resources/lib/validate/dist/jquery.validate.min.js"></script>
 
 </head>
 
