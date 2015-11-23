@@ -28,13 +28,15 @@
 				<td><form:input type="email" path="email" id="email"
 						value="${user.email}" /></td>
 			</tr>
-
-			<tr>
-				<td><label>Mon robot :</label></td>
-				<td><a
-					href="<%=request.getContextPath()%>/robots/card?id=${robot.id}">${robot.name}</a></td>
-			</tr>
-			<tr>
+			<% if(request.getAttribute("robot") !=null){ %>
+				<tr>
+				
+					<td><label>Mon robot :</label></td>
+					<td><a
+						href="<%=request.getContextPath()%>/robots/card?id=${robot.id}">${robot.name}</a></td>
+				</tr>
+				<tr>
+			<% } %>
 				<form:input type="hidden" path="id" id="id" value="${user.id}" />
 				<td><input class="btn btn-primary btn-lg" type="submit"
 					value="Modifier" /></td>

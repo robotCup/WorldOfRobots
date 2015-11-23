@@ -80,6 +80,7 @@ public class UserDAO {
 		user.setId(id);
 		user.setLogin(login);
 		user.setPwd(pwd);
+		user.setLeader(true);
 		session.update(user);
 	}	
 }

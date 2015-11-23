@@ -64,9 +64,9 @@ public class CompetitionService {
 		this.competitionDAO.toParticipate(id_robot, id_competition);
 	}
 	@Transactional
-	public void closeParticipate(int id_competition) {
+	public void closeParticipate(Competition competition) {
 		// TODO Auto-generated method stub
-		this.competitionDAO.closeParticipate(id_competition);
+		this.competitionDAO.closeParticipate(competition);
 	}
 
 }

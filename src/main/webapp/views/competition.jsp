@@ -61,7 +61,7 @@
 		<button class="btn btn-primary" id="link_participe">Participer</button>
 		<input type="hidden" id="url_participate" value="<%=request.getContextPath()%>/competitions/participate?id=${competition.id}" />
 		<%
-			} else if((Integer) request.getAttribute("id_user_competition") == ((User)session.getAttribute("user")).getId()) {
+			} else if((Boolean)request.getAttribute("boolean_inscription") !=null && (Integer) request.getAttribute("id_user_competition") == ((User)session.getAttribute("user")).getId() && (Boolean)request.getAttribute("boolean_inscription")==false) {
 		%>
 			<button class="btn btn-warning-outline" id="close_participe">Clôturer les inscriptions</button>
 			<input type="hidden" id="url_close_participate" value="<%=request.getContextPath()%>/competitions/closeParticipate?id=${competition.id}" />
