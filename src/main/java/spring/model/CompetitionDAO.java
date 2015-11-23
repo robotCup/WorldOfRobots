@@ -202,14 +202,14 @@ public class CompetitionDAO {
 		session.persist(robot_competition);			
 	}
 
-	public void closeParticipate(int id_competition) {
+	public void closeParticipate(Competition competition) {
 		Session session = sessionFactory.getCurrentSession();	
-		Transaction tx = session.beginTransaction();
+		//Transaction tx = session.beginTransaction();
 		
-		Competition competition = this.findByID(id_competition);
+		
 		competition.setClose_participate(true);
 		
 		session.update(competition);
-		tx.commit();
+		//tx.commit();
 	}	
 }

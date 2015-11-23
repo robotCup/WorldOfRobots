@@ -86,11 +86,14 @@ public class UserController {
 
 		if(user != null){
 			session.setAttribute("user", session.getAttribute("user"));
-			Robot robot = this.robotService.findById(user.getId_robot());
+			Robot robot = null;
+			if(user.getId_robot() != 0)
+			robot = this.robotService.findById(user.getId_robot());
 
 			model.addAttribute("update", new UpdateUser());
 			model.addAttribute("robot", robot);
 			model.addAttribute("user", this.utilisateurService.findById(user.getId()));
+			session.setAttribute("user", user);
 			return "mySpace";
 		}
 		else {
@@ -106,10 +109,16 @@ public class UserController {
 
 		if(user != null){
 			User userRobot = this.utilisateurService.findById(user.getId());
+			Robot robotUser = null;
 			session.setAttribute("user", userRobot);
-			Robot robotUser = this.robotService.findById(userRobot.getId_robot());
+			if(userRobot.getId_robot() != 0){
+				robotUser = this.robotService.findById(userRobot.getId_robot());
+			}
+			else
+				robotUser = null;
 			model.addAttribute("user", userRobot);
 			model.addAttribute("robot", robotUser);
+			request.setAttribute("robot", robotUser);
 			return "mySpace";
 		}
 		else {

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page isELIgnored="false"%>
 <%@ page import="spring.model.User"%>
+<%@ page import="spring.model.Robot"%>
 <!DOCTYPE html>
 <html lang="fr">
 

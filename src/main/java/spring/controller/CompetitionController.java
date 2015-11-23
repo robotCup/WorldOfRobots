@@ -37,17 +37,14 @@ public class CompetitionController {
 	public String Index(Model model,HttpServletRequest request){
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		session.setAttribute("user", user);
-		
 		List<Competition> competitions = competitionService.findAllFuture();
 		model.addAttribute("competitions", competitions);
-		
+		session.setAttribute("user", user);
 		return "home";
 	}
 
 	@RequestMapping(value="/competitions", method = RequestMethod.GET)
 	public String CompetitionsFuture(Model model,HttpServletRequest request){
-
 		HttpSession session = request.getSession();		
 		List<Competition> competitions = competitionService.findAllFuture();
 
@@ -70,6 +67,7 @@ public class CompetitionController {
 		model.addAttribute("dates_end", french_dates_end);
 		model.addAttribute("title", "Compétitions à venir");
 		model.addAttribute("competitions", competitions);
+		session.setAttribute("user", session.getAttribute("user"));
 		return "competitions";
 	}
 
@@ -205,6 +203,8 @@ public class CompetitionController {
 			request.setAttribute("isParticiped", isParticiped);		
 		}	
 		request.setAttribute("id_user_competition", competition.getId_user());
+		request.setAttribute("boolean_inscription", competition.getClose_participate());
+		session.setAttribute("user", user);
 		model.addAttribute("competition", competition);
 		return "competition";
 	}
@@ -239,10 +239,11 @@ public class CompetitionController {
 			return UserController.prepareConnexion(model);
 		}
 		else{
-			this.competitionService.closeParticipate(id);
+			
+			this.competitionService.closeParticipate(this.competitionService.findById(id));
 			request.setAttribute("result", true);
 			model.addAttribute("message", "La clôturer des inscriptions de votre compétition a bien été prise en compte");
-			return "competition";
+			return this.cardCompetition(model, id, request);
 		}
 	}
 
