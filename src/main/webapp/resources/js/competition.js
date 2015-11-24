@@ -28,7 +28,7 @@ $(document).ready(function() {
 	$('.datetimepicker').datetimepicker({
 		format: "DD/MM/YYYY HH:mm",
 		locale : 'fr',
-		minDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+		//minDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
 	});
 
 	$('.date_choice').on('change', function(){		
