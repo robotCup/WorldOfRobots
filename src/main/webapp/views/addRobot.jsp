@@ -20,7 +20,7 @@
 	rel="stylesheet" type="text/css">
 
 <div class="row">
-	<div class="col-md-10">
+	<div class="col-md-8">
 			<form:form method="post" action="add" commandName="AddRobot"
 				enctype="multipart/form-data">
 				<fieldset>
