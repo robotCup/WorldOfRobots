@@ -23,6 +23,7 @@ public class Battle {
 	private Integer id_winner;
 	private int id_competition;
 	private Timestamp date;
+	private int nb_robot_max;
 	@Transient
 	private List <Robot> robots;
 
@@ -58,6 +59,12 @@ public class Battle {
 	
 	public int getId(){
 		return this.id;
+	}
+	public int getNb_robot_max() {
+		return nb_robot_max;
+	}
+	public void setNb_robot_max(int nb_robot_max) {
+		this.nb_robot_max = nb_robot_max;
 	}
 
 

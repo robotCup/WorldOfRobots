@@ -11,6 +11,7 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import spring.model.Competition;
 import spring.model.CompetitionDAO;
+import spring.model.RobotCompetition;
 
 @Service
 public class CompetitionService {
@@ -67,6 +68,17 @@ public class CompetitionService {
 	public void closeParticipate(Competition competition) {
 		// TODO Auto-generated method stub
 		this.competitionDAO.closeParticipate(competition);
+	}
+
+	@Transactional
+	public void createBattles(int idCompetition, int nbMatch, List<String> datesBattles, List<Integer> nbEquipes) {
+		// TODO Auto-generated method stub
+		this.competitionDAO.createBattles(idCompetition, nbMatch, datesBattles, nbEquipes);
+	}
+	@Transactional
+	public List<RobotCompetition> findRobotCompetitionById(int id) {
+		// TODO Auto-generated method stub
+		return this.competitionDAO.findRobotCompetitionById(id);
 	}
 
 }

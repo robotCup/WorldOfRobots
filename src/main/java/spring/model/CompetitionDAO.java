@@ -211,5 +211,36 @@ public class CompetitionDAO {
 		
 		session.update(competition);
 		//tx.commit();
+	}
+
+	public void createBattles(int idCompetition, int nbMatch, List<String> datesBattles, List<Integer> nbEquipes) {
+		// TODO Auto-generated method stub
+		DateFormat formatter;
+		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Session session = sessionFactory.getCurrentSession();
+		for (int i=0; i<nbMatch; i++){
+			Battle battle = new Battle();
+			battle.setId_competition(idCompetition);
+			battle.setNb_robot_max(nbEquipes.get(i));
+			Date date_s;
+			try {
+				date_s = (Date) formatter.parse(datesBattles.get(i));
+				Timestamp format_start_date = new Timestamp(date_s.getTime());
+				battle.setDate(format_start_date);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			session.persist(battle);
+		}
+	}
+
+	public List<RobotCompetition> findRobotCompetitionById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		List robotCompetitions = session
+				.createQuery("from RobotCompetition r where r.id_competition = :id")
+				.setParameter("id", id)
+				.list();
+		return robotCompetitions;
 	}	
 }
