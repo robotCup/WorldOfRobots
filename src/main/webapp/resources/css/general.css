@@ -25,6 +25,7 @@ table{
 
 td, th {
     padding: 15px;
+    text-align: center;
 }
 
 input[type='text'], input[type='password'], input[type='email'], input[type='number'], textarea{

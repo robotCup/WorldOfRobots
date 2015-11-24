@@ -98,6 +98,5 @@ public class CompetitionService {
 	public void closeVote(Competition competition) {
 		// TODO Auto-generated method stub
 		this.competitionDAO.closeVote(competition);
-	}
-	
+	}	
 }
