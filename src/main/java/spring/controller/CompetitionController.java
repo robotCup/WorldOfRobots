@@ -46,6 +46,7 @@ public class CompetitionController {
 		model.addAttribute("competitions", competitions);
 		session.setAttribute("user", user);
 		Date datePwd;
+		
 		if (user == null){
 			datePwd = new Date();
 		}
@@ -303,11 +304,19 @@ public class CompetitionController {
 			return "connexion";
 		}
 		else{
+			Competition competition = this.competitionService.findById(id);
 			
-			this.competitionService.closeVote(this.competitionService.findById(id));
-			request.setAttribute("result", true);
-			model.addAttribute("message", "La clôturer des votes de votre compétition a bien été prise en compte");
-			return this.cardCompetition(model, id, request);
+			if(competition == null){
+				request.setAttribute("result", false);
+				model.addAttribute("message", "Le compétition séléctionner n'est pas reconnue");
+				return this.myCompetitions(model, request);
+			}
+			else{
+				this.competitionService.closeVote(competition);
+				request.setAttribute("result", true);
+				model.addAttribute("message", "La clôturer des votes de votre compétition a bien été prise en compte");
+				return this.cardCompetition(model, id, request);
+			}			
 		}
 	}
 
@@ -353,7 +362,6 @@ public class CompetitionController {
 			return "connexion";
 		}
 		else{
-			
 			this.competitionService.vote(this.competitionService.findCompetitionDate(voteCompetition.getChoose_date()), user.getId());
 			
 			List<Competition> competitions = competitionService.findAllFuture();

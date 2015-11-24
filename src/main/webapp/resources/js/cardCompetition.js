@@ -18,12 +18,9 @@ $(document).ready(function() {
 					url: $('#url_participate').val(),
 					type: "GET",		             
 					success: function () {
-						//$("#result_participate").text("Votre participation a bien été prise en compte");
-						window.location.reload();
-												
+						window.location.reload();												
 					},
 					error : function(){
-						//$("#result_participate").text("Votre participation n'a pas été prise en compte");
 						window.location.reload();						
 					}
 				});
@@ -47,12 +44,9 @@ $(document).ready(function() {
 					url: $('#url_close_participate').val(),
 					type: "GET",		             
 					success: function () {
-						//$("#result_participate").text("Votre participation a bien été prise en compte");
-						window.location.reload();
-												
+						window.location.reload();												
 					},
 					error : function(){
-						//$("#result_participate").text("Votre participation n'a pas été prise en compte");
 						window.location.reload();						
 					}
 				});
@@ -76,12 +70,9 @@ $(document).ready(function() {
 					url: $('#url_close_vote').val(),
 					type: "GET",		             
 					success: function () {
-						//$("#result_participate").text("Votre participation a bien été prise en compte");
-						window.location.reload();
-												
+						window.location.reload();												
 					},
 					error : function(){
-						//$("#result_participate").text("Votre participation n'a pas été prise en compte");
 						window.location.reload();						
 					}
 				});

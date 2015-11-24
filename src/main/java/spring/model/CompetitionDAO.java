@@ -101,12 +101,14 @@ public class CompetitionDAO {
 		competition.setGeolocation(geolocation);
 		competition.setAddress(address);
 		competition.setId_user(id_user);
-
+		competition.setDuration(duration);
+		
 		session.persist(competition);
 
 		RobotCompetition robot_competition = new RobotCompetition();
 		robot_competition.setId_competition(competition.getId());
 		robot_competition.setId_robot(id_robot);
+		
 		session.persist(robot_competition);
 
 		try {
@@ -121,7 +123,6 @@ public class CompetitionDAO {
 				//date fin 
 				Timestamp format_end_date = new Timestamp(date_s.getTime());
 				long number_days = duration * 24 * 60 * 60 * 1000;
-				// to add to the timestamp
 				format_end_date.setTime(format_end_date.getTime() + number_days);
 
 				competition.setStart_date(format_start_date);
@@ -237,6 +238,7 @@ public class CompetitionDAO {
 		return competitionDate;
 	}
 	
+	
 	public void vote(CompetitionDate competitonDate, int id_user) {
 		Session session = sessionFactory.getCurrentSession();
 
@@ -261,10 +263,34 @@ public class CompetitionDAO {
 		return user_competition_date;
 	}
 
+	public CompetitionDate findDateWin(int id){
+		Session session = sessionFactory.getCurrentSession();		
+
+		Integer max_votes = (Integer) session.createQuery("select MAX(vote) from CompetitionDate cd where cd.id_competition = :id")
+				.setParameter("id", id)
+				.uniqueResult();
+		
+		CompetitionDate competitionDate = (CompetitionDate) session.createQuery("from CompetitionDate cd where cd.id_competition = :id and vote = :max_votes")
+				.setParameter("max_votes", max_votes)
+				.setParameter("id", id)
+				.uniqueResult();
+
+		return competitionDate;
+	}
+	
 	public void closeVote(Competition competition) {
 		Session session = sessionFactory.getCurrentSession();	
-		competition.setClose_vote(true);		
-		session.update(competition);	
+		
+		CompetitionDate competition_date = this.findDateWin(competition.getId());
+		competition.setStart_date(competition_date.getDate());
+		
+		Timestamp format_end_date = new Timestamp(competition_date.getDate().getTime());
+		long number_days = competition.getDuration() * 24 * 60 * 60 * 1000;
+		format_end_date.setTime(format_end_date.getTime() + number_days);		
+		
+		competition.setEnd_date(format_end_date);
+		competition.setClose_vote(true);
+		session.update(competition);		
 	}		
 }	
 
