@@ -93,4 +93,11 @@ public class CompetitionService {
 		// TODO Auto-generated method stub
 		return this.competitionDAO.findVote(id_competition, id_user);
 	}
+	
+	@Transactional
+	public void closeVote(Competition competition) {
+		// TODO Auto-generated method stub
+		this.competitionDAO.closeVote(competition);
+	}
+	
 }

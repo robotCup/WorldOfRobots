@@ -233,7 +233,13 @@ public class CompetitionController {
 			else {
 				request.setAttribute("vote", false);
 			}
-		}	
+			if(user.getId() == competition.getId_user() &&  competition.getClose_vote() == false){
+				request.setAttribute("propose_vote", true);
+			}
+			else{
+				request.setAttribute("propose_vote", false);
+			}
+		}
 		request.setAttribute("id_user_competition", competition.getId_user());
 		request.setAttribute("boolean_inscription", competition.getClose_participate());
 		session.setAttribute("user", user);
@@ -282,6 +288,28 @@ public class CompetitionController {
 			return this.cardCompetition(model, id, request);
 		}
 	}
+	
+	@RequestMapping(value="/competitions/closeVote", method = RequestMethod.GET)
+	public String closeVote(Model model, @RequestParam(value="id") final int id, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
+		if(user == null){
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant de clôturer la compétition");		
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
+		}
+		else{
+			
+			this.competitionService.closeVote(this.competitionService.findById(id));
+			request.setAttribute("result", true);
+			model.addAttribute("message", "La clôturer des votes de votre compétition a bien été prise en compte");
+			return this.cardCompetition(model, id, request);
+		}
+	}
 
 	@RequestMapping(value="/competitions/vote", method = RequestMethod.GET)
 	public String prepareVote(Model model, @RequestParam(value="id") final int id, HttpServletRequest request){
@@ -304,7 +332,7 @@ public class CompetitionController {
 			for(CompetitionDate date : dates){
 				french_date.put(date.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date.getDate()));
 			}
-			//voteCompetiton.setChoose_date(dates);
+			
 			model.addAttribute("voteCompetiton", voteCompetiton);
 			model.addAttribute("french_date", french_date);
 			model.addAttribute("dates",dates);

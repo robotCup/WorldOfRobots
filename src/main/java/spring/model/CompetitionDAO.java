@@ -259,6 +259,12 @@ public class CompetitionDAO {
 				.uniqueResult();
 
 		return user_competition_date;
+	}
+
+	public void closeVote(Competition competition) {
+		Session session = sessionFactory.getCurrentSession();	
+		competition.setClose_vote(true);		
+		session.update(competition);	
 	}		
 }	
 

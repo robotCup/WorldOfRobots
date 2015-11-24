@@ -46,7 +46,7 @@ $(document).ready(function() {
 				$.ajax({
 					url: $('#url_close_participate').val(),
 					type: "GET",		             
-					/*success: function () {
+					success: function () {
 						//$("#result_participate").text("Votre participation a bien été prise en compte");
 						window.location.reload();
 												
@@ -54,9 +54,39 @@ $(document).ready(function() {
 					error : function(){
 						//$("#result_participate").text("Votre participation n'a pas été prise en compte");
 						window.location.reload();						
-					}*/
+					}
+				});
+			}
+		});
+	});
+	
+	//confirmation de cloture des votes
+	$('#close_vote').on('click', function(){
+		$.confirm({
+			title: 'Clôturer les votes',
+			content: 'Etes-vous sûr de vouloir clôturer les votes ? La date séléctionnée sera celle qui aura récoltée le plus de votes des participants',
+			confirmButtonClass: 'btn-success',
+			cancelButtonClass: 'btn-danger',
+			confirmButton: 'Oui',
+			cancelButton: 'Annuler',
+			animationBounce: 1.5,
+			animationSpeed: 1500,
+			confirm: function(){
+				$.ajax({
+					url: $('#url_close_vote').val(),
+					type: "GET",		             
+					success: function () {
+						//$("#result_participate").text("Votre participation a bien été prise en compte");
+						window.location.reload();
+												
+					},
+					error : function(){
+						//$("#result_participate").text("Votre participation n'a pas été prise en compte");
+						window.location.reload();						
+					}
 				});
 			}
 		});
 	});
 });
+

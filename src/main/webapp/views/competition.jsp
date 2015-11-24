@@ -66,7 +66,14 @@
 			<button class="btn btn-warning-outline" id="close_participe">Clôturer les inscriptions</button>
 			<input type="hidden" id="url_close_participate" value="<%=request.getContextPath()%>/competitions/closeParticipate?id=${competition.id}" />
 			
-		<% } else if((Boolean) request.getAttribute("vote") == true && (Boolean) request.getAttribute("isParticiped") == true) { %>
+			<% if((Boolean)request.getAttribute("propose_vote") != null && (Boolean)request.getAttribute("propose_vote") == true) { %>
+		
+			<button class="btn btn-warning-outline" id="close_vote">Clôturer les votes</button>
+			<input type="hidden" id="url_close_vote" value="<%=request.getContextPath()%>/competitions/closeVote?id=${competition.id}" />
+			
+		<%	}
+		 } 
+			else if((Boolean) request.getAttribute("vote") == true && (Boolean) request.getAttribute("isParticiped") == true) { %>
 			<a class="btn btn-warning-outline" href="<%=request.getContextPath()%>/competitions/vote?id=${competition.id}">Voter</a>
 					<% } %>
 		<span id="result_participate"></span>		
