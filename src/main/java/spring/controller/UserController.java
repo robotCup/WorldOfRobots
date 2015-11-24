@@ -46,7 +46,7 @@ public class UserController {
 		int lower = 1;
 		int higher = 4;
 		int random = (int)(Math.random() * (higher-lower)) + lower;
-		Captcha captcha =utilisateurService.captcha(random);
+		Captcha captcha = utilisateurService.captcha(random);
 		model.addAttribute("captcha", captcha);
 		return "connexion";
 	}

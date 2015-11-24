@@ -56,17 +56,26 @@
 		<a class="btn btn-primary"
 			href="<%=request.getContextPath()%>/user/toConnect">Participer</a>
 		<%
-			} else if( ((User)session.getAttribute("user")).getId_robot() != 0 && ((User)session.getAttribute("user")).isLeader() && (Boolean) request.getAttribute("isParticiped") == false) {
+			} else if(((User)session.getAttribute("user")).getId_robot() != 0 && ((User)session.getAttribute("user")).isLeader() == true && (Boolean) request.getAttribute("isParticiped") == false) {
 		%>
 		<button class="btn btn-primary" id="link_participe">Participer</button>
 		<input type="hidden" id="url_participate" value="<%=request.getContextPath()%>/competitions/participate?id=${competition.id}" />
 		<%
-			} else if((Boolean)request.getAttribute("boolean_inscription") !=null && (Integer) request.getAttribute("id_user_competition") == ((User)session.getAttribute("user")).getId() && (Boolean)request.getAttribute("boolean_inscription")==false) {
+			} else if((Boolean)request.getAttribute("boolean_inscription") != null && (Integer) request.getAttribute("id_user_competition") == ((User)session.getAttribute("user")).getId() && (Boolean)request.getAttribute("boolean_inscription") == false) {
 		%>
 			<button class="btn btn-warning-outline" id="close_participe">Clôturer les inscriptions</button>
 			<input type="hidden" id="url_close_participate" value="<%=request.getContextPath()%>/competitions/closeParticipate?id=${competition.id}" />
 			
-		<% } %>
+			<% if((Boolean)request.getAttribute("propose_vote") != null && (Boolean)request.getAttribute("propose_vote") == true) { %>
+		
+			<button class="btn btn-warning-outline" id="close_vote">Clôturer les votes</button>
+			<input type="hidden" id="url_close_vote" value="<%=request.getContextPath()%>/competitions/closeVote?id=${competition.id}" />
+			
+		<%	}
+		 } 
+			else if((Boolean) request.getAttribute("vote") == true && (Boolean) request.getAttribute("isParticiped") == true) { %>
+			<a class="btn btn-warning-outline" href="<%=request.getContextPath()%>/competitions/vote?id=${competition.id}">Voter</a>
+					<% } %>
 		<span id="result_participate"></span>		
 		<ul id="org" style="display: none">
 			<li>Food:

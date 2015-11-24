@@ -35,7 +35,7 @@
 				<td>${dates_start[c.id]}</td>
 				<td>${dates_end[c.id]}</td>
 				<td>${c.robot_max}</td>
-				<td><a href="<%=request.getContextPath()%>/competitions/card?id=${c.id}"> Voir la fiche</a></td>
+				<td><a href="<%=request.getContextPath()%>/competitions/card?id=${c.id}">Consulter</a></td>
 			</tr>
 			</c:forEach>
 		</tbody>

@@ -12,6 +12,9 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import spring.model.Competition;
 import spring.model.CompetitionDAO;
 import spring.model.RobotCompetition;
+import spring.model.CompetitionDate;
+import spring.model.UserCompetitionDate;
+
 
 @Service
 public class CompetitionService {
@@ -70,6 +73,7 @@ public class CompetitionService {
 		this.competitionDAO.closeParticipate(competition);
 	}
 
+
 	@Transactional
 	public void createBattles(int idCompetition, int nbMatch, List<String> datesBattles, List<Integer> nbEquipes) {
 		// TODO Auto-generated method stub
@@ -80,5 +84,37 @@ public class CompetitionService {
 		// TODO Auto-generated method stub
 		return this.competitionDAO.findRobotCompetitionById(id);
 	}
+
+
+	
+	@Transactional
+	public List<CompetitionDate> findAllDates(int id) {
+		// TODO Auto-generated method stub
+		return this.competitionDAO.findAllDates(id);
+	}
+	
+	@Transactional
+	public void vote(CompetitionDate competition, int id_user) {
+		// TODO Auto-generated method stub
+		this.competitionDAO.vote(competition, id_user);
+	}
+	
+	@Transactional
+	public CompetitionDate findCompetitionDate(int id){
+		return this.competitionDAO.findCompetitionDate(id);
+	}
+	
+	@Transactional
+	public UserCompetitionDate findVote(int id_competition, int id_user) {
+		// TODO Auto-generated method stub
+		return this.competitionDAO.findVote(id_competition, id_user);
+	}
+	
+	@Transactional
+	public void closeVote(Competition competition) {
+		// TODO Auto-generated method stub
+		this.competitionDAO.closeVote(competition);
+	}
+	
 
 }

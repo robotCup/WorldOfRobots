@@ -2,6 +2,8 @@ package spring.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,9 +23,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.model.Competition;
+import spring.model.CompetitionDate;
 import spring.model.Robot;
 import spring.model.RobotCompetition;
 import spring.model.User;
+import spring.model.UserCompetitionDate;
 import spring.service.CompetitionService;
 import spring.service.UserService;
 
@@ -42,6 +46,7 @@ public class CompetitionController {
 		model.addAttribute("competitions", competitions);
 		session.setAttribute("user", user);
 		Date datePwd;
+		
 		if (user == null){
 			datePwd = new Date();
 		}
@@ -186,7 +191,7 @@ public class CompetitionController {
 							cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), "", "", "", "");
 				}
 				else if(cardCompetition.getDate_start_1() != "" && (cardCompetition.getDate_start_2() != "" || cardCompetition.getDate_start_3() != "" || cardCompetition.getDate_start_4() != "")){
-					this.competitionService.createCompetition(user.getId(), user.getId_robot(),cardCompetition.getName(), cardCompetition.getDescription(), cardCompetition.getDate_start(),
+					this.competitionService.createCompetition(user.getId(), user.getId_robot(),cardCompetition.getName(), cardCompetition.getDescription(), "",
 							cardCompetition.getRobot_max(), cardCompetition.getAddress(), cardCompetition.getGeolocation(), cardCompetition.getDuration(), cardCompetition.getDate_start_1(), cardCompetition.getDate_start_2(), cardCompetition.getDate_start_3(), cardCompetition.getDate_start_4());
 				}
 				session.setAttribute("user", user);
@@ -209,14 +214,33 @@ public class CompetitionController {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		Competition competition = competitionService.findById(id);
+		UserCompetitionDate user_competition_date = competitionService.findVote(competition.getId(), user.getId());
 		
 		if(user == null){
-			request.setAttribute("isParticiped", false);	
+			request.setAttribute("isParticiped", false);
 		}
 		else{
-			Boolean isParticiped = competitionService.isParticiped(user.getId(), competition.getId());			
-			request.setAttribute("isParticiped", isParticiped);		
-		}	
+			if(user.getId_robot() == 0){
+				request.setAttribute("isParticiped", false);	
+			}
+			else{
+				Boolean isParticiped = competitionService.isParticiped(user.getId(), competition.getId());			
+				request.setAttribute("isParticiped", isParticiped);
+			}			
+			
+			if(competition.getStart_date() == null && competition.getEnd_date() == null && user_competition_date == null){
+				request.setAttribute("vote", true);
+			}
+			else {
+				request.setAttribute("vote", false);
+			}
+			if(user.getId() == competition.getId_user() &&  competition.getClose_vote() == false){
+				request.setAttribute("propose_vote", true);
+			}
+			else{
+				request.setAttribute("propose_vote", false);
+			}
+		}
 		request.setAttribute("id_user_competition", competition.getId_user());
 		request.setAttribute("boolean_inscription", competition.getClose_participate());
 		session.setAttribute("user", user);
@@ -266,6 +290,7 @@ public class CompetitionController {
 		}
 	}
 	
+
 	@RequestMapping(value="/competition/toAddBattles",method = RequestMethod.GET)
 	public String prepareBattles(Model model,HttpServletRequest request, @RequestParam(value="id") final int id){
 		HttpSession session = request.getSession();
@@ -292,7 +317,38 @@ public class CompetitionController {
 		return this.Index(model, request);
 	}
 
-	/*@RequestMapping(value="/competitions/voteCompetition", method = RequestMethod.GET)
+	@RequestMapping(value="/competitions/closeVote", method = RequestMethod.GET)
+	public String closeVote(Model model, @RequestParam(value="id") final int id, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
+		if(user == null){
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant de clôturer la compétition");		
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
+		}
+		else{
+			Competition competition = this.competitionService.findById(id);
+			
+			if(competition == null){
+				request.setAttribute("result", false);
+				model.addAttribute("message", "Le compétition séléctionner n'est pas reconnue");
+				return this.myCompetitions(model, request);
+			}
+			else{
+				this.competitionService.closeVote(competition);
+				request.setAttribute("result", true);
+				model.addAttribute("message", "La clôturer des votes de votre compétition a bien été prise en compte");
+				return this.cardCompetition(model, id, request);
+			}			
+		}
+
+	}
+
+	@RequestMapping(value="/competitions/vote", method = RequestMethod.GET)
 	public String prepareVote(Model model, @RequestParam(value="id") final int id, HttpServletRequest request){
 		
 		HttpSession session = request.getSession();
@@ -301,10 +357,49 @@ public class CompetitionController {
 		if(user == null){
 			request.setAttribute("result", false);
 			model.addAttribute("message", "Veuillez vous connecter avant de consulter les votes");		
-			return UserController.prepareConnexion(model);
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
 		}
 		else{
+			Map<Integer, String> french_date = new HashMap<Integer, String>();
+			List<CompetitionDate> dates = competitionService.findAllDates(id);
+			VoteCompetition voteCompetiton = new VoteCompetition();
+			
+			for(CompetitionDate date : dates){
+				french_date.put(date.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date.getDate()));
+			}
+			
+			model.addAttribute("voteCompetiton", voteCompetiton);
+			model.addAttribute("french_date", french_date);
+			model.addAttribute("dates",dates);
 			return "voteCompetition";
 		}
-	}*/
+	}
+	@RequestMapping(value="/competitions/vote", method = RequestMethod.POST)
+	public String vote(@ModelAttribute ("vote") VoteCompetition voteCompetition, Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		session.setAttribute("user", user);
+		
+		if(user == null){
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant d'ajouter une compétition");		
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
+		}
+		else{
+			this.competitionService.vote(this.competitionService.findCompetitionDate(voteCompetition.getChoose_date()), user.getId());
+			
+			List<Competition> competitions = competitionService.findAllFuture();
+			model.addAttribute("competitions", competitions);
+			session.setAttribute("user", user);
+			
+			request.setAttribute("result", true);
+			model.addAttribute("message", "Votre vote a bien été pris en compte");	
+			
+			return "competitions";
+		}
+	}
 }

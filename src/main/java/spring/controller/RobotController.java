@@ -78,8 +78,7 @@ public class RobotController {
 
 		HttpSession session = request.getSession();
 		User user = (User) request.getSession().getAttribute("user");
-		System.out.println(addRobot.getTechnologies());
-
+		
 		if (!addRobot.getImage().isEmpty()) {
 			byte[] bytes;
 			try {

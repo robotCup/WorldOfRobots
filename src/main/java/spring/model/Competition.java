@@ -26,7 +26,7 @@ public class Competition {
 	private int id;
 	private String name, description, address, geolocation;
 	private Timestamp start_date, end_date;
-	private int robot_max, id_user;
+	private int robot_max, id_user, duration;
 	private boolean close_participate, close_vote;
 
 	@Transient
@@ -105,5 +105,11 @@ public class Competition {
 	public void setId(int id) {
 		// TODO Auto-generated method stub
 		this.id = id;
+	}
+	public int getDuration() {
+		return duration;
+	}
+	public void setDuration(int duration) {
+		this.duration = duration;
 	}
 }
