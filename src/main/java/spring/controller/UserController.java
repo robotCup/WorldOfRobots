@@ -1,6 +1,8 @@
 package spring.controller;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,10 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
+import spring.model.Captcha;
 import spring.model.Competition;
 import spring.model.Robot;
 import spring.model.User;
-
+import spring.service.CheckUpdatePassword;
 import spring.service.CompetitionService;
 import spring.service.RobotService;
 import spring.service.UserService;
@@ -40,14 +43,18 @@ public class UserController {
 
 		model.addAttribute("connexion", new Connexion());
 		model.addAttribute("register", new Register());
+		int lower = 1;
+		int higher = 4;
+		int random = (int)(Math.random() * (higher-lower)) + lower;
+		Captcha captcha = utilisateurService.captcha(random);
+		model.addAttribute("captcha", captcha);
 		return "connexion";
 	}
 
 	@RequestMapping(value="/toConnect", method = RequestMethod.POST)
 	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page apr�s la connexion
-
+		
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
-
 		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
 			request.setAttribute("result", false);
 			model.addAttribute("message", "La connexion a échoué");
@@ -59,30 +66,44 @@ public class UserController {
 			session.setMaxInactiveInterval(1000);
 			List<Competition> competitions = competitionService.findAllFuture();
 			model.addAttribute("competitions", competitions);
+			model.addAttribute("lastDatePwd", user.getLast_date_pwd());
 			return "home";
 		}
 	}
 
 	@RequestMapping(value="/toRegister", method = RequestMethod.POST)
 	public String toRegister(@ModelAttribute ("register") Register register, Model model,HttpServletRequest request) {
-
+		
+		Captcha captcha= utilisateurService.captcha(register.getIdCaptcha());
+		
 		try{
-			if(!register.getPwd().equals(register.getPwd_confirm())){
-				request.setAttribute("result", false);
-				model.addAttribute("message", "L'inscription a échoué : Veuillez saisir deux fois le même mot de passe");
+			if(captcha.getValue().equals(register.getCaptcha())){
+				if(register.getPwd().equals(register.getPwd_confirm())){
+					User user =this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
+					model.addAttribute("result", true);
+					model.addAttribute("message", "L'inscription a bien été enregistrée");
+					Timer timer = new Timer();
+					timer.schedule(new CheckUpdatePassword(user.getId(),this.utilisateurService), 60000 );
+				}
+				else {
+					request.setAttribute("result", false);
+					model.addAttribute("message", "L'inscription a échoué : Veuillez saisir deux fois le même mot de passe");
+					}
 			}
-			else{
-				this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
-				model.addAttribute("result", true);
-				model.addAttribute("message", "L'inscription a bien été enregistrée");
+			else {
+				request.setAttribute("result", false);
+				model.addAttribute("message", "Captcha incorrect");
 			}
 		}
 		catch(Exception e){
+			System.out.println(e);
 			request.setAttribute("result", false);
 			model.addAttribute("message", "L'inscription a échoué");
 		}
 		return this.prepareConnexion(model);
-	}
+		}
+		
+	
 
 
 	@RequestMapping(value="/mySpace", method=RequestMethod.GET)

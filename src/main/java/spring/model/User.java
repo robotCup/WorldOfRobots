@@ -1,5 +1,9 @@
 package spring.model;
 
+
+
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -19,6 +23,7 @@ public class User {
 	private String email;
 	private boolean leader;
 	private int id_robot;
+	private Date last_date_pwd;
 	
 	//@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
 	public String getLogin() {
@@ -57,6 +62,12 @@ public class User {
 	}
 	public void setId_robot(int id_robot) {
 		this.id_robot = id_robot;
+	}
+	public Date getLast_date_pwd() {
+		return last_date_pwd;
+	}
+	public void setLast_date_pwd(Date last_date_pwd) {
+		this.last_date_pwd = last_date_pwd;
 	}
 }
 

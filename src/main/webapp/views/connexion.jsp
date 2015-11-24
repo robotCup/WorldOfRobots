@@ -38,10 +38,24 @@
 						<td><form:password path="pwd_confirm" placeholder="Confirmez votre mot de passe" name="pwd_confirm" value="" /></td>
 					</tr>
 					<tr>
+						<td>
+						<img src="<%=request.getContextPath()%>/resources/images/captcha/${captcha.image}"
+						alt="" id="captcha">
+						</td>
+					
+					</tr>
+					<tr>
+						<td><form:input type="text" placeholder="captcha"
+								path="captcha" id="captcha" value="" /></td>
+					
+					</tr>
+					<tr>
 						<td><input type="submit" class="btn btn-success" id="btn_register"
 							value="S'inscrire" /></td>
 					</tr>
 				</table>
+				<form:input type="hidden" 
+								path="idCaptcha" id="idCaptcha" value="${captcha.id}" /></td>
 			</fieldset>
 		</form:form>
 	</div>

@@ -51,6 +51,8 @@ $(document).ready(function() {
 		errorPlacement: function(error, element) {
 			element.addClass("invalid");
 		},
-		errorClass: "invalid",
+
+		errorClass: "invalid",	
+		
 	});
 });

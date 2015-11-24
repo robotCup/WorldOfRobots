@@ -1,5 +1,7 @@
 <%@ include file="/resources/layout/top.jsp"%>
-
+<!-- JS de la page -->
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/home.js"></script>
 <!-- Heading Row -->
 <div class="row">
 	<h1>Les compétitions à la Une</h1>
@@ -51,5 +53,5 @@
 	</c:forEach>
 </div>
 <!-- /.row -->
-
+ <input type="hidden" value="${lastDatePwd}" id="lastDatePwd" >
 <%@ include file="/resources/layout/bot.jsp"%>

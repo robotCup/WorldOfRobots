@@ -1,5 +1,6 @@
 package spring.model;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -41,13 +42,15 @@ public class UserDAO {
 		return user;
 	}	
 	
-	public void createUser(String login, String pwd, String email) throws MySQLIntegrityConstraintViolationException,ConstraintViolationException{
+	public User createUser(String login, String pwd, String email) throws MySQLIntegrityConstraintViolationException,ConstraintViolationException{
 		Session session = sessionFactory.getCurrentSession();
 		User user = new User();
 		user.setEmail(email);
 		user.setLogin(login);
 		user.setPwd(pwd);
+		user.setLast_date_pwd(new Date());
 		session.persist(user);
+		return user;
 	}
 
 	public void createRobot(int id_user, int id_robot) {
@@ -82,5 +85,15 @@ public class UserDAO {
 		user.setPwd(pwd);
 		user.setLeader(true);
 		session.update(user);
+	}
+
+	public void checkDatePassword(User user) {
+		// TODO Auto-generated method stub
+		Date d= new Date();
+		if (user.getLast_date_pwd().before(d)){
+			user.setLast_date_pwd(null);
+			Session session = sessionFactory.getCurrentSession();
+			session.update(user);
+		}
 	}	
 }
