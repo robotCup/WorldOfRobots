@@ -213,14 +213,14 @@ public class CompetitionController {
 		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		Competition competition = competitionService.findById(id);
-		UserCompetitionDate user_competition_date = competitionService.findVote(competition.getId(), user.getId());
-		
+		System.out.println(user);
+		Competition competition = competitionService.findById(id);		
 		if(user == null){
 			request.setAttribute("isParticiped", false);
 		}
 		else{
-			if(user.getId_robot() == 0){
+			UserCompetitionDate user_competition_date = competitionService.findVote(competition.getId(), user.getId());
+			if(user.getId_robot() == 0 || user.getId() == competition.getId_user() ){
 				request.setAttribute("isParticiped", false);	
 			}
 			else{
@@ -234,17 +234,24 @@ public class CompetitionController {
 			else {
 				request.setAttribute("vote", false);
 			}
-			if(user.getId() == competition.getId_user() &&  competition.getClose_vote() == false){
-				request.setAttribute("propose_vote", true);
+			if(user.getId() == competition.getId_user() &&  competition.getClose_vote() == false &&competition.getStart_date() == null && competition.getEnd_date() == null){
+				request.setAttribute("cloture_vote", true);
 			}
 			else{
-				request.setAttribute("propose_vote", false);
+				request.setAttribute("cloture_vote", false);
+			}
+			if(user.getId() == competition.getId_user()){
+				request.setAttribute("creator_battle", true);
+			}
+			else{
+				request.setAttribute("creator_battle", false);
 			}
 		}
 		request.setAttribute("id_user_competition", competition.getId_user());
 		request.setAttribute("boolean_inscription", competition.getClose_participate());
 		session.setAttribute("user", user);
 		model.addAttribute("competition", competition);
+		
 		return "competition";
 	}
 	
@@ -401,5 +408,10 @@ public class CompetitionController {
 			
 			return "competitions";
 		}
+	}
+	
+	@RequestMapping(value="/competition/win",method = RequestMethod.GET)
+	public void winnerBattle(Model model,HttpServletRequest request,  @RequestParam(value="id") final int id, @RequestParam(value="idBattle") final int idBattle){
+		this.competitionService.winnerBattle(this.competitionService.getBattleById(idBattle), id);
 	}
 }

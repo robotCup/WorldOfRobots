@@ -191,12 +191,12 @@ public class CompetitionDAO {
 		int id_robot = (Integer) session.createQuery("select u.id_robot from User u where u.id = :id_user")
 				.setParameter("id_user", id_user)				
 				.uniqueResult();
-
+		System.out.println(id_robot);		
 		Long count = (Long) session.createQuery("select count (rc.id) from RobotCompetition rc where rc.id_competition = :id_competition and rc.id_robot = :id_robot")
 				.setParameter("id_competition", id_competition)
 				.setParameter("id_robot", id_robot)
 				.uniqueResult();		
-
+		System.out.println(count);
 		if(count != 0){
 			return true;
 		}
@@ -326,7 +326,22 @@ public class CompetitionDAO {
 		competition.setEnd_date(format_end_date);
 		competition.setClose_vote(true);
 		session.update(competition);		
-	}		
+	}
+
+	public void winnerBattle(Battle battle, int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("test" + id);
+		battle.setId_winner(id);
+		session.update(battle);
+	}	
+	public Battle getBattleById(int id){
+		Session session = sessionFactory.getCurrentSession();
+		Battle battle = (Battle) session.createQuery("from Battle b where b.id = :id")
+				.setParameter("id", id)
+				.uniqueResult();
+		return battle;
+	}
 }	
 
 

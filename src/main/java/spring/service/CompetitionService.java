@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
+import spring.model.Battle;
 import spring.model.Competition;
 import spring.model.CompetitionDAO;
 import spring.model.RobotCompetition;
@@ -114,5 +115,15 @@ public class CompetitionService {
 	public void closeVote(Competition competition) {
 		// TODO Auto-generated method stub
 		this.competitionDAO.closeVote(competition);
+	}
+	@Transactional
+	public void winnerBattle(Battle battle, int id) {
+		// TODO Auto-generated method stub
+		this.competitionDAO.winnerBattle(battle, id);
+	}
+	@Transactional
+	public Battle getBattleById(int id) {
+		// TODO Auto-generated method stub
+		return this.competitionDAO.getBattleById(id);
 	}
 }

@@ -20,7 +20,7 @@ public class Battle {
 	@Id @GeneratedValue
 	private int id;
 
-	private Integer id_winner;
+	private int id_winner;
 	private int id_competition;
 	private Timestamp date;
 	private int nb_robot_max;

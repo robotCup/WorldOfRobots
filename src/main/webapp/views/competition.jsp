@@ -1,4 +1,8 @@
 <%@ include file="/resources/layout/top.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+
 <!-- diagramme pour le classement -->
 <link
 	href="<%=request.getContextPath()%>/resources/lib/chart/orgchart.css"
@@ -40,13 +44,46 @@
 						<td>
 							<p>${a.date}</p>
 						</td>
+						</tr>
 						<c:forEach var="b" items="${a.robots}">
-							<td><label>Nom du robot : </label>
+							<tr><td><label>Nom du robot : </label>
 								<p>${b.name}</p></td>
 							<td><label>Points forts : </label>
-								<p>${b.strong_point}</p></td>
+								<p>${b.strong_point}</p></td></tr>
 						</c:forEach>
-					</tr>
+						
+					
+					<tr>
+						<td>
+						<% int i=0; %>
+						<c:if test="${a.id_winner!=0}">
+						 Vainqueur  = 
+						 <c:forEach var="b" items="${a.robots}">
+										<c:if test="${b.id==a.id_winner}">
+										
+										<a href="<%=request.getContextPath()%>/robots/card?id=${b.id}">${b.name}</a>
+										</c:if>
+									</c:forEach>
+						 </c:if>
+						 <c:if test="${a.id_winner==0}">
+					
+							<% if( (Boolean)request.getAttribute("creator_battle") != null && (Boolean)request.getAttribute("creator_battle") == true) { %>
+								Vainqueur :
+								<select  id="robot_winner" type="number">
+									<c:forEach var="b" items="${a.robots}">
+										<option value="${b.id}" id="nbBattles">
+										${b.name}
+										</option>
+									</c:forEach>
+								</select>
+								<button class="btn btn-primary" id="link_win">Valider le vainqueur</button>
+								<input type="hidden" id="url_win" value="<%=request.getContextPath()%>/competition/win?idBattle=${a.id}&id=" />
+							<% }%>
+						 </c:if>
+						</td>
+						</tr>
+						
+						
 				</table>
 			</c:forEach>
 		</table>
@@ -56,7 +93,7 @@
 		<a class="btn btn-primary"
 			href="<%=request.getContextPath()%>/user/toConnect">Participer</a>
 		<%
-			} else if(((User)session.getAttribute("user")).getId_robot() != 0 && ((User)session.getAttribute("user")).isLeader() == true && (Boolean) request.getAttribute("isParticiped") == false) {
+			} else if(((User)session.getAttribute("user")).getId_robot() != 0 && ((User)session.getAttribute("user")).isLeader() == true && (Boolean) request.getAttribute("isParticiped") == true) {
 		%>
 		<button class="btn btn-primary" id="link_participe">Participer</button>
 		<input type="hidden" id="url_participate" value="<%=request.getContextPath()%>/competitions/participate?id=${competition.id}" />
@@ -66,7 +103,7 @@
 			<button class="btn btn-warning-outline" id="close_participe">Clôturer les inscriptions</button>
 			<input type="hidden" id="url_close_participate" value="<%=request.getContextPath()%>/competitions/closeParticipate?id=${competition.id}" />
 			
-			<% if((Boolean)request.getAttribute("propose_vote") != null && (Boolean)request.getAttribute("propose_vote") == true) { %>
+			<% if((Boolean)request.getAttribute("cloture_vote") != null && (Boolean)request.getAttribute("cloture_vote") == true) { %>
 		
 			<button class="btn btn-warning-outline" id="close_vote">Clôturer les votes</button>
 			<input type="hidden" id="url_close_vote" value="<%=request.getContextPath()%>/competitions/closeVote?id=${competition.id}" />

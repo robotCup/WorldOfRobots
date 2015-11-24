@@ -79,5 +79,30 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	$('#link_win').on('click', function(){
+		$.confirm({
+			title: 'Vainqueur du match',
+			content: 'Voulez-vous confirmer le vainqueur à cette bataille ?',
+			confirmButtonClass: 'btn-success',
+			cancelButtonClass: 'btn-danger',
+			confirmButton: 'Confirmer',
+			cancelButton: 'Annuler',
+			animationBounce: 1.5,
+			animationSpeed: 1500,
+			confirm: function(){
+				$.ajax({
+					url: $('#url_win').val()+$('#robot_winner').val(),
+					type: "GET",		             
+					success: function () {
+						window.location.reload();												
+					},
+					error : function(){
+						window.location.reload();						
+					}
+				});
+			}
+		});
+	});
 });
 
