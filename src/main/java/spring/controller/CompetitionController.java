@@ -290,6 +290,33 @@ public class CompetitionController {
 		}
 	}
 	
+
+	@RequestMapping(value="/competition/toAddBattles",method = RequestMethod.GET)
+	public String prepareBattles(Model model,HttpServletRequest request, @RequestParam(value="id") final int id){
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		model.addAttribute("addBattles", new AddBattles());
+		Competition competition = this.competitionService.findById(id);
+		model.addAttribute("competition", competition);
+		List<RobotCompetition> robotCompetitions = this.competitionService.findRobotCompetitionById(competition.getId());
+		request.setAttribute("nbBattles", robotCompetitions.size()/2);
+		model.addAttribute("nbParticipant", robotCompetitions.size());
+		session.setAttribute("user", user);
+		return "addBattles";
+	}
+	
+	
+	@RequestMapping(value="/competition/toAddBattles",method = RequestMethod.POST)
+	public String addBattles(@ModelAttribute ("addBattles") AddBattles addBattles,Model model,HttpServletRequest request){
+		
+		this.competitionService.createBattles(addBattles.getIdCompetition(), addBattles.getNbMatch(), addBattles.getDatesBattles(),addBattles.getNbEquipes());
+		System.out.println(addBattles.getNbEquipes());
+		System.out.println(addBattles.getDatesBattles());
+		System.out.println(addBattles.getNbMatch());
+		System.out.println(addBattles.getIdCompetition());
+		return this.Index(model, request);
+	}
+
 	@RequestMapping(value="/competitions/closeVote", method = RequestMethod.GET)
 	public String closeVote(Model model, @RequestParam(value="id") final int id, HttpServletRequest request){
 		
@@ -318,6 +345,7 @@ public class CompetitionController {
 				return this.cardCompetition(model, id, request);
 			}			
 		}
+
 	}
 
 	@RequestMapping(value="/competitions/vote", method = RequestMethod.GET)

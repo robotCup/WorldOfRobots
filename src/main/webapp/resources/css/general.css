@@ -110,3 +110,7 @@ li.last {
 	float: left;
 	margin-left: 30%;
 }
+
+.battle{
+	display:none;
+}
