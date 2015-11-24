@@ -2,7 +2,7 @@
 <%@ include file="/resources/layout/top.jsp"%>
 <!-- diagramme pour le classement -->
 
-	<script type="text/javascript"
+<script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/lib/datetimepicker/js/moment.js"></script>
 <script type="text/javascript"
 	src="<%=request.getContextPath()%>/resources/lib/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
@@ -14,85 +14,88 @@
 <link
 	href="<%=request.getContextPath()%>/resources/lib/datetimepicker/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" type="text/css">
+
+<%
+	int robotmax = (Integer) request.getAttribute("nbBattles");
+%>
+
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-10">
+		<h1>Administration des combats de " ${competition.name} "</h1>
+
 		<form:form method="post" action="toAddBattles"
-			commandName="addBattles" id="connexion" onSubmit="return confirmSubmit();" >
-			<%
-								int robotmax = (Integer) request.getAttribute("nbBattles");
-							%>
-					<input type="hidden" value="<%= robotmax %>" id="robotMax" />
-					<input type="hidden" value="${nbParticipant}" id="nbParticipant" />
-						<input type="text" value="${nbParticipant}" id="nbParticipantrestant" />
+			commandName="addBattles" id="addBattle"
+			onSubmit="return confirmSubmit();">
+			<input type="hidden" value="<%=robotmax%>" id="robotMax" />
+			<input type="hidden" value="${nbParticipant}" id="nbParticipant" />
+			
 			<table>
-				<tr>
-					<td><h1>Fiche de la compétition " ${competition.name} "</h1></td>
-				</tr>
-				<tr>
-				<td>
-				<form:hidden  value="${competition.id}" path ="idCompetition" />
-				
-				</td>
-				</tr>
-				<tr>
-					<td><label>Nombre de Matchs :</label></td>
-					
-					<td><form:select path="nbMatch" id="select" type="number">
-							
-							
-							<%
-								for (int i = 1; i < robotmax + 1; i++) {
-							%>
-							<form:option value="<%=i%>" id="nbBattles"> <%=i%></form:option>
-							<%}%>
-							
-							
-						</form:select></td>
-				</tr>
-			</table>
-			<div id="battles">
-			<%
-								for (int i = 1; i < robotmax + 1; i++) {
-							%>
-				<div class="battle" id='battle<%= i %>'>
-					<table>
+				<fieldset>
+					<legend>Données générales de la compétition</legend>
+					<tr>
+						<td>Nombre de robots restant :</td>
+						<td><label id="nbParticipantrestant">${nbParticipant}</label></td>
+					</tr>
 					<tr>
 						<td>
-						Date Match
-						</td>
-						<td>
-<div class='input-group date datetimepicker'>
+							<form:hidden value="${competition.id}" path="idCompetition" />
+						</td>					
+					</tr>
+					<tr>
+						<td>Nombre de combats :</td>
+
+						<td><form:select path="nbMatch" id="select" type="number">
+								<%
+									for (int i = 1; i < robotmax + 1; i++) {
+								%>
+								<form:option value="<%=i%>" id="nbBattles">
+									<%=i%></form:option>
+								<%
+									}
+								%>
+							</form:select></td>
+					</tr>
+				</fieldset>
+
+			</table>
+			<div id="battles">
+				<%
+					for (int i = 1; i < robotmax + 1; i++) {
+				%>
+				<div class="battle" id='battle<%=i%>'>
+					<table>
+						<fieldset>
+							<legend>Données d'un combat</legend>
+						<tr>
+							<td>Date :</td>
+							<td>
+								<div class='input-group date datetimepicker'>
 									<form:input type='text' class="form-control"
 										path="datesBattles" id="creation_date" />
-									<span class="input-group-addon"> 
-										<span class="glyphicon glyphicon-calendar"></span>
+									<span class="input-group-addon"> <span
+										class="glyphicon glyphicon-calendar"></span>
 									</span>
 								</div>
 
-						</td>
-						</tr>
-						<tr>
-							<td>Nombre d'équipes max participantes:</td>
-							<td>
-							<input type="hidden" class="index" value="<%=i%>">
-							<form:input type="number" class ="nbEquipes"  path='nbEquipes' min="2" max="" value="0"/> 
 							</td>
 						</tr>
 						<tr>
-							<td>
-							<input type="button" value="valider battle" class="validateBattle<%= i  %>" onClick="function test(<%= i  %>)"/>
-							</td>
+							<td>Nombre d'équipes maximum :</td>
+							<td><input type="hidden" class="index" value="<%=i%>">
+								<form:input type="number" class="nbEquipes" path='nbEquipes'
+									min="2" max="" value="0" /></td>
 						</tr>
+						
+						</fieldset>
 					</table>
-										
+
 				</div>
 				<%
-								}
-							%>
+					}
+				%>
 			</div>
-			
-			<input type="submit" class="btn btn-primary" 
-							value="Valider" />
+
+			<input type="submit" id="valid_battles" class="btn btn-primary" value="Valider" disabled/>
 
 		</form:form>
 	</div>

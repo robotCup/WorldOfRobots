@@ -213,13 +213,15 @@ public class CompetitionController {
 		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		System.out.println(user);
 		Competition competition = competitionService.findById(id);		
+
+
 		if(user == null){
 			request.setAttribute("isParticiped", false);
 		}
 		else{
 			UserCompetitionDate user_competition_date = competitionService.findVote(competition.getId(), user.getId());
+
 			if(user.getId_robot() == 0 || user.getId() == competition.getId_user() ){
 				request.setAttribute("isParticiped", false);	
 			}
@@ -301,13 +303,18 @@ public class CompetitionController {
 	@RequestMapping(value="/competition/toAddBattles",method = RequestMethod.GET)
 	public String prepareBattles(Model model,HttpServletRequest request, @RequestParam(value="id") final int id){
 		HttpSession session = request.getSession();
+		
 		User user = (User) session.getAttribute("user");
+		
 		model.addAttribute("addBattles", new AddBattles());
+		
 		Competition competition = this.competitionService.findById(id);
 		model.addAttribute("competition", competition);
+		
 		List<RobotCompetition> robotCompetitions = this.competitionService.findRobotCompetitionById(competition.getId());
 		request.setAttribute("nbBattles", robotCompetitions.size()/2);
 		model.addAttribute("nbParticipant", robotCompetitions.size());
+		
 		session.setAttribute("user", user);
 		return "addBattles";
 	}

@@ -100,6 +100,7 @@
 		<%
 			} else if((Boolean)request.getAttribute("boolean_inscription") != null && (Integer) request.getAttribute("id_user_competition") == ((User)session.getAttribute("user")).getId() && (Boolean)request.getAttribute("boolean_inscription") == false) {
 		%>
+			<a href="<%=request.getContextPath()%>/competition/toAddBattles?id=${competition.id}">Admin Battle</a>
 			<button class="btn btn-warning-outline" id="close_participe">Clôturer les inscriptions</button>
 			<input type="hidden" id="url_close_participate" value="<%=request.getContextPath()%>/competitions/closeParticipate?id=${competition.id}" />
 			

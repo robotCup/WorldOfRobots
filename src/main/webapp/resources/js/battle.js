@@ -24,69 +24,71 @@ $(document).ready(function() {
 		locale : 'fr'
 	});
 	
+	//init bloc battle
 	$('#battle1').show();
-	$('#battle1').find('.nbEquipes').attr("max", parseInt($('#nbParticipantrestant').val()))
-	$('#battle1').find('.nbEquipes').attr("value",2);
-	$('#nbParticipantrestant').attr("value",parseInt($('#nbParticipant').val())-(parseInt($('#select').val())*2 ));
+	$('#battle1').find('.nbEquipes').attr("max", parseInt($('#nbParticipantrestant').text()))
+	$('#battle1').find('.nbEquipes').attr("value", parseInt($('#nbParticipantrestant').text()))
+	$('#battle1').find('.nbEquipes:not(:first)').attr("value", 0);
+	$('#nbParticipantrestant').text(0);
+	
+	console.log($('#nbParticipantrestant').text());
+	
+	if($('#nbParticipantrestant').text() == 0){
+		$("#valid_battles").prop("disabled", false); 
+	}
+
+	//show div battle
 	$('#select').on('change', function(){
 		$('.battle').hide();
-	$('#nbParticipantrestant').attr("value",parseInt($('#nbParticipant').val())-(parseInt($('#select').val())*2 ));
-		//var t=1;
+		$('#nbParticipantrestant').text(parseInt($('#nbParticipant').val())-(parseInt($('#select').val())*2 ));
 		$('.nbEquipes').attr("max",parseInt($('#nbParticipantrestant').val())+2);
+		
 		for (var i = 0; i < parseInt($('#select').val()); i++){
 			$('#battle'+(i+1)).show();
 			$('#battle'+(i+1)).find('.nbEquipes').attr("value",2);
-			//t=t+1;
 		}
-
+		
+		if($('#nbParticipantrestant').text() == 0){
+			$("#valid_battles").prop("disabled", false); 
+		}
+		else{
+			$("#valid_battles").prop("disabled", "disabled"); 
+		}
 	});	
+	
+	//maj des nb participants
 	$('.nbEquipes').on('change',function(){
-		var TotalParticipant=0;
+		
+		var TotalParticipant = 0;
+		
 		for (var i =1; i<parseInt($('#select').val())+1; i++){
 			TotalParticipant=parseInt($('#battle'+i).find('.nbEquipes').val())+TotalParticipant;
 		}
+		
 		var restant = parseInt($('#nbParticipant').val())-TotalParticipant;
-		for (var i =1; i<parseInt($('#select').val())+1; i++){
+		
+		for (var i = 1; i < parseInt($('#select').val())+1 ; i++){
 			$('#battle'+i).find('.nbEquipes').attr("max", parseInt($('#battle'+i).find('.nbEquipes').val())+restant);
+			$('#battle'+i).find('.nbEquipes').attr("min", parseInt($('#battle'+i).find('.nbEquipes').val())-restant);
 		}
-		$('#nbParticipantrestant').attr("value",restant);
 		
-		/*var index = parseInt($(this).parent().find('.index').val());
-		var nbmatch= parseInt($('#select').val()) -(index+1);
-		alert("nb match restant = " + (nbmatch+1));
-		alert("nb parti "+ $('#nbParticipant').val());
-		var modif= parseInt($('#nbParticipant').val())-parseInt($(this).val());
+		$('#nbParticipantrestant').text(restant);
 		
-		$('#nbParticipant').attr("value",modif )
-		alert ("nb parti restant " +$('#nbParticipant').val());
-		var nbPersonnesMax = parseInt($('#nbParticipant').val())-(nbmatch*2);
-		if (nbPersonnesMax<2){
-			nbPersonnesMax=2;
+		if($('#nbParticipantrestant').text() == 0){
+			$("#valid_battles").prop("disabled", false); 
 		}
-		alert ("nombre de personnes max prochain mactch "+ nbPersonnesMax);
-		$('#battle'+index).find('.nbEquipes').attr("max", nbPersonnesMax);
-		alert(parseInt($('#nbParticipant').val())-((index-1)*2));*/
-		
+		else{
+			$("#valid_battles").prop("disabled", "disabled"); 
+		}
 	});
-	/*$("#validate").on("submit",function(){
-		var t=parseInt($('#robotMax').val())+1;
-		alert(t);
-		for(var i = parseInt($('#select').val());i<parseInt($('#robotMax').val());i++){
-			alert($('#battle'+t));
-			$('#battle'+t).remove();
-			t=t+1;}
-		
-	});*/
-
 });
+
 function confirmSubmit(){
+
+	var t = parseInt($('#robotMax').val())+1;
 	
-	var t=parseInt($('#robotMax').val())+1;
-	alert(t);
-	alert(parseInt($('#select').val()));
 	for(var i = parseInt($('#select').val())+1;i<parseInt($('#robotMax').val())+1;i++){
 		$('#battle'+i).remove();
-		alert(i);
-}
+	}
 }
 
