@@ -250,11 +250,10 @@ public class CompetitionController {
 			} else {
 				request.setAttribute("vote", false);
 			}
-			if (user.getId() == competition.getId_user() && competition.getClose_vote() == false
-					&& competition.getStart_date() == null && competition.getEnd_date() == null) {
-				request.setAttribute("cloture_vote", true);
-			} else {
+			if (user.getId() == competition.getId_user() && competition.getClose_vote() == false) {
 				request.setAttribute("cloture_vote", false);
+			} else {
+				request.setAttribute("cloture_vote", true);
 			}
 			if (user.getId() == competition.getId_user()) {
 				request.setAttribute("creator_battle", true);
@@ -274,6 +273,7 @@ public class CompetitionController {
 		session.setAttribute("user", user);
 		model.addAttribute("french_date", french_date);
 		model.addAttribute("competition", competition);
+		
 		return "competition";
 	}
 
@@ -369,14 +369,17 @@ public class CompetitionController {
 		} else {
 			Competition competition = this.competitionService.findById(id);
 			session.setAttribute("user", user);
+			
 			if (competition == null) {
 				request.setAttribute("result", false);
 				model.addAttribute("message", "Le compétition séléctionner n'est pas reconnue");
 				return this.myCompetitions(model, request);
-			} else {
+			} 
+			
+			else {
 				this.competitionService.closeVote(competition);
 				request.setAttribute("result", true);
-				model.addAttribute("message", "La clôturer des votes de votre compétition a bien été prise en compte");
+				model.addAttribute("message", "La clôture des votes de votre compétition a bien été prise en compte");
 				return this.cardCompetition(model, id, request);
 			}
 		}

@@ -312,16 +312,16 @@ public class CompetitionDAO {
 	public CompetitionDate findDateWin(int id){
 		Session session = sessionFactory.getCurrentSession();		
 
-		Integer max_votes = (Integer) session.createQuery("select MAX(vote) from CompetitionDate cd where cd.id_competition = :id")
+		Integer max_votes = (Integer) session.createQuery("select MAX(vote) from CompetitionDate cd where cd.id_competition = :id order by cd.id")
 				.setParameter("id", id)
 				.uniqueResult();
 		
-		CompetitionDate competitionDate = (CompetitionDate) session.createQuery("from CompetitionDate cd where cd.id_competition = :id and vote = :max_votes")
+		List<CompetitionDate> competitionDate = session.createQuery("from CompetitionDate cd where cd.id_competition = :id and vote = :max_votes")
 				.setParameter("max_votes", max_votes)
 				.setParameter("id", id)
-				.uniqueResult();
+				.list();
 
-		return competitionDate;
+		return competitionDate.get(0);
 	}
 	
 	public void closeVote(Competition competition) {

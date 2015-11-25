@@ -103,7 +103,7 @@
 			<button class="btn btn-warning-outline" id="close_participe">Clôturer les inscriptions</button>
 			<input type="hidden" id="url_close_participate" value="<%=request.getContextPath()%>/competitions/closeParticipate?id=${competition.id}" />
 			
-			<% if((Boolean)request.getAttribute("cloture_vote") != null && (Boolean)request.getAttribute("cloture_vote") == true) { %>
+			<% if((Boolean)request.getAttribute("cloture_vote") != null && (Boolean)request.getAttribute("cloture_vote") == false) { %>
 		
 			<button class="btn btn-warning-outline" id="close_vote">Clôturer les votes</button>
 			<input type="hidden" id="url_close_vote" value="<%=request.getContextPath()%>/competitions/closeVote?id=${competition.id}" />
