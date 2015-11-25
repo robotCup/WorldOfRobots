@@ -46,6 +46,7 @@ $(document).ready(function() {
 		for (var i = 0; i < parseInt($('#select').val()); i++){
 			$('#battle'+(i+1)).show();
 			$('#battle'+(i+1)).find('.nbEquipes').attr("value",2);
+			$('#battle'+(i+1)).find('.nbEquipes').attr("max",parseInt($('#nbParticipantrestant').text())+2);
 		}
 
 		if($('#nbParticipantrestant').text() == 0){

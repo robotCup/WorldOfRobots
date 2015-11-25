@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -219,7 +220,7 @@ public class CompetitionDAO {
 
 	}
 
-	public void createBattles(int idCompetition, int nbMatch, List<String> datesBattles, List<Integer> nbEquipes) {
+	public void createBattles(int idCompetition, int nbMatch, List<String> datesBattles, List<Integer> nbEquipes, List<Robot> robots) {
 		// TODO Auto-generated method stub
 		DateFormat formatter;
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -230,6 +231,8 @@ public class CompetitionDAO {
 			battle.setNb_robot_max(nbEquipes.get(i));
 			Date date_s;
 			try {
+				System.out.println("ok");
+				System.out.println(datesBattles.get(i));
 				date_s = (Date) formatter.parse(datesBattles.get(i));
 				Timestamp format_start_date = new Timestamp(date_s.getTime());
 				battle.setDate(format_start_date);
@@ -237,7 +240,15 @@ public class CompetitionDAO {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			for (int j=0; j<nbEquipes.get(i);j++){
+				int sizeRobots = (robots.size());
+			int random = (int)(Math.random() * (sizeRobots-0)) + 0;
+			RobotBattle robotBattle = new RobotBattle();
+			robotBattle.setId_robot(robots.remove(random).getId());
 			session.persist(battle);
+			robotBattle.setId_battle(battle.getId());
+			session.persist(robotBattle);
+			}
 		}
 	}
 

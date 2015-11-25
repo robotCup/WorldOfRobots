@@ -66,7 +66,6 @@
 									</c:forEach>
 						 </c:if>
 						 <c:if test="${a.id_winner==0}">
-					
 							<% if( (Boolean)request.getAttribute("creator_battle") != null && (Boolean)request.getAttribute("creator_battle") == true) { %>
 								Vainqueur :
 								<select  id="robot_winner" type="number">
