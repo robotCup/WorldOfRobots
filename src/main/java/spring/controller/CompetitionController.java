@@ -312,10 +312,14 @@ public class CompetitionController {
 			return "connexion";
 		} else {
 
-			this.competitionService.closeParticipate(this.competitionService.findById(id));
-			request.setAttribute("result", true);
-			model.addAttribute("message",
-					"La clôturer des inscriptions de votre compétition a bien été prise en compte");
+			Competition competition = this.competitionService.findById(id);
+			this.competitionService.closeParticipate(competition);
+			List<User> users = this.competitionService.findUserByCompetition(competition.getId());
+			
+			for(User user_compet : users){
+				String message = "Les inscriptions ont été cloturés pour la compétition "+competition.getName();
+				this.userService.createMessage(user_compet.getId(), message);
+			}
 			session.setAttribute("user", user);
 			return this.cardCompetition(model, id, request);
 		}
@@ -343,14 +347,22 @@ public class CompetitionController {
 	@RequestMapping(value = "/competition/toAddBattles", method = RequestMethod.POST)
 	public String addBattles(@ModelAttribute("addBattles") AddBattles addBattles, Model model,
 			HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 
 		List<Robot> robots = this.robotService.findRobotByIdCompetition(addBattles.getIdCompetition());
 		this.competitionService.createBattles(addBattles.getIdCompetition(), addBattles.getNbMatch(),
 				addBattles.getDatesBattles(), addBattles.getNbEquipes(), robots);
-		System.out.println(addBattles.getNbEquipes());
-		System.out.println(addBattles.getDatesBattles());
-		System.out.println(addBattles.getNbMatch());
-		System.out.println(addBattles.getIdCompetition());
+		
+		List<User> users = this.competitionService.findUserByCompetition(addBattles.getIdCompetition());
+		Competition competition =  this.competitionService.findById(addBattles.getIdCompetition());
+		
+		for(User user_compet : users){
+			String message = "Les combats de la compétition "+competition.getName()+ " ont été établi.";
+			this.userService.createMessage(user_compet.getId(), message);
+		}
+		
 		return this.Index(model, request);
 	}
 
@@ -366,7 +378,8 @@ public class CompetitionController {
 			model.addAttribute("connexion", new Connexion());
 			model.addAttribute("register", new Register());
 			return "connexion";
-		} else {
+		} 
+		else {
 			Competition competition = this.competitionService.findById(id);
 			session.setAttribute("user", user);
 			
@@ -378,8 +391,12 @@ public class CompetitionController {
 			
 			else {
 				this.competitionService.closeVote(competition);
-				request.setAttribute("result", true);
-				model.addAttribute("message", "La clôture des votes de votre compétition a bien été prise en compte");
+				List<User> users = this.competitionService.findUserByCompetition(competition.getId());
+				
+				for(User user_compet : users){
+					String message = "Les votes ont été cloturés pour la compétition "+competition.getName()+ "";
+					this.userService.createMessage(user_compet.getId(), message);
+				}
 				return this.cardCompetition(model, id, request);
 			}
 		}

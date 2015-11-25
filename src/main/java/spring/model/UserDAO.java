@@ -1,5 +1,6 @@
 package spring.model;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,17 @@ public class UserDAO {
 		Session session = sessionFactory.getCurrentSession();
 		List Users = session.createQuery("from User").list();
 		return Users;
-	}	
+	}
+	
+	public List<Message> findAllMessageByUser(int id_user) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		List<Message> messages = session.createQuery("from Message m where m.id_user = :id")
+				.setParameter("id", id_user)
+				.list();
+		
+		return messages;
+	}
 
 	public User findByLogin(String login, String pwd) {
 		Session session = sessionFactory.getCurrentSession();
@@ -95,5 +106,16 @@ public class UserDAO {
 			Session session = sessionFactory.getCurrentSession();
 			session.update(user);
 		}
+	}
+
+	public void createMessage(int id, String content_message) {
+		Session session = sessionFactory.getCurrentSession();
+		Message message = new Message();
+		
+		Date date = new java.util.Date();
+		message.setId_user(id);
+		message.setDate(new Timestamp(date.getTime()));
+		message.setMessage(content_message);
+		session.persist(message);		
 	}	
 }

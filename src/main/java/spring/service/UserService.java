@@ -11,6 +11,7 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import spring.model.Captcha;
 import spring.model.CaptchaDAO;
+import spring.model.Message;
 import spring.model.User;
 import spring.model.UserDAO;
 
@@ -35,7 +36,8 @@ public class UserService {
 		// TODO Auto-generated method stub
 		 return this.userDAO.createUser(login, pwd, email);
 	}
-
+	
+	@Transactional
 	public void createRobot(int id_user, int id_robot) {
 		// TODO Auto-generated method stub
 		this.userDAO.createRobot(id_user, id_robot);
@@ -62,5 +64,17 @@ public class UserService {
 	public Captcha captcha(int random) {
 		// TODO Auto-generated method stub
 		return this.captchaDAO.captcha(random);
+	}
+	
+	@Transactional
+	public List<Message> findAllMessageByUser(int id_user) {
+		// TODO Auto-generated method stub
+		return this.userDAO.findAllMessageByUser(id_user);
+	}
+	
+	@Transactional
+	public void createMessage(int id, String message) {
+		// TODO Auto-generated method stub
+		this.userDAO.createMessage(id, message);
 	}
 }
