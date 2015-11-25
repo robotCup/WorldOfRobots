@@ -11,8 +11,8 @@ $(document).ready(function() {
 			"sInfoFiltered":   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
 			"sInfoPostFix":    "",
 			"sLoadingRecords": "Chargement en cours...",
-			"sZeroRecords":    "Aucune comp&eacute;tition &agrave; afficher",
-			"sEmptyTable":     "Aucune comp&eacute;tition disponible sur cette liste",
+			"sZeroRecords":    "Aucun message &agrave; afficher",
+			"sEmptyTable":     "Aucun message disponible sur cette liste",
 			"oPaginate": {
 				"sFirst":      "Premier",
 				"sPrevious":   "Pr&eacute;c&eacute;dent",
