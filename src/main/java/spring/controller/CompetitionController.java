@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spring.model.Battle;
 import spring.model.Competition;
 import spring.model.CompetitionDate;
 import spring.model.Robot;
@@ -261,9 +262,17 @@ public class CompetitionController {
 				request.setAttribute("creator_battle", false);
 			}
 		}
+		// liste de dates au format francais
+		Map<Integer, String> french_date = new HashMap<Integer, String>();
+		
+		for(Battle battle : competition.getBattles()){
+			french_date.put(battle.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(battle.getDate()));
+		}
+		
 		request.setAttribute("id_user_competition", competition.getId_user());
 		request.setAttribute("boolean_inscription", competition.getClose_participate());
 		session.setAttribute("user", user);
+		model.addAttribute("french_date", french_date);
 		model.addAttribute("competition", competition);
 		return "competition";
 	}

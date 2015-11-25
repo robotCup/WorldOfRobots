@@ -42,7 +42,7 @@
 					<tr>
 						<td><label>Date : </label></td>
 						<td>
-							<p>${a.date}</p>
+							<p>${french_date[a.id]}</p>
 						</td>
 						</tr>
 						<c:forEach var="b" items="${a.robots}">

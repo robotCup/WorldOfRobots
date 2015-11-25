@@ -2,8 +2,7 @@
 
 <div class="row">
 	<div class="col-md-4">
-		<img
-		id="picture_robot"
+		<img id="picture_robot"
 			src="<%=request.getContextPath()%>/resources/images/robots/${name_file}"
 			alt="image_robot" />
 	</div>
@@ -13,7 +12,7 @@
 				<legend>Fiche du robot " ${robot.name}"</legend>
 				<tr>
 					<td><label>Date de création :</label></td>
-					<td>${robot.creation_date}</td>
+					<td>${french_dates[robot.id]}</td>
 				</tr>
 				<tr>
 					<td><label>Point forts :</label></td>
@@ -24,8 +23,12 @@
 					<td>${technologies}</td>
 				</tr>
 				<tr>
-					<td><label>Nombre de participation :</label></td>
-					<td>${participate}</td>
+					<td><label>Nombre de competitions :</label></td>
+					<td>${participate_competition}</td>
+				</tr>
+				<tr>
+					<td><label>Nombre de combats :</label></td>
+					<td>${participate_battle}</td>
 				</tr>
 				<tr>
 					<td><label>Nombre de victoires :</label></td>
@@ -37,9 +40,12 @@
 				</tr>
 			</fieldset>
 		</table>
-		<a class="btn btn-default" href="<%=request.getContextPath()%>/robots">Modifier</a>
-		<a class="btn btn-danger-outline" href="<%=request.getContextPath()%>/robots/remove?id=${robot.id}">Supprimer</a>		
-	</div>	
+
+
+		<% if(session.getAttribute("user") != null && ((User)session.getAttribute("user")).getId_robot() == 0)  { %>
+			  <a class="btn btn-default" href="<%=request.getContextPath()%>/robots/join?id=${robot.id}">Rejoindre</a>
+		<% }%>
+	</div>
 </div>
 
 <%@ include file="/resources/layout/bot.jsp"%>
