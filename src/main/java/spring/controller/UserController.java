@@ -1,7 +1,10 @@
 package spring.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +24,7 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import spring.model.Captcha;
 import spring.model.Competition;
+import spring.model.Message;
 import spring.model.Robot;
 import spring.model.User;
 import spring.service.CheckUpdatePassword;
@@ -51,9 +55,10 @@ public class UserController {
 		return "connexion";
 	}
 
+
 	@RequestMapping(value="/toConnect", method = RequestMethod.POST)
 	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page apr�s la connexion
-		
+
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
 		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
 			request.setAttribute("result", false);
@@ -73,9 +78,9 @@ public class UserController {
 
 	@RequestMapping(value="/toRegister", method = RequestMethod.POST)
 	public String toRegister(@ModelAttribute ("register") Register register, Model model,HttpServletRequest request) {
-		
+
 		Captcha captcha= utilisateurService.captcha(register.getIdCaptcha());
-		
+
 		try{
 			if(captcha.getValue().equals(register.getCaptcha())){
 				if(register.getPwd().equals(register.getPwd_confirm())){
@@ -88,7 +93,7 @@ public class UserController {
 				else {
 					request.setAttribute("result", false);
 					model.addAttribute("message", "L'inscription a échoué : Veuillez saisir deux fois le même mot de passe");
-					}
+				}
 			}
 			else {
 				request.setAttribute("result", false);
@@ -101,13 +106,13 @@ public class UserController {
 			model.addAttribute("message", "L'inscription a échoué");
 		}
 		return this.prepareConnexion(model);
-		}
-		
-	
+	}
+
+
 
 
 	@RequestMapping(value="/mySpace", method=RequestMethod.GET)
-	public String monEspacePrepare(Model model,HttpServletRequest request) {
+	public String monEspacePrepare(Model model, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
@@ -115,7 +120,7 @@ public class UserController {
 			session.setAttribute("user", session.getAttribute("user"));
 			Robot robot = null;
 			if(user.getId_robot() != 0)
-			robot = this.robotService.findById(user.getId_robot());
+				robot = this.robotService.findById(user.getId_robot());
 
 			model.addAttribute("update", new UpdateUser());
 			model.addAttribute("robot", robot);
@@ -186,5 +191,32 @@ public class UserController {
 		HttpSession session =request.getSession();
 		session.invalidate();
 		return this.prepareConnexion(model);
+	}
+
+	@RequestMapping(value="/news", method=RequestMethod.GET)
+	public String getNews(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		
+		if(user != null){
+			// liste de dates au format francais
+			Map<Integer, String> french_dates = new HashMap<Integer, String>();
+			
+			session.setAttribute("user", session.getAttribute("user"));
+
+			List<Message> messages = this.utilisateurService.findAllMessageByUser(user.getId());
+			
+			for(Message message : messages){
+				french_dates.put(message.getId(),
+						new SimpleDateFormat("dd/MM/yyyy HH:mm").format(message.getDate()));
+			}
+			model.addAttribute("french_dates", french_dates);
+			model.addAttribute("messages", messages);
+			session.setAttribute("user", user);
+			return "news";
+		}
+		else {
+			return this.prepareConnexion(model);
+		}
 	}
 }

@@ -118,4 +118,40 @@ public class RobotDAO {
 				.list();
 		return robots;
 	}
+
+	public Long countBattleByRobot(int id_robot) {
+		Session session = sessionFactory.getCurrentSession();		
+
+		long count = (Long) session.createQuery("select count (*) from RobotBattle rb where rb.id_robot = :id")
+				.setParameter("id", id_robot)
+				.uniqueResult();
+
+		return count;
+	}
+	
+	public Long countWinBalttleByRobot(int id_robot) {
+		Session session = sessionFactory.getCurrentSession();		
+
+		long count = (Long) session.createQuery("select count (*) from Battle b where b.id_winner = :id")
+				.setParameter("id", id_robot)
+				.uniqueResult();
+
+		return count;
+	}
+
+	public Long countCompetitionByRobot(int id_robot) {
+		Session session = sessionFactory.getCurrentSession();		
+
+		long count = (Long) session.createQuery("select count (*) from RobotCompetition rc where rc.id_robot = :id")
+				.setParameter("id", id_robot)
+				.uniqueResult();
+
+		return count;
+	}
+
+	public void joinRobot(int id_robot, User user) {
+		Session session = sessionFactory.getCurrentSession();
+		user.setId_robot(id_robot);	
+		session.update(user);
+	}
 }

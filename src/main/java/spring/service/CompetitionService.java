@@ -13,6 +13,7 @@ import spring.model.Battle;
 import spring.model.Competition;
 import spring.model.CompetitionDAO;
 import spring.model.RobotCompetition;
+import spring.model.User;
 import spring.model.CompetitionDate;
 import spring.model.Robot;
 import spring.model.UserCompetitionDate;
@@ -127,9 +128,18 @@ public class CompetitionService {
 		// TODO Auto-generated method stub
 		return this.competitionDAO.getBattleById(id);
 	}
+
 	@Transactional
 	public void winnerCompetition(Competition competition, int id) {
 		// TODO Auto-generated method stub
 		 this.competitionDAO.winnerCompetition(competition, id);
 	}
+
+	
+	@Transactional
+	public List<User> findUserByCompetition(int id_competition) {
+		// TODO Auto-generated method stub
+		return this.competitionDAO.findUserByCompetition(id_competition);
+	}
 }
+

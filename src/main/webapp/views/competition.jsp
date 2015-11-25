@@ -42,7 +42,7 @@
 					<tr>
 						<td><label>Date : </label></td>
 						<td>
-							<p>${a.date}</p>
+							<p>${french_date[a.id]}</p>
 						</td>
 						</tr>
 						<c:forEach var="b" items="${a.robots}">
@@ -127,8 +127,10 @@
 			} else if((Boolean)request.getAttribute("boolean_inscription") != null && (Integer) request.getAttribute("id_user_competition") == ((User)session.getAttribute("user")).getId() && (Boolean)request.getAttribute("boolean_inscription") == false) {
 		%>
 			<a href="<%=request.getContextPath()%>/competition/toAddBattles?id=${competition.id}">Admin Battle</a>
+
 						
-			<% if((Boolean)request.getAttribute("cloture_vote") != null && (Boolean)request.getAttribute("cloture_vote") == true) { %>
+			<% if((Boolean)request.getAttribute("cloture_vote") != null && (Boolean)request.getAttribute("cloture_vote") == false) { %>
+
 		
 			<button class="btn btn-warning-outline" id="close_vote">Clôturer les votes</button>
 			<input type="hidden" id="url_close_vote" value="<%=request.getContextPath()%>/competitions/closeVote?id=${competition.id}" />

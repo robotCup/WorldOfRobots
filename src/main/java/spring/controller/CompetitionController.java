@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spring.model.Battle;
 import spring.model.Competition;
 import spring.model.CompetitionDate;
 import spring.model.Robot;
@@ -251,11 +252,10 @@ public class CompetitionController {
 			} else {
 				request.setAttribute("vote", false);
 			}
-			if (user.getId() == competition.getId_user() && competition.getClose_vote() == false
-					&& competition.getStart_date() == null && competition.getEnd_date() == null) {
-				request.setAttribute("cloture_vote", true);
-			} else {
+			if (user.getId() == competition.getId_user() && competition.getClose_vote() == false && competition.getStart_date() == null && competition.getEnd_date() == null) {
 				request.setAttribute("cloture_vote", false);
+			} else {
+				request.setAttribute("cloture_vote", true);
 			}
 			if (user.getId() == competition.getId_user()) {
 				request.setAttribute("creator_battle", true);
@@ -263,9 +263,17 @@ public class CompetitionController {
 				request.setAttribute("creator_battle", false);
 			}
 		}
+		// liste de dates au format francais
+		Map<Integer, String> french_date = new HashMap<Integer, String>();
+		
+		for(Battle battle : competition.getBattles()){
+			french_date.put(battle.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(battle.getDate()));
+		}
+		
 		request.setAttribute("id_user_competition", competition.getId_user());
 		request.setAttribute("boolean_inscription", competition.getClose_participate());
 		session.setAttribute("user", user);
+		model.addAttribute("french_date", french_date);
 		model.addAttribute("competition", competition);
 		model.addAttribute("robots", this.robotService.findRobotByIdCompetition(competition.getId()));
 		return "competition";
@@ -292,8 +300,6 @@ public class CompetitionController {
 		}
 	}
 
-
-
 	@RequestMapping(value = "/competition/toAddBattles", method = RequestMethod.GET)
 	public String prepareBattles(Model model, HttpServletRequest request, @RequestParam(value = "id") final int id) {
 		HttpSession session = request.getSession();
@@ -313,23 +319,6 @@ public class CompetitionController {
 		return "addBattles";
 	}
 	
-	@RequestMapping(value = "/competitions/closeParticipate", method = RequestMethod.GET)
-	public String closeParticipate(Model model, @RequestParam(value = "id") final int id, HttpServletRequest request) {
-
-
-
-		/*if (user == null) {
-			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant de clôturer la compétition");
-			model.addAttribute("connexion", new Connexion());
-			model.addAttribute("register", new Register());
-			return "connexion";
-		} else {
-
-			
-		}*/
-		return null;
-	}
 
 	@RequestMapping(value = "/competition/toAddBattles", method = RequestMethod.POST)
 	public String addBattles(@ModelAttribute("addBattles") AddBattles addBattles, Model model,
@@ -352,9 +341,19 @@ public class CompetitionController {
 			model.addAttribute("message",
 					"La clôturer des inscriptions et création des Match de votre compétition ont bien été prises en compte");
 			session.setAttribute("user", user);		
-			//reponse.sendRedirect("../competitions/card?id="+addBattles.getIdCompetition());
+			List<User> users = this.competitionService.findUserByCompetition(addBattles.getIdCompetition());
+			Competition competition =  this.competitionService.findById(addBattles.getIdCompetition());
+			String message="";
+			for(User user_compet : users){
+				message = "Les combats de la compétition "+competition.getName()+ " ont été établi.";
+				this.userService.createMessage(user_compet.getId(), message);
+				message = "Les inscriptions ont été cloturés pour la compétition "+competition.getName();
+				this.userService.createMessage(user_compet.getId(), message);
+			}
+
 			return this.cardCompetition(model, addBattles.getIdCompetition(), request);
 		}
+
 	}
 
 	@RequestMapping(value = "/competitions/closeVote", method = RequestMethod.GET)
@@ -369,17 +368,25 @@ public class CompetitionController {
 			model.addAttribute("connexion", new Connexion());
 			model.addAttribute("register", new Register());
 			return "connexion";
-		} else {
+		} 
+		else {
 			Competition competition = this.competitionService.findById(id);
 			session.setAttribute("user", user);
+			
 			if (competition == null) {
 				request.setAttribute("result", false);
 				model.addAttribute("message", "Le compétition séléctionner n'est pas reconnue");
 				return this.myCompetitions(model, request);
-			} else {
+			} 
+			
+			else {
 				this.competitionService.closeVote(competition);
-				request.setAttribute("result", true);
-				model.addAttribute("message", "La clôturer des votes de votre compétition a bien été prise en compte");
+				List<User> users = this.competitionService.findUserByCompetition(competition.getId());
+				
+				for(User user_compet : users){
+					String message = "Les votes ont été cloturés pour la compétition "+competition.getName()+ "";
+					this.userService.createMessage(user_compet.getId(), message);
+				}
 				return this.cardCompetition(model, id, request);
 			}
 		}

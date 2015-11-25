@@ -192,12 +192,12 @@ public class CompetitionDAO {
 		int id_robot = (Integer) session.createQuery("select u.id_robot from User u where u.id = :id_user")
 				.setParameter("id_user", id_user)				
 				.uniqueResult();
-		System.out.println(id_robot);		
+		
 		Long count = (Long) session.createQuery("select count (rc.id) from RobotCompetition rc where rc.id_competition = :id_competition and rc.id_robot = :id_robot")
 				.setParameter("id_competition", id_competition)
 				.setParameter("id_robot", id_robot)
 				.uniqueResult();		
-		System.out.println(count);
+		
 		if(count != 0){
 			return true;
 		}
@@ -261,9 +261,6 @@ public class CompetitionDAO {
 		return robotCompetitions;
 	}	
 
-
-	
-
 	public List<CompetitionDate> findAllDates(int id) {
 		Session session = sessionFactory.getCurrentSession();	
 
@@ -312,16 +309,16 @@ public class CompetitionDAO {
 	public CompetitionDate findDateWin(int id){
 		Session session = sessionFactory.getCurrentSession();		
 
-		Integer max_votes = (Integer) session.createQuery("select MAX(vote) from CompetitionDate cd where cd.id_competition = :id")
+		Integer max_votes = (Integer) session.createQuery("select MAX(vote) from CompetitionDate cd where cd.id_competition = :id order by cd.id")
 				.setParameter("id", id)
 				.uniqueResult();
 		
-		CompetitionDate competitionDate = (CompetitionDate) session.createQuery("from CompetitionDate cd where cd.id_competition = :id and vote = :max_votes")
+		List<CompetitionDate> competitionDate = session.createQuery("from CompetitionDate cd where cd.id_competition = :id and vote = :max_votes")
 				.setParameter("max_votes", max_votes)
 				.setParameter("id", id)
-				.uniqueResult();
+				.list();
 
-		return competitionDate;
+		return competitionDate.get(0);
 	}
 	
 	public void closeVote(Competition competition) {
@@ -353,12 +350,31 @@ public class CompetitionDAO {
 		return battle;
 	}
 
+
 	public void winnerCompetition(Competition competition, int id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
 		System.out.println("test" + id);
 		competition.setId_winner(id);
 		session.update(competition);
+	}
+	
+	public List<User> findUserByCompetition(int id_competition) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		List<User> users = new ArrayList<User>();
+		
+		List<Integer> id_users = session.createQuery("select c.id_user from Competition c where c.id = :id")
+				.setParameter("id", id_competition)
+				.list();
+		
+		for(Integer id_user : id_users){
+			users.add(
+					(User) session.createQuery("from User u where u.id = :id")
+					.setParameter("id", id_user)
+					.uniqueResult());
+		}
+		return users;
 	}
 }	
 

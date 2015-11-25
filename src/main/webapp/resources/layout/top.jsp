@@ -7,7 +7,7 @@
 <html lang="fr">
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>World of Robots</title>
 
 <!-- Bootstrap Core CSS -->
@@ -96,12 +96,20 @@
 				<%
 					if (session.getAttribute("user") != null) {
 				%>
-				<li class="service"><a
+				<li class="has-sub service"><a
 					href="<%=request.getContextPath()%>/user/mySpace"><span>Mon
-							espace</span></a></li>
+							espace</span></a>
+
+					<ul>
+						<li><a href="<%=request.getContextPath()%>/user/news"><span>Mes
+									messages</span></a></li>
+
+					</ul></li>
 				<li class="service"><a
 					href="<%=request.getContextPath()%>/user/disconnect"><span>Déconnexion</span></a></li>
-				<li class="service last"><a><span>Bienvenue <%= ((User)session.getAttribute("user")).getLogin() %> !</span></a></li>
+				<li class="service last"><a><span>Bienvenue <%= ((User)session.getAttribute("user")).getLogin() %>
+							!
+					</span></a></li>
 				<%
 					} else {
 				%>

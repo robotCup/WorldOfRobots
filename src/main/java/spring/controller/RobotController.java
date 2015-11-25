@@ -127,18 +127,27 @@ public class RobotController {
 		}
 		return "robot";
 	}
-
-	@RequestMapping(value="/robots/remove", method = RequestMethod.GET)
-	public String removeRobot(Model model,@RequestParam(value="id") final int id){
-
-		return "robots";
+	@RequestMapping(value="/robots/join", method = RequestMethod.GET)
+	public String joinRobot(Model model,@RequestParam(value="id") final int id, HttpServletRequest request){
+		
+		HttpSession session = request.getSession();
+		User user = (User) request.getSession().getAttribute("user");
+		
+		this.robotService.joinRobot(id, user);
+		session.setAttribute("user", user);
+		request.setAttribute("result", true);
+		model.addAttribute("message", "Vous faites désormais partie d'une équipe");
+		return this.cardRobot(model, id);
 	}
+
 	@RequestMapping(value="/robots/card", method = RequestMethod.GET)
 	public String cardRobot(Model model,@RequestParam(value="id") final int id){
 
 		Robot robot = this.robotService.findById(id);
 		String list_technologies = "";
-
+		//liste de dates au format francais
+		Map<Integer, String> french_dates = new HashMap<Integer, String>();
+		
 		for(int i= 0 ; i < robot.getTechnologies().size(); i++ ){
 
 			list_technologies += robot.getTechnologies().get(i).getName();
@@ -159,13 +168,21 @@ public class RobotController {
 		else{
 			name_file = "no-image.png";
 		}
+		
+		french_dates.put(robot.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(robot.getCreation_date()));
 
+		Long participate_competition = this.robotService.countCompetitionByRobot(robot.getId());
+		Long participate_battle = this.robotService.countBattleByRobot(robot.getId());
+		Long win_battle = this.robotService.countWinBalttleByRobot(robot.getId());
+		
 		model.addAttribute("technologies", list_technologies);
 		model.addAttribute("name_file", name_file);
-		model.addAttribute("participate", 0);
-		model.addAttribute("win", 0);
-		model.addAttribute("lose", 0);
+		model.addAttribute("participate_competition", participate_competition);
+		model.addAttribute("participate_battle", participate_battle);
+		model.addAttribute("win", win_battle);
+		model.addAttribute("lose", (participate_battle - win_battle));
 		model.addAttribute("robot", robot);
+		model.addAttribute("french_dates", french_dates);
 		return "robot";
 	}
 

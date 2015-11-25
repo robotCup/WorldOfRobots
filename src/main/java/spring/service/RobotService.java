@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import spring.model.Robot;
 import spring.model.RobotDAO;
 import spring.model.Technology;
+import spring.model.User;
 
 
 @Service
@@ -39,10 +40,34 @@ public class RobotService {
 		return this.robotDAO.createRobot(technologies, strong_point, name, creation_date, image);
 		
 	}
+	
 	@Transactional
 	public List<Robot> findRobotByIdCompetition(int idCompetition) {
 		// TODO Auto-generated method stub
 		return  this.robotDAO.findRobotByIdCompetition(idCompetition);
 	}
+	
+	@Transactional
+	public Long countBattleByRobot(int id_robot) {
+		// TODO Auto-generated method stub
+		return this.robotDAO.countBattleByRobot(id_robot);
+	}
+	
+	@Transactional
+	public Long countWinBalttleByRobot(int id_robot) {
+		// TODO Auto-generated method stub
+		return this.robotDAO.countWinBalttleByRobot(id_robot);
+	}
+	
+	@Transactional
+	public Long countCompetitionByRobot(int id_robot) {
+		// TODO Auto-generated method stub
+		return this.robotDAO.countCompetitionByRobot(id_robot);
+	}
 
+	@Transactional
+	public void joinRobot(int id_robot, User user) {
+		// TODO Auto-generated method stub
+		this.robotDAO.joinRobot(id_robot, user);
+	}
 }
