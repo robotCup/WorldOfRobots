@@ -81,10 +81,37 @@
 						 </c:if>
 						</td>
 						</tr>
-						
+
 						
 				</table>
 			</c:forEach>
+									<tr>
+							<td>
+							<c:if test="${competition.id_winner!=0}">
+						 Vainqueur  = 
+								 <c:forEach var="r" items="${robots}">
+												<c:if test="${r.id==competition.id_winner}">
+													<a href="<%=request.getContextPath()%>/robots/card?id=${r.id}">${r.name}</a>
+												</c:if>
+									</c:forEach>
+							 </c:if>
+									
+						 <c:if test="${competition.id_winner==0}">
+							<% if( (Boolean)request.getAttribute("creator_battle") != null && (Boolean)request.getAttribute("creator_battle") == true) { %>
+								Vainqueur :
+								<select  id="robot_winnerCompetition" type="number">
+									<c:forEach var="r" items="${robots}">
+										<option value="${r.id}">
+										${r.name}
+										</option>
+									</c:forEach>
+								</select>
+								<button class="btn btn-primary" id="link_winCompetition">Valider le vainqueur</button>
+								<input type="hidden" id="url_winCompetition" value="<%=request.getContextPath()%>/competition/winCompetition?idCompetition=${competition.id}&id=" />
+							<% }%>
+						 </c:if>
+							</td>
+						</tr>
 		</table>
 		<%
 			if (session.getAttribute("user") == null) {
@@ -100,9 +127,7 @@
 			} else if((Boolean)request.getAttribute("boolean_inscription") != null && (Integer) request.getAttribute("id_user_competition") == ((User)session.getAttribute("user")).getId() && (Boolean)request.getAttribute("boolean_inscription") == false) {
 		%>
 			<a href="<%=request.getContextPath()%>/competition/toAddBattles?id=${competition.id}">Admin Battle</a>
-			<button class="btn btn-warning-outline" id="close_participe">Clôturer les inscriptions</button>
-			<input type="hidden" id="url_close_participate" value="<%=request.getContextPath()%>/competitions/closeParticipate?id=${competition.id}" />
-			
+						
 			<% if((Boolean)request.getAttribute("cloture_vote") != null && (Boolean)request.getAttribute("cloture_vote") == true) { %>
 		
 			<button class="btn btn-warning-outline" id="close_vote">Clôturer les votes</button>

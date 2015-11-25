@@ -1,6 +1,7 @@
 package spring.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.Session;
@@ -265,6 +267,7 @@ public class CompetitionController {
 		request.setAttribute("boolean_inscription", competition.getClose_participate());
 		session.setAttribute("user", user);
 		model.addAttribute("competition", competition);
+		model.addAttribute("robots", this.robotService.findRobotByIdCompetition(competition.getId()));
 		return "competition";
 	}
 
@@ -289,28 +292,7 @@ public class CompetitionController {
 		}
 	}
 
-	@RequestMapping(value = "/competitions/closeParticipate", method = RequestMethod.GET)
-	public String closeParticipate(Model model, @RequestParam(value = "id") final int id, HttpServletRequest request) {
 
-		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
-
-		if (user == null) {
-			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant de clôturer la compétition");
-			model.addAttribute("connexion", new Connexion());
-			model.addAttribute("register", new Register());
-			return "connexion";
-		} else {
-
-			this.competitionService.closeParticipate(this.competitionService.findById(id));
-			request.setAttribute("result", true);
-			model.addAttribute("message",
-					"La clôturer des inscriptions de votre compétition a bien été prise en compte");
-			session.setAttribute("user", user);
-			return this.cardCompetition(model, id, request);
-		}
-	}
 
 	@RequestMapping(value = "/competition/toAddBattles", method = RequestMethod.GET)
 	public String prepareBattles(Model model, HttpServletRequest request, @RequestParam(value = "id") final int id) {
@@ -330,19 +312,49 @@ public class CompetitionController {
 		session.setAttribute("user", user);
 		return "addBattles";
 	}
+	
+	@RequestMapping(value = "/competitions/closeParticipate", method = RequestMethod.GET)
+	public String closeParticipate(Model model, @RequestParam(value = "id") final int id, HttpServletRequest request) {
+
+
+
+		/*if (user == null) {
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant de clôturer la compétition");
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
+		} else {
+
+			
+		}*/
+		return null;
+	}
 
 	@RequestMapping(value = "/competition/toAddBattles", method = RequestMethod.POST)
 	public String addBattles(@ModelAttribute("addBattles") AddBattles addBattles, Model model,
-			HttpServletRequest request) {
-
-		List<Robot> robots = this.robotService.findRobotByIdCompetition(addBattles.getIdCompetition());
-		this.competitionService.createBattles(addBattles.getIdCompetition(), addBattles.getNbMatch(),
-				addBattles.getDatesBattles(), addBattles.getNbEquipes(), robots);
-		System.out.println(addBattles.getNbEquipes());
-		System.out.println(addBattles.getDatesBattles());
-		System.out.println(addBattles.getNbMatch());
-		System.out.println(addBattles.getIdCompetition());
-		return this.Index(model, request);
+			HttpServletRequest request, HttpServletResponse reponse ) throws IOException {
+		
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant de clôturer la compétition");
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+		return "connexion";
+		} else {
+			List<Robot> robots = this.robotService.findRobotByIdCompetition(addBattles.getIdCompetition());
+			this.competitionService.createBattles(addBattles.getIdCompetition(), addBattles.getNbMatch(),
+					addBattles.getDatesBattles(), addBattles.getNbEquipes(), robots);
+			this.competitionService.closeParticipate(this.competitionService.findById(addBattles.getIdCompetition()));
+			request.setAttribute("result", true);
+			model.addAttribute("message",
+					"La clôturer des inscriptions et création des Match de votre compétition ont bien été prises en compte");
+			session.setAttribute("user", user);		
+			//reponse.sendRedirect("../competitions/card?id="+addBattles.getIdCompetition());
+			return this.cardCompetition(model, addBattles.getIdCompetition(), request);
+		}
 	}
 
 	@RequestMapping(value = "/competitions/closeVote", method = RequestMethod.GET)
@@ -438,6 +450,16 @@ public class CompetitionController {
 		User user = (User) session.getAttribute("user");
 		session.setAttribute("user", user);
 		this.competitionService.winnerBattle(this.competitionService.getBattleById(idBattle), id);
+		
+	}
+	
+	@RequestMapping(value = "/competition/winCompetition", method = RequestMethod.GET)
+	public void winnerCompetition(Model model, HttpServletRequest request, @RequestParam(value = "id") final int id,
+			@RequestParam(value = "idCompetition") final int idCompetition) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		session.setAttribute("user", user);
+		this.competitionService.winnerCompetition(this.competitionService.findById(idCompetition), id);
 		
 	}
 }

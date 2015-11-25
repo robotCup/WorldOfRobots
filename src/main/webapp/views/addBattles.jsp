@@ -23,7 +23,7 @@
 	<div class="col-md-10">
 		<h1>Administration des combats de " ${competition.name} "</h1>
 
-		<form:form method="post" action="toAddBattles" commandName="addBattles" id="addBattles" onSubmit="return confirmSubmit();">
+		<form:form method="post" commandName="addBattles" id="addBattles" onSubmit="return confirmSubmit();">
 			<input type="hidden" value="<%=robotmax%>" id="robotMax" />
 			<input type="hidden" value="${nbParticipant}" id="nbParticipant" />
 			
@@ -92,8 +92,7 @@
 				%>
 			</div>
 
-			<input type="submit" id="valid_battles" class="btn btn-primary" value="Valider" disabled/>
-
+			<input type="submit" id="valid_battles" class="btn btn-primary" value="Valider et cloturer les inscriptions" disabled/>
 		</form:form>
 	</div>
 </div>

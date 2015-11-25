@@ -342,7 +342,6 @@ public class CompetitionDAO {
 	public void winnerBattle(Battle battle, int id) {
 		// TODO Auto-generated method stub
 		Session session = sessionFactory.getCurrentSession();
-		System.out.println("test" + id);
 		battle.setId_winner(id);
 		session.update(battle);
 	}	
@@ -352,6 +351,14 @@ public class CompetitionDAO {
 				.setParameter("id", id)
 				.uniqueResult();
 		return battle;
+	}
+
+	public void winnerCompetition(Competition competition, int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("test" + id);
+		competition.setId_winner(id);
+		session.update(competition);
 	}
 }	
 

@@ -26,7 +26,7 @@ public class Competition {
 	private int id;
 	private String name, description, address, geolocation;
 	private Timestamp start_date, end_date;
-	private int robot_max, id_user, duration;
+	private int robot_max, id_user, duration, id_winner;
 	private boolean close_participate, close_vote;
 
 	@Transient
@@ -111,5 +111,11 @@ public class Competition {
 	}
 	public void setDuration(int duration) {
 		this.duration = duration;
+	}
+	public int getId_winner() {
+		return id_winner;
+	}
+	public void setId_winner(int id_winner) {
+		this.id_winner = id_winner;
 	}
 }

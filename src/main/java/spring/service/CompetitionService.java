@@ -127,4 +127,9 @@ public class CompetitionService {
 		// TODO Auto-generated method stub
 		return this.competitionDAO.getBattleById(id);
 	}
+	@Transactional
+	public void winnerCompetition(Competition competition, int id) {
+		// TODO Auto-generated method stub
+		 this.competitionDAO.winnerCompetition(competition, id);
+	}
 }

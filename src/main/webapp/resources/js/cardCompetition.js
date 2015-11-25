@@ -104,5 +104,30 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	$('#link_winCompetition').on('click', function(){
+		$.confirm({
+			title: 'Vainqueur de la compétition',
+			content: 'Voulez-vous confirmer le vainqueur de cette compétition ?',
+			confirmButtonClass: 'btn-success',
+			cancelButtonClass: 'btn-danger',
+			confirmButton: 'Confirmer',
+			cancelButton: 'Annuler',
+			animationBounce: 1.5,
+			animationSpeed: 1500,
+			confirm: function(){
+				$.ajax({
+					url: $('#url_winCompetition').val()+$('#robot_winnerCompetition').val(),
+					type: "GET",		             
+					success: function () {
+						window.location.reload();												
+					},
+					error : function(){
+						window.location.reload();						
+					}
+				});
+			}
+		});
+	});
 });
 
