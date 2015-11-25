@@ -94,6 +94,7 @@ public class CompetitionController {
 	public String CompetitionsPast(Model model, HttpServletRequest request) {
 
 		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 		List<Competition> competitions = competitionService.findAllPast();
 
 		// liste de dates au format francais
@@ -125,13 +126,14 @@ public class CompetitionController {
 		model.addAttribute("fighters", nb_fighters);
 		model.addAttribute("title", "Compétitions terminées");
 		model.addAttribute("competitions", competitions);
+		session.setAttribute("user", user);
 		return "pastCompetitions";
 	}
 
 	@RequestMapping(value = "/competitions/myCompetitions", method = RequestMethod.GET)
 	public String myCompetitions(Model model, HttpServletRequest request) {
-
-		User user = (User) request.getSession().getAttribute("user");
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 
 		if (user == null) {
 			model.addAttribute("connexion", new Connexion());
@@ -162,6 +164,7 @@ public class CompetitionController {
 		model.addAttribute("dates_end", french_dates_end);
 		model.addAttribute("title", "Mes compétitions");
 		model.addAttribute("competitions", competitions);
+		session.setAttribute("user",user);
 		return "competitions";
 	}
 
@@ -209,16 +212,15 @@ public class CompetitionController {
 							cardCompetition.getDate_start_1(), cardCompetition.getDate_start_2(),
 							cardCompetition.getDate_start_3(), cardCompetition.getDate_start_4());
 				}
-				session.setAttribute("user", user);
 				request.setAttribute("result", true);
 				model.addAttribute("message", "L'ajout de votre compétition a bien été enregistrée");
-				return this.prepareToAdd(model, request);
 			} catch (Exception e) {
-				session.setAttribute("user", user);
+				
 				request.setAttribute("result", false);
 				model.addAttribute("message", "L'ajout de votre compétition a échoué");
-				return this.prepareToAdd(model, request);
 			}
+			session.setAttribute("user", user);
+			return this.prepareToAdd(model, request);
 		}
 	}
 
@@ -263,7 +265,6 @@ public class CompetitionController {
 		request.setAttribute("boolean_inscription", competition.getClose_participate());
 		session.setAttribute("user", user);
 		model.addAttribute("competition", competition);
-
 		return "competition";
 	}
 
@@ -283,6 +284,7 @@ public class CompetitionController {
 			return "connexion";
 		} else {
 			this.competitionService.toParticipate(user.getId_robot(), competition.getId());
+			session.setAttribute("user", user);
 			return "competition";
 		}
 	}
@@ -305,6 +307,7 @@ public class CompetitionController {
 			request.setAttribute("result", true);
 			model.addAttribute("message",
 					"La clôturer des inscriptions de votre compétition a bien été prise en compte");
+			session.setAttribute("user", user);
 			return this.cardCompetition(model, id, request);
 		}
 	}
@@ -324,7 +327,6 @@ public class CompetitionController {
 				.findRobotCompetitionById(competition.getId());
 		request.setAttribute("nbBattles", robotCompetitions.size() / 2);
 		model.addAttribute("nbParticipant", robotCompetitions.size());
-
 		session.setAttribute("user", user);
 		return "addBattles";
 	}
@@ -357,7 +359,7 @@ public class CompetitionController {
 			return "connexion";
 		} else {
 			Competition competition = this.competitionService.findById(id);
-
+			session.setAttribute("user", user);
 			if (competition == null) {
 				request.setAttribute("result", false);
 				model.addAttribute("message", "Le compétition séléctionner n'est pas reconnue");
@@ -396,6 +398,7 @@ public class CompetitionController {
 			model.addAttribute("voteCompetiton", voteCompetiton);
 			model.addAttribute("french_date", french_date);
 			model.addAttribute("dates", dates);
+			session.setAttribute("user", user);
 			return "voteCompetition";
 		}
 	}
@@ -431,6 +434,10 @@ public class CompetitionController {
 	@RequestMapping(value = "/competition/win", method = RequestMethod.GET)
 	public void winnerBattle(Model model, HttpServletRequest request, @RequestParam(value = "id") final int id,
 			@RequestParam(value = "idBattle") final int idBattle) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		session.setAttribute("user", user);
 		this.competitionService.winnerBattle(this.competitionService.getBattleById(idBattle), id);
+		
 	}
 }
