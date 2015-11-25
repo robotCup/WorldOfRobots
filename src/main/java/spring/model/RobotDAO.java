@@ -109,4 +109,13 @@ public class RobotDAO {
 		List technologies = session.createQuery("from Technology").list();
 		return technologies;
 	}
+
+	public List<Robot> findRobotByIdCompetition(int idCompetition) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		List robots = session.createQuery("Select r from Robot r, RobotCompetition rc where r.id= rc.id_robot And rc.id_competition= :id")
+				.setParameter("id", idCompetition)
+				.list();
+		return robots;
+	}
 }

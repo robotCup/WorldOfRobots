@@ -14,6 +14,7 @@ import spring.model.Competition;
 import spring.model.CompetitionDAO;
 import spring.model.RobotCompetition;
 import spring.model.CompetitionDate;
+import spring.model.Robot;
 import spring.model.UserCompetitionDate;
 
 
@@ -76,9 +77,9 @@ public class CompetitionService {
 
 
 	@Transactional
-	public void createBattles(int idCompetition, int nbMatch, List<String> datesBattles, List<Integer> nbEquipes) {
+	public void createBattles(int idCompetition, int nbMatch, List<String> datesBattles, List<Integer> nbEquipes, List<Robot> robots) {
 		// TODO Auto-generated method stub
-		this.competitionDAO.createBattles(idCompetition, nbMatch, datesBattles, nbEquipes);
+		this.competitionDAO.createBattles(idCompetition, nbMatch, datesBattles, nbEquipes,robots);
 	}
 	@Transactional
 	public List<RobotCompetition> findRobotCompetitionById(int id) {

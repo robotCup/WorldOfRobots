@@ -83,7 +83,7 @@
 							<td>Nombre d'équipes maximum :</td>
 							<td><input type="hidden" class="index" value="<%=i%>">
 								<form:input type="number" class="nbEquipes" path='nbEquipes'
-									min="2" max="" value="0" /></td>
+									min="0" max="0" value="0" /></td>
 						</tr>
 						
 						</fieldset>

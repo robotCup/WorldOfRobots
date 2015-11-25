@@ -39,5 +39,10 @@ public class RobotService {
 		return this.robotDAO.createRobot(technologies, strong_point, name, creation_date, image);
 		
 	}
+	@Transactional
+	public List<Robot> findRobotByIdCompetition(int idCompetition) {
+		// TODO Auto-generated method stub
+		return  this.robotDAO.findRobotByIdCompetition(idCompetition);
+	}
 
 }
