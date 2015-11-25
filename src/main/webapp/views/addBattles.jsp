@@ -23,9 +23,7 @@
 	<div class="col-md-10">
 		<h1>Administration des combats de " ${competition.name} "</h1>
 
-		<form:form method="post" action="toAddBattles"
-			commandName="addBattles" id="addBattle"
-			onSubmit="return confirmSubmit();">
+		<form:form method="post" action="toAddBattles" commandName="addBattles" id="addBattles" onSubmit="return confirmSubmit();">
 			<input type="hidden" value="<%=robotmax%>" id="robotMax" />
 			<input type="hidden" value="${nbParticipant}" id="nbParticipant" />
 			
@@ -71,7 +69,7 @@
 							<td>
 								<div class='input-group date datetimepicker'>
 									<form:input type='text' class="form-control"
-										path="datesBattles" id="creation_date" />
+										path="datesBattles" />
 									<span class="input-group-addon"> <span
 										class="glyphicon glyphicon-calendar"></span>
 									</span>
@@ -88,7 +86,6 @@
 						
 						</fieldset>
 					</table>
-
 				</div>
 				<%
 					}

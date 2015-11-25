@@ -116,9 +116,9 @@ li.last {
 }
 
 /* ------------------------- add battle */
-#addBattle{
+#addBattles{
 	width : 55%;
 }
-#addBattle > td > select {
+#addBattles > td > select {
 	width : 100%;
 }
