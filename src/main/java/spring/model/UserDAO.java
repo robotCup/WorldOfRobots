@@ -117,5 +117,13 @@ public class UserDAO {
 		message.setDate(new Timestamp(date.getTime()));
 		message.setMessage(content_message);
 		session.persist(message);		
+	}
+
+	public void deleteNews(int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.createQuery("delete Message m where m.id = :id")
+		.setParameter("id", id)
+		.executeUpdate();
 	}	
 }

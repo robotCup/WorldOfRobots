@@ -29,4 +29,33 @@ $(document).ready(function() {
 		               { "width": "20%", "targets": 0 }
 		               ]
 	});
+	
+
+	$('.delete_msg').on('click', function(){
+		alert($(this).parent().find('.url_delete_msg').val());
+		$.confirm({
+			title: 'Supprimer Message',
+			content: 'Etes-vous sûr de vouloir supprimer ce message ?',
+			confirmButtonClass: 'btn-success',
+			cancelButtonClass: 'btn-danger',
+			confirmButton: 'Oui',
+			cancelButton: 'Annuler',
+			animationBounce: 1.5,
+			animationSpeed: 1500,
+			confirm: function(){
+				$.ajax({
+					url: $(this).parent().find('.url_delete_msg').val(),
+					type: "GET",		             
+					success: function () {
+						alert("oui");
+						window.location.reload();												
+					},
+					error : function(){
+						alert("oui");
+						window.location.reload();						
+					}
+				});
+			}
+		});
+	});
 });

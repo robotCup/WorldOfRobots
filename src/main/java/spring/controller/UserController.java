@@ -219,4 +219,15 @@ public class UserController {
 			return this.prepareConnexion(model);
 		}
 	}
+	
+	@RequestMapping(value="/deleteMsg", method=RequestMethod.GET)
+	public void deleteNews(Model model, HttpServletRequest request,@RequestParam(value = "id") final int id) {
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+
+		session.setAttribute("user", user);
+			this.utilisateurService.deleteNews(id);
+			
+		
+	}
 }

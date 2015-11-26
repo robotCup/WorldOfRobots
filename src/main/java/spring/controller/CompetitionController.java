@@ -2,6 +2,7 @@ package spring.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +33,9 @@ import spring.model.Robot;
 import spring.model.RobotCompetition;
 import spring.model.User;
 import spring.model.UserCompetitionDate;
+import spring.service.CheckUpdatePassword;
 import spring.service.CompetitionService;
+import spring.service.DeleteCompetition;
 import spring.service.RobotService;
 import spring.service.UserService;
 
@@ -201,24 +205,32 @@ public class CompetitionController {
 		} else {
 			try {
 				if (cardCompetition.getDate_start() != "") {
-					this.competitionService.createCompetition(user.getId(), user.getId_robot(),
+					Competition competition =this.competitionService.createCompetition(user.getId(), user.getId_robot(),
 							cardCompetition.getName(), cardCompetition.getDescription(),
 							cardCompetition.getDate_start(), cardCompetition.getRobot_max(),
 							cardCompetition.getAddress(), cardCompetition.getGeolocation(),
 							cardCompetition.getDuration(), "", "", "", "");
+					Timer timer = new Timer();
+					timer.schedule(new DeleteCompetition(competition.getId(),this.competitionService, this.userService), new Date(competition.getStart_date().getTime() ));
+					System.out.println(new Date(competition.getStart_date().getTime() ));
 				} else if (cardCompetition.getDate_start_1() != "" && (cardCompetition.getDate_start_2() != ""
 						|| cardCompetition.getDate_start_3() != "" || cardCompetition.getDate_start_4() != "")) {
-					this.competitionService.createCompetition(user.getId(), user.getId_robot(),
+					Competition competition=this.competitionService.createCompetition(user.getId(), user.getId_robot(),
 							cardCompetition.getName(), cardCompetition.getDescription(), "",
 							cardCompetition.getRobot_max(), cardCompetition.getAddress(),
 							cardCompetition.getGeolocation(), cardCompetition.getDuration(),
 							cardCompetition.getDate_start_1(), cardCompetition.getDate_start_2(),
 							cardCompetition.getDate_start_3(), cardCompetition.getDate_start_4());
+				//timer
+					Timestamp date = this.competitionService.findMinCompetitionDateByIdCompetition(competition.getId());
+					Timer timer = new Timer();
+					timer.schedule(new DeleteCompetition(competition.getId(),this.competitionService, this.userService), new Date(date.getTime()));
+					System.out.println(new Date(date.getTime()));
 				}
 				request.setAttribute("result", true);
 				model.addAttribute("message", "L'ajout de votre compétition a bien été enregistrée");
 			} catch (Exception e) {
-				
+				System.out.println(e);
 				request.setAttribute("result", false);
 				model.addAttribute("message", "L'ajout de votre compétition a échoué");
 			}

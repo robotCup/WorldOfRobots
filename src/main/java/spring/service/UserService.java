@@ -77,4 +77,9 @@ public class UserService {
 		// TODO Auto-generated method stub
 		this.userDAO.createMessage(id, message);
 	}
+	@Transactional
+	public void deleteNews(int id) {
+		// TODO Auto-generated method stub
+		this.userDAO.deleteNews(id);
+	}
 }

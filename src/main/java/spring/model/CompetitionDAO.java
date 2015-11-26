@@ -89,7 +89,7 @@ public class CompetitionDAO {
 		return competition;
 	}
 
-	public void createCompetition(int id_user, int id_robot, String name, String desc, String start_date, int robot_max, String address, String geolocation, int duration, String start_date_1, String start_date_2, String start_date_3, String start_date_4) 
+	public Competition createCompetition(int id_user, int id_robot, String name, String desc, String start_date, int robot_max, String address, String geolocation, int duration, String start_date_1, String start_date_2, String start_date_3, String start_date_4) 
 			throws MySQLIntegrityConstraintViolationException,ConstraintViolationException{
 
 		Session session = sessionFactory.getCurrentSession();
@@ -111,6 +111,7 @@ public class CompetitionDAO {
 		robot_competition.setId_robot(id_robot);
 		
 		session.persist(robot_competition);
+		
 
 		try {
 			DateFormat formatter;
@@ -142,6 +143,8 @@ public class CompetitionDAO {
 
 				//date 2
 				if(start_date_2 != ""){
+					competition_date =new CompetitionDate();
+					competition_date.setId_competition(competition.getId());
 					date_s = (Date) formatter.parse(start_date_2);
 					format_start_date = new Timestamp(date_s.getTime());
 					competition_date.setDate(format_start_date);
@@ -152,6 +155,8 @@ public class CompetitionDAO {
 
 				//date 3
 				if(start_date_3 != ""){
+					competition_date =new CompetitionDate();
+					competition_date.setId_competition(competition.getId());
 					date_s = (Date) formatter.parse(start_date_3);
 					format_start_date = new Timestamp(date_s.getTime());
 					competition_date.setDate(format_start_date);
@@ -162,6 +167,8 @@ public class CompetitionDAO {
 
 				//date 4
 				if(start_date_4 != ""){
+					competition_date =new CompetitionDate();
+					competition_date.setId_competition(competition.getId());
 					date_s = (Date) formatter.parse(start_date_4);
 					format_start_date = new Timestamp(date_s.getTime());
 					competition_date.setDate(format_start_date);
@@ -173,7 +180,8 @@ public class CompetitionDAO {
 		} 
 		catch (ParseException e) {
 			System.out.println("Exception :" + e);
-		}		
+		}	
+		return competition;
 	}
 
 	public long getNbFighters(int id_competition) {
@@ -375,6 +383,28 @@ public class CompetitionDAO {
 					.uniqueResult());
 		}
 		return users;
+	}
+
+	public void deleteCompetition(Competition competition) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		session.createQuery("delete RobotCompetition rb where rb.id_competition = :id")
+		.setParameter("id", competition.getId())
+		.executeUpdate();
+		session.createQuery("delete CompetitionDate cd where cd.id_competition = :id")
+		.setParameter("id", competition.getId())
+		.executeUpdate();
+		session.delete(competition);
+	}
+
+	public Timestamp findMinCompetitionDateByIdCompetition(int id) {
+		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Timestamp date=(Timestamp) session.createQuery("select MIN(cd.date) from CompetitionDate cd where cd.id_competition = :id order by cd.id")
+		.setParameter("id", id)
+		.uniqueResult();
+		return date;
+		
 	}
 }	
 
