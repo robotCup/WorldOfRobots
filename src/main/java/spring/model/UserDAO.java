@@ -93,6 +93,7 @@ public class UserDAO {
 		user.setId(id);
 		user.setLogin(login);
 		user.setPwd(pwd);
+		user.setLast_date_pwd(new Date());
 		session.update(user);
 		return user;
 	}

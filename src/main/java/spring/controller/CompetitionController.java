@@ -398,7 +398,7 @@ public class CompetitionController {
 				this.userService.createMessage(user_compet.getId(), message);
 			}
 
-			return this.cardCompetition(model, addBattles.getIdCompetition(), request);
+			return this.myCompetitions(model, request);
 		}
 
 	}
