@@ -3,6 +3,7 @@ package spring.controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -205,6 +206,15 @@ public class CompetitionController {
 		} else {
 			try {
 				if (cardCompetition.getDate_start() != "") {
+					
+					DateFormat formatter;
+					formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+					Date date_s = (Date) formatter.parse(cardCompetition.getDate_start());
+					Date dateNow = new Date();
+					if (date_s.before(dateNow) || date_s.compareTo(dateNow)==0){
+						throw new Exception ("Date incorrect, veuillez saisir une date supérieure à celle d'aujourd'hui");
+					}
+
 					Competition competition =this.competitionService.createCompetition(user.getId(), user.getId_robot(),
 							cardCompetition.getName(), cardCompetition.getDescription(),
 							cardCompetition.getDate_start(), cardCompetition.getRobot_max(),
@@ -215,7 +225,19 @@ public class CompetitionController {
 					System.out.println(new Date(competition.getStart_date().getTime() ));
 				} else if (cardCompetition.getDate_start_1() != "" && (cardCompetition.getDate_start_2() != ""
 						|| cardCompetition.getDate_start_3() != "" || cardCompetition.getDate_start_4() != "")) {
-					Competition competition=this.competitionService.createCompetition(user.getId(), user.getId_robot(),
+					
+							DateFormat formatter;
+							formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+							Date date_1 = (Date) formatter.parse(cardCompetition.getDate_start_1());
+							Date date_2 = (Date) formatter.parse(cardCompetition.getDate_start_2());
+							Date date_3 = (Date) formatter.parse(cardCompetition.getDate_start_3());
+							Date date_4 = (Date) formatter.parse(cardCompetition.getDate_start_4());
+	
+							Date dateNow = new Date();
+							if (date_1.before(dateNow) || date_1.compareTo(dateNow)==0 || date_2.before(dateNow) || date_2.compareTo(dateNow)==0 || date_3.before(dateNow) || date_3.compareTo(dateNow)==0 || date_4.before(dateNow) || date_4.compareTo(dateNow)==0){
+								throw new Exception ("Date incorrect, veuillez saisir une date supérieure à celle d'aujourd'hui");
+							}
+							Competition competition=this.competitionService.createCompetition(user.getId(), user.getId_robot(),
 							cardCompetition.getName(), cardCompetition.getDescription(), "",
 							cardCompetition.getRobot_max(), cardCompetition.getAddress(),
 							cardCompetition.getGeolocation(), cardCompetition.getDuration(),
@@ -232,7 +254,12 @@ public class CompetitionController {
 			} catch (Exception e) {
 				System.out.println(e);
 				request.setAttribute("result", false);
+				if (e.getMessage().equals("Date incorrect, veuillez saisir une date supérieure à celle d'aujourd'hui")){
+					model.addAttribute("message", "Date incorrecte, veuillez saisir une date supérieure à celle d'aujourd'hui");
+				}
+				else {
 				model.addAttribute("message", "L'ajout de votre compétition a échoué");
+				}
 			}
 			session.setAttribute("user", user);
 			return this.prepareToAdd(model, request);
