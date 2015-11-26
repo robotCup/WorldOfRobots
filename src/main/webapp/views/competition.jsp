@@ -1,6 +1,6 @@
 <%@ include file="/resources/layout/top.jsp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- diagramme pour le classement -->
 <link
 	href="<%=request.getContextPath()%>/resources/lib/chart/jquery.orgchart.css"
@@ -20,11 +20,15 @@
 
 <div class="row">
 	<h1>Fiche de la compétition " ${competition.name} "</h1>
+	<c:if test="${fn:length(competition.battles) >1}">
+		
 	<div class="col-md-8">
+	
 		<div id="chart">
 			<ul id="basic-chart-source" class="hide">
 				<li>${users[competition.id_winner]}
 					<ul>
+					
 						<c:forEach var="a" items="${competition.battles}" varStatus="loop">
 
 							<li>${users[a.id_winner]}
@@ -41,6 +45,7 @@
 			</ul>
 		</div>
 	</div>
+					</c:if>
 	<div class="col-md-8">
 		<table>
 		<fieldset>
@@ -170,7 +175,7 @@
 						} else if ((Boolean) request.getAttribute("boolean_inscription") != null
 								&& (Integer) request.getAttribute("id_user_competition") == ((User) session.getAttribute("user"))
 										.getId()
-								&& (Boolean) request.getAttribute("boolean_inscription") == false) {
+								&& (Boolean) request.getAttribute("boolean_inscription") == true) {
 					%> <a class="btn btn-warning-outline"
 					href="<%=request.getContextPath()%>/competition/toAddBattles?id=${competition.id}">Administration des combats
 						Battle</a> <%

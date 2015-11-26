@@ -87,14 +87,13 @@ public class UserDAO {
 		return user;
 	}
 
-	public User updateUser(int id, String login, String pwd, String email) {
+	public User updateUser(int id, String login, String pwd, String email, User user) {
 		Session session = sessionFactory.getCurrentSession();
-		User user = new User();
 		user.setEmail(email);
 		user.setId(id);
 		user.setLogin(login);
 		user.setPwd(pwd);
-		user.setLeader(true);
+		user.setLast_date_pwd(new Date());
 		session.update(user);
 		return user;
 	}

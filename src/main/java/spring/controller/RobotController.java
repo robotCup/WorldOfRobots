@@ -46,12 +46,12 @@ public class RobotController {
 
 		for(Robot robot : robots){
 			//images
-			File image = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
+			File image = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
 
 			if(image.exists() && !image.isDirectory()){
 				list_images.add(robot.getPath_picture());
 			}
-			//date crÃ©ation
+			//date création
 			french_dates.put(robot.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(robot.getCreation_date()));
 		}
 		if(list_images.isEmpty()){
@@ -98,7 +98,7 @@ public class RobotController {
 					String name_file = addRobot.getName()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 					name_file = name_file.replace(' ', '_');
 
-					File server_file = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+name_file);
+					File server_file = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/robots/"+name_file);
 
 					BufferedOutputStream stream = new BufferedOutputStream(
 							new FileOutputStream(server_file));
@@ -128,7 +128,7 @@ public class RobotController {
 
 					request.setAttribute("result", true);
 					model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
-					session.setAttribute("user", user);
+					
 				}
 				else{
 					request.setAttribute("result", false);
@@ -136,7 +136,9 @@ public class RobotController {
 				}
 
 			}
-			return "robot";
+			user = this.userService.findById(user.getId());
+			session.setAttribute("user", user);
+			return this.cardRobot(model, user.getId_robot(), request);
 		}
 		else {
 			request.setAttribute("result", false);
@@ -187,7 +189,7 @@ public class RobotController {
 			}
 		}
 
-		File image = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
+		File image = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
 		String name_file = "";
 
 		if(image.exists() && !image.isDirectory()){

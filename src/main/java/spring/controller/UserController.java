@@ -57,12 +57,12 @@ public class UserController {
 
 
 	@RequestMapping(value="/toConnect", method = RequestMethod.POST)
-	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page aprï¿½s la connexion
+	public String toConnect(@ModelAttribute ("connexion") Connexion connexion, Model model,HttpServletRequest request) {//page aprÃ©s la connexion
 
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
 		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
 			request.setAttribute("result", false);
-			model.addAttribute("message", "La connexion a échoué");
+			model.addAttribute("message", "La connexion a Ã©chouÃ©");
 			return this.prepareConnexion(model);
 		}
 		else{
@@ -84,16 +84,17 @@ public class UserController {
 		try{
 			if(captcha.getValue().equals(register.getCaptcha())){
 				if(register.getPwd().equals(register.getPwd_confirm())){
+					request.setCharacterEncoding("UTF-8");
 					User user =this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
 					model.addAttribute("result", true);
-					model.addAttribute("message", "L'inscription a bien été enregistrée");
+					model.addAttribute("message", "L'inscription a bien Ã©tÃ© enregistrÃ©e");
 					Timer timer = new Timer();
-					//request.setCharacterEncoding("UTF-8");
+					
 					timer.schedule(new CheckUpdatePassword(user.getId(),this.utilisateurService), 60000 );
 				}
 				else {
 					request.setAttribute("result", false);
-					model.addAttribute("message", "L'inscription a échoué : Veuillez saisir deux fois le même mot de passe");
+					model.addAttribute("message", "L'inscription a Ã©chouÃ© : Veuillez saisir deux fois le mÃªme mot de passe");
 				}
 			}
 			else {
@@ -104,7 +105,7 @@ public class UserController {
 		catch(Exception e){
 			System.out.println(e);
 			request.setAttribute("result", false);
-			model.addAttribute("message", "L'inscription a échoué");
+			model.addAttribute("message", "L'inscription a Ã©chouÃ©");
 		}
 		return this.prepareConnexion(model);
 	}
@@ -157,7 +158,7 @@ public class UserController {
 		}
 		else {
 			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant de modifier vos données personnelles");
+			model.addAttribute("message", "Veuillez vous connecter avant de modifier vos donnÃ©es personnelles");
 			return this.prepareConnexion(model);
 		}
 	}
@@ -165,8 +166,8 @@ public class UserController {
 	@RequestMapping(value="/modifyMySpace", method = RequestMethod.POST)
 	public String toModifyMySpace(@ModelAttribute ("update") UpdateUser update, Model model,HttpServletRequest request) {
 		HttpSession session =request.getSession();
-		User user = (User) session.getAttribute("user");
-		if (user ==null){
+		User userSession = (User) session.getAttribute("user");
+		if (userSession ==null){
 			return this.prepareConnexion(model);
 		}
 		else {
@@ -178,25 +179,28 @@ public class UserController {
 					}
 					else {
 						Timer timer = new Timer();
-						//request.setCharacterEncoding("UTF-8");
+						request.setCharacterEncoding("UTF-8");
 						timer.schedule(new CheckUpdatePassword(update.getId(),this.utilisateurService), 60000 );
 					}
-					user =this.utilisateurService.updateUser(update.getId(),update.getLogin(),pwd,update.getEmail());
+					
+					User user=this.utilisateurService.findById(update.getId());
+					user =this.utilisateurService.updateUser(update.getId(),update.getLogin(),pwd,update.getEmail(),userSession);
 					request.setAttribute("result", true);
-					model.addAttribute("message", "La modification de vos données personelles a bien été enregistrée");
+					model.addAttribute("message", "La modification de vos donnÃ©es personelles a bien Ã©tÃ© enregistrÃ©e");
+					session.setAttribute("user", user);
 				}
 				else {
 					request.setAttribute("result", false);
-					model.addAttribute("message", "La prise en compte de vos modifications a échoué");
+					model.addAttribute("message", "La prise en compte de vos modifications a Ã©chouÃ©");
 				}
 			}
 			catch(Exception e){
 				System.out.println(e);
 				request.setAttribute("result", false);
-				model.addAttribute("message", "La prise en compte de vos modifications a échoué");
+				model.addAttribute("message", "La prise en compte de vos modifications a Ã©chouÃ©");
 			}
 		}
-		session.setAttribute("user", user);
+		
 		return this.monEspacePrepare(model, request);
 	}
 
