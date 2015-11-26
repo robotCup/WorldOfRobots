@@ -12,11 +12,11 @@ $(document).ready(function() {
 		rules : {
 			login : {
 				required : true,
-				regex : "^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{2,100}$"
+				regex : "^[a-zA-Z0-9]{2,100}$"
 			},
 			pwd : {
 				required : true,
-				regex : "^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{2,100}$"
+				regex : "^[a-zA-Z0-9]{2,100}$"
 			},
 		},
 		errorPlacement: function(error, element) {
@@ -30,17 +30,17 @@ $(document).ready(function() {
 			login : {
 				required : true,
 				minlength: 2,
-				regex : "^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{2,100}$"
+				regex : "^[a-zA-Z0-9]{2,100}$"
 			},
 			pwd : {
 				required : true,
 				minlength: 2,
-				regex : "^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{2,100}$"
+				regex : "^[a-zA-Z0-9]{2,100}$"
 			},
 			pwd_confirm : {
 				required : true,
 				minlength: 2,
-				regex : "^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._\s-]{2,100}$"
+				regex : "^[a-zA-Z0-9]{2,100}$"
 			},
 			email : {
 				email : true,
