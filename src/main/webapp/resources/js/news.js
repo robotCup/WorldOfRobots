@@ -31,6 +31,7 @@ $(document).ready(function() {
 	});	
 
 	$('.delete_msg').on('click', function(){
+		var url=$(this).parent().find('.url_delete_msg').val();
 		$.confirm({
 			title: 'Supprimer Message',
 			content: 'Etes-vous sûr de vouloir supprimer ce message ?',
@@ -41,14 +42,16 @@ $(document).ready(function() {
 			animationBounce: 1.5,
 			animationSpeed: 1500,
 			confirm: function(){
+				
 				$.ajax({
-					url: $(this).parent().find('.url_delete_msg').val(),
+					url: url,
 					type: "GET",		             
 					success: function () {
-						console.log($(this).parent().find('.url_delete_msg').val());											
+						alert("ok");
+						window.location="/worldofrobots/user/mySpace";										
 					},
 					error : function(){
-						//window.location.reload();						
+						window.location.reload();
 					}
 				});
 			}

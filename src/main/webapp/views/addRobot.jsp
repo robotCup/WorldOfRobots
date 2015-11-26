@@ -34,7 +34,7 @@
 
 						<tr>
 							<td><label>Photo principale : </label></td>
-							<td><form:input type="file" path="image" id="test" /></td>
+							<td><form:input type="file" path="image" id="test" accept="image/*"/></td>
 						</tr>
 						<tr>
 							<td><label>Points forts : </label></td>

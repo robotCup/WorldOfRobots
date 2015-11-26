@@ -238,7 +238,6 @@ public class UserController {
 	public void deleteNews(Model model, HttpServletRequest request,@RequestParam(value = "id") final int id) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		System.out.println("controller");
 		if (user != null){
 			session.setAttribute("user", user);
 			this.utilisateurService.deleteNews(id);	
