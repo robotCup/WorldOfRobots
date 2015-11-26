@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$("#org").jOrgChart();
+	 $("#basic-chart-source").orgChart({container: $("#chart")});
 
 	//confirmation de participation
 	$('#link_participe').on('click', function(){

@@ -88,6 +88,7 @@ public class UserController {
 					model.addAttribute("result", true);
 					model.addAttribute("message", "L'inscription a bien été enregistrée");
 					Timer timer = new Timer();
+					//request.setCharacterEncoding("UTF-8");
 					timer.schedule(new CheckUpdatePassword(user.getId(),this.utilisateurService), 60000 );
 				}
 				else {

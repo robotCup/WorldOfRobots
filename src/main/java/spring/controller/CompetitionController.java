@@ -281,11 +281,18 @@ public class CompetitionController {
 		for(Battle battle : competition.getBattles()){
 			french_date.put(battle.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(battle.getDate()));
 		}
+		Map<Integer, String> list_name_users = new HashMap<Integer, String>();
+		
+		List<User> users = this.userService.findAll();
+		for(User user_name : users){
+			list_name_users.put(user_name.getId(), user_name.getLogin());
+		}
 		
 		request.setAttribute("id_user_competition", competition.getId_user());
 		request.setAttribute("boolean_inscription", competition.getClose_participate());
 		session.setAttribute("user", user);
 		model.addAttribute("french_date", french_date);
+		model.addAttribute("users", list_name_users);
 		model.addAttribute("competition", competition);
 		model.addAttribute("robots", this.robotService.findRobotByIdCompetition(competition.getId()));
 		return "competition";
