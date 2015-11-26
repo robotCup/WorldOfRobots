@@ -28,11 +28,9 @@ $(document).ready(function() {
 		"columnDefs": [
 		               { "width": "20%", "targets": 0 }
 		               ]
-	});
-	
+	});	
 
 	$('.delete_msg').on('click', function(){
-		alert($(this).parent().find('.url_delete_msg').val());
 		$.confirm({
 			title: 'Supprimer Message',
 			content: 'Etes-vous sûr de vouloir supprimer ce message ?',
@@ -47,12 +45,10 @@ $(document).ready(function() {
 					url: $(this).parent().find('.url_delete_msg').val(),
 					type: "GET",		             
 					success: function () {
-						alert("oui");
-						window.location.reload();												
+						console.log($(this).parent().find('.url_delete_msg').val());											
 					},
 					error : function(){
-						alert("oui");
-						window.location.reload();						
+						//window.location.reload();						
 					}
 				});
 			}

@@ -17,9 +17,8 @@
 	src="<%=request.getContextPath()%>/resources/lib/confirm/jquery-confirm.min.js"></script>
 <!-- Tableau de robots -->
 <div class="row">
-	<h1>${title}</h1>
-	<br>
-	<br>
+	<h1>Mes messages</h1>
+	<br> <br>
 	<table id="tab_news" class="display" cellspacing="0" width="100%">
 		<thead>
 			<tr>
@@ -33,10 +32,11 @@
 				<tr>
 					<td>${french_dates[m.id]}</td>
 					<td>${m.message}</td>
-					<td> 
-					<button class="btn btn-warning-outline" class="delete_msg">Supprimer le message</button>
-					<input type="hidden" class="url_delete_msg" value="<%=request.getContextPath()%>/user/deleteMsg?id=${m.id}" />
-			</td>
+					<td>
+						<button class="btn btn-danger delete_msg">Supprimer</button>
+						<input type="hidden" class="url_delete_msg"
+						value="<%=request.getContextPath()%>/user/deleteMsg?id=${m.id}" />
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -80,6 +80,7 @@ public class UserService {
 	@Transactional
 	public void deleteNews(int id) {
 		// TODO Auto-generated method stub
+		System.out.println("service");
 		this.userDAO.deleteNews(id);
 	}
 }
