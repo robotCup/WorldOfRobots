@@ -67,7 +67,7 @@ public class RobotController {
 	@RequestMapping(value="/robots/add", method = RequestMethod.GET)
 	public String prepareAddRobot(Model model,HttpServletRequest request){
 		HttpSession session = request.getSession();
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		if (user!=null){
 		List<Technology> technologies = this.robotService.findAllTechnologies();
 		model.addAttribute("technologies", technologies);
@@ -87,7 +87,7 @@ public class RobotController {
 	public String toAddRobot(Model model,@ModelAttribute ("AddRobot") AddRobot addRobot, @RequestParam("image") MultipartFile file,HttpServletRequest request){
 
 		HttpSession session = request.getSession();
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		if (user!=null){
 		if (!addRobot.getImage().isEmpty()) {
 			byte[] bytes;
@@ -149,7 +149,7 @@ public class RobotController {
 	public String joinRobot(Model model,@RequestParam(value="id") final int id, HttpServletRequest request){
 		
 		HttpSession session = request.getSession();
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		if (user!=null){
 		this.robotService.joinRobot(id, user);
 		session.setAttribute("user", user);
@@ -169,7 +169,7 @@ public class RobotController {
 	@RequestMapping(value="/robots/card", method = RequestMethod.GET)
 	public String cardRobot(Model model,@RequestParam(value="id") final int id,HttpServletRequest request){
 		HttpSession session = request.getSession();
-		User user = (User) request.getSession().getAttribute("user");
+		User user = (User) session.getAttribute("user");
 		Robot robot = this.robotService.findById(id);
 		String list_technologies = "";
 		//liste de dates au format francais
