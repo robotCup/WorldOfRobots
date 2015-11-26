@@ -16,7 +16,7 @@
 
 <div class="row">
 	<div class="col-md-10">
-		<form:form method="post" action="toAdd" commandName="add">
+		<form:form method="post" action="toAdd" commandName="add" accept-charset="UTF-8">
 			<table class="first">
 				<tr>
 					<td><input type="radio" id="date_choice_unique"

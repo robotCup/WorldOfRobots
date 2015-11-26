@@ -46,7 +46,7 @@ public class RobotController {
 
 		for(Robot robot : robots){
 			//images
-			File image = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
+			File image = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
 
 			if(image.exists() && !image.isDirectory()){
 				list_images.add(robot.getPath_picture());
@@ -98,7 +98,7 @@ public class RobotController {
 					String name_file = addRobot.getName()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
 					name_file = name_file.replace(' ', '_');
 
-					File server_file = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+name_file);
+					File server_file = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/robots/"+name_file);
 
 					BufferedOutputStream stream = new BufferedOutputStream(
 							new FileOutputStream(server_file));
@@ -109,13 +109,13 @@ public class RobotController {
 					this.userService.createRobot(user.getId(), robot.getId());
 
 					request.setAttribute("result", true);
-					model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
+					model.addAttribute("message", "L'ajout de votre robot a bien Ã©tÃ© enregistrÃ©e");
 					model.addAttribute("robot",this.robotService.findById(robot.getId()));
 
 				} catch (IOException e) {
 					e.printStackTrace();
 					request.setAttribute("result", false);
-					model.addAttribute("message", "L'ajout de votre robot a échoué");
+					model.addAttribute("message", "L'ajout de votre robot a Ã©chouÃ©");
 				}
 			}
 			else{
@@ -127,16 +127,18 @@ public class RobotController {
 					model.addAttribute("robot" , this.robotService.findById(robot.getId()));
 
 					request.setAttribute("result", true);
-					model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
-					session.setAttribute("user", user);
+					model.addAttribute("message", "L'ajout de votre robot a bien Ã©tÃ© enregistrÃ©e");
+					
 				}
 				else{
 					request.setAttribute("result", false);
-					model.addAttribute("message", "L'ajout de votre robot a échoué");
+					model.addAttribute("message", "L'ajout de votre robot a Ã©chouÃ©");
 				}
 
 			}
-			return "robot";
+			user = this.userService.findById(user.getId());
+			session.setAttribute("user", user);
+			return this.cardRobot(model, user.getId_robot(), request);
 		}
 		else {
 			request.setAttribute("result", false);
@@ -155,13 +157,13 @@ public class RobotController {
 			this.robotService.joinRobot(id, user);
 			session.setAttribute("user", user);
 			request.setAttribute("result", true);
-			model.addAttribute("message", "Vous faites désormais partie d'une équipe");
+			model.addAttribute("message", "Vous faites dÃ©sormais partie d'une Ã©quipe");
 			session.setAttribute("user", user);
 			return this.cardRobot(model, id, request);
 		}
 		else {
 			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant de rejoindre une équipe");
+			model.addAttribute("message", "Veuillez vous connecter avant de rejoindre une Ã©quipe");
 			model.addAttribute("connexion", new Connexion());
 			model.addAttribute("register", new Register());
 			return "connexion";
@@ -187,7 +189,7 @@ public class RobotController {
 			}
 		}
 
-		File image = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
+		File image = new File("D:/Workspace/insta/jee/WorldOfRobots/src/main/webapp/resources/images/robots/"+robot.getPath_picture());
 		String name_file = "";
 
 		if(image.exists() && !image.isDirectory()){

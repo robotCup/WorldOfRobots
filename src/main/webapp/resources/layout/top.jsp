@@ -77,7 +77,7 @@
 					href="<%=request.getContextPath()%>/robots"><span>Robots</span></a>
 					<ul>
 
-						<% if (((User) session.getAttribute("user")).isLeader() != false) { %>
+						<% if (((User) session.getAttribute("user")).isLeader() == true) { %>
 						<li><a
 							href="<%=request.getContextPath()%>/robots/card?id=<%=((User)session.getAttribute("user")).getId_robot() %>">
 								<span>Mon robot</span>
