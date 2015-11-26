@@ -93,7 +93,7 @@ public class UserController {
 				}
 				else {
 					request.setAttribute("result", false);
-					model.addAttribute("message", "L'inscription a échoué : Veuillez saisir deux fois le mÃªme mot de passe");
+					model.addAttribute("message", "L'inscription a échoué : Veuillez saisir deux fois le même mot de passe");
 				}
 			}
 			else {

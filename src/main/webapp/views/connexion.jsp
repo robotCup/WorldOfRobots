@@ -25,7 +25,7 @@
 		</form:form>
 
 		<form:form method="post" action="toRegister" commandName="register"
-			id="register">
+			id="register" accept-charset="UTF-8">
 			<fieldset>
 				<legend>Inscription : </legend>
 				<table>
