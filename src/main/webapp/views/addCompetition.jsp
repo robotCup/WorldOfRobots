@@ -11,7 +11,8 @@
 <link
 	href="<%=request.getContextPath()%>/resources/lib/datetimepicker/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet" type="text/css">
-
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/resources/js/competition.js"></script>
 
 <div class="row">
 	<div class="col-md-10">
@@ -19,11 +20,11 @@
 			<table class="first">
 				<tr>
 					<td><input type="radio" id="date_choice_unique"
-						class="date_choice" name="date_choice" value="0" checked="true" />
+						class="date_choice" name="date_choice" value="0"/>
 						Une seule date de début de compétition</td>
 
 					<td><input type="radio" id="date_choice_multiple"
-						class="date_choice" name="date_choice" value="1" /> Plusieurs
+						class="date_choice" name="date_choice" value="1"/> Plusieurs
 						dates de début de compétition *</td>
 				</tr>
 				<table>
@@ -107,7 +108,7 @@
 				</tr>
 				<tr>
 					<td><label>Nombre maximum de participation(s) : </label></td>
-					<td><form:input type="number" min="1" name="robot_max"
+					<td><form:input type="number" min="2" name="robot_max"
 							path="robot_max" value="1" /></td>
 				</tr>
 				<tr>

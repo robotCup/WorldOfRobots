@@ -62,7 +62,7 @@ public class UserController {
 		User user = this.utilisateurService.findByLogin(connexion.getLogin(), connexion.getPwd());
 		if (user == null || (!(user.getLogin().equals(connexion.getLogin())) && !(user.getPwd().equals(connexion.getPwd())))){
 			request.setAttribute("result", false);
-			model.addAttribute("message", "La connexion a Ã©chouÃ©");
+			model.addAttribute("message", "La connexion a échoué");
 			return this.prepareConnexion(model);
 		}
 		else{
@@ -86,14 +86,14 @@ public class UserController {
 				if(register.getPwd().equals(register.getPwd_confirm())){
 					User user =this.utilisateurService.createUser(register.getLogin(),register.getPwd(),register.getEmail());
 					model.addAttribute("result", true);
-					model.addAttribute("message", "L'inscription a bien Ã©tÃ© enregistrÃ©e");
+					model.addAttribute("message", "L'inscription a bien été enregistrée");
 					Timer timer = new Timer();
 					//request.setCharacterEncoding("UTF-8");
 					timer.schedule(new CheckUpdatePassword(user.getId(),this.utilisateurService), 60000 );
 				}
 				else {
 					request.setAttribute("result", false);
-					model.addAttribute("message", "L'inscription a Ã©chouÃ© : Veuillez saisir deux fois le mÃªme mot de passe");
+					model.addAttribute("message", "L'inscription a échoué : Veuillez saisir deux fois le mÃªme mot de passe");
 				}
 			}
 			else {
@@ -104,7 +104,7 @@ public class UserController {
 		catch(Exception e){
 			System.out.println(e);
 			request.setAttribute("result", false);
-			model.addAttribute("message", "L'inscription a Ã©chouÃ©");
+			model.addAttribute("message", "L'inscription a échoué");
 		}
 		return this.prepareConnexion(model);
 	}
@@ -157,7 +157,7 @@ public class UserController {
 		}
 		else {
 			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant de modifier vos donnÃ©es personnelles");
+			model.addAttribute("message", "Veuillez vous connecter avant de modifier vos données personnelles");
 			return this.prepareConnexion(model);
 		}
 	}
@@ -183,17 +183,17 @@ public class UserController {
 					}
 					user =this.utilisateurService.updateUser(update.getId(),update.getLogin(),pwd,update.getEmail());
 					request.setAttribute("result", true);
-					model.addAttribute("message", "La modification de vos donnÃ©es personelles a bien Ã©tÃ© enregistrÃ©e");
+					model.addAttribute("message", "La modification de vos données personelles a bien été enregistrée");
 				}
 				else {
 					request.setAttribute("result", false);
-					model.addAttribute("message", "La prise en compte de vos modifications a Ã©chouÃ©");
+					model.addAttribute("message", "La prise en compte de vos modifications a échoué");
 				}
 			}
 			catch(Exception e){
 				System.out.println(e);
 				request.setAttribute("result", false);
-				model.addAttribute("message", "La prise en compte de vos modifications a Ã©chouÃ©");
+				model.addAttribute("message", "La prise en compte de vos modifications a échoué");
 			}
 		}
 		session.setAttribute("user", user);

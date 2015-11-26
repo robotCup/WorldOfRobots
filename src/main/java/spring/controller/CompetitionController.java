@@ -81,8 +81,8 @@ public class CompetitionController {
 
 		for (Competition competition : competitions) {
 			if (competition.getEnd_date() == null && competition.getStart_date() == null) {
-				french_dates_start.put(competition.getId(), "A d√©finir");
-				french_dates_end.put(competition.getId(), "A d√©finir");
+				french_dates_start.put(competition.getId(), "A dÈfinir");
+				french_dates_end.put(competition.getId(), "A dÈfinir");
 			} else {
 				french_dates_start.put(competition.getId(),
 						new SimpleDateFormat("dd/MM/yyyy HH:mm").format(competition.getStart_date()));
@@ -158,8 +158,8 @@ public class CompetitionController {
 
 		for (Competition competition : competitions) {
 			if (competition.getEnd_date() == null && competition.getStart_date() == null) {
-				french_dates_start.put(competition.getId(), "A d√©finir");
-				french_dates_end.put(competition.getId(), "A d√©finir");
+				french_dates_start.put(competition.getId(), "A dÈfinir");
+				french_dates_end.put(competition.getId(), "A dÈfinir");
 			} else {
 				french_dates_start.put(competition.getId(),
 						new SimpleDateFormat("dd/MM/yyyy HH:mm").format(competition.getStart_date()));
@@ -170,7 +170,7 @@ public class CompetitionController {
 
 		model.addAttribute("dates_start", french_dates_start);
 		model.addAttribute("dates_end", french_dates_end);
-		model.addAttribute("title", "Mes comp√©titions");
+		model.addAttribute("title", "Mes compÈtitions");
 		model.addAttribute("competitions", competitions);
 		session.setAttribute("user",user);
 		return "competitions";
@@ -199,7 +199,7 @@ public class CompetitionController {
 
 		if (user == null) {
 			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant d'ajouter une comp√©tition");
+			model.addAttribute("message", "Veuillez vous connecter avant d'ajouter une compÈtition");
 			model.addAttribute("connexion", new Connexion());
 			model.addAttribute("register", new Register());
 			return "connexion";
@@ -212,7 +212,7 @@ public class CompetitionController {
 					Date date_s = (Date) formatter.parse(cardCompetition.getDate_start());
 					Date dateNow = new Date();
 					if (date_s.before(dateNow) || date_s.compareTo(dateNow)==0){
-						throw new Exception ("Date incorrect, veuillez saisir une date sup√©rieure √† celle d'aujourd'hui");
+						throw new Exception ("Date incorrecte, veuillez saisir une date supÈrieure ‡ celle d'aujourd'hui");
 					}
 
 					Competition competition =this.competitionService.createCompetition(user.getId(), user.getId_robot(),
@@ -235,7 +235,7 @@ public class CompetitionController {
 	
 							Date dateNow = new Date();
 							if (date_1.before(dateNow) || date_1.compareTo(dateNow)==0 || date_2.before(dateNow) || date_2.compareTo(dateNow)==0 || date_3.before(dateNow) || date_3.compareTo(dateNow)==0 || date_4.before(dateNow) || date_4.compareTo(dateNow)==0){
-								throw new Exception ("Date incorrect, veuillez saisir une date sup√©rieure √† celle d'aujourd'hui");
+								throw new Exception ("Date incorrecte, veuillez saisir une date supÈrieure ‡ celle d'aujourd'hui");
 							}
 							Competition competition=this.competitionService.createCompetition(user.getId(), user.getId_robot(),
 							cardCompetition.getName(), cardCompetition.getDescription(), "",
@@ -250,15 +250,15 @@ public class CompetitionController {
 					System.out.println(new Date(date.getTime()));
 				}
 				request.setAttribute("result", true);
-				model.addAttribute("message", "L'ajout de votre comp√©tition a bien √©t√© enregistr√©e");
+				model.addAttribute("message", "L'ajout de votre comp√©tition a bien ÈtÈ enregistrÈe");
 			} catch (Exception e) {
 				System.out.println(e);
 				request.setAttribute("result", false);
-				if (e.getMessage().equals("Date incorrect, veuillez saisir une date sup√©rieure √† celle d'aujourd'hui")){
-					model.addAttribute("message", "Date incorrecte, veuillez saisir une date sup√©rieure √† celle d'aujourd'hui");
+				if (e.getMessage().equals("Date incorrect, veuillez saisir une date supÈrieure √† celle d'aujourd'hui")){
+					model.addAttribute("message", "Date incorrecte, veuillez saisir une date supÈrieure √† celle d'aujourd'hui");
 				}
 				else {
-				model.addAttribute("message", "L'ajout de votre comp√©tition a √©chou√©");
+				model.addAttribute("message", "L'ajout de votre compÈtition a ÈchouÈ");
 				}
 			}
 			session.setAttribute("user", user);
@@ -335,7 +335,7 @@ public class CompetitionController {
 
 		if (user == null) {
 			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant de participer √† une comp√©tition");
+			model.addAttribute("message", "Veuillez vous connecter avant de participer ‡ une compÈtition");
 			model.addAttribute("connexion", new Connexion());
 			model.addAttribute("register", new Register());
 			return "connexion";
@@ -374,7 +374,7 @@ public class CompetitionController {
 		User user = (User) session.getAttribute("user");
 		if (user == null) {
 			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant de cl√¥turer la comp√©tition");
+			model.addAttribute("message", "Veuillez vous connecter avant de clÙturer la compÈtition");
 			model.addAttribute("connexion", new Connexion());
 			model.addAttribute("register", new Register());
 		return "connexion";
@@ -385,7 +385,7 @@ public class CompetitionController {
 			this.competitionService.closeParticipate(this.competitionService.findById(addBattles.getIdCompetition()));
 			request.setAttribute("result", true);
 			model.addAttribute("message",
-					"La cl√¥turer des inscriptions et cr√©ation des Match de votre comp√©tition ont bien √©t√© prises en compte");
+					"La clÙture des inscriptions et la crÈation des combats de votre compÈtition ont bien ÈtÈ prises en compte");
 			session.setAttribute("user", user);		
 			List<User> users = this.competitionService.findUserByCompetition(addBattles.getIdCompetition());
 			Competition competition =  this.competitionService.findById(addBattles.getIdCompetition());
@@ -393,7 +393,7 @@ public class CompetitionController {
 			for(User user_compet : users){
 				message = "Les combats de la comp√©tition "+competition.getName()+ " ont √©t√© √©tabli.";
 				this.userService.createMessage(user_compet.getId(), message);
-				message = "Les inscriptions ont √©t√© clotur√©s pour la comp√©tition "+competition.getName();
+				message = "Les inscriptions ont ÈtÈ cloturÈes pour la compÈtition "+competition.getName();
 				this.userService.createMessage(user_compet.getId(), message);
 			}
 
@@ -410,7 +410,7 @@ public class CompetitionController {
 
 		if (user == null) {
 			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant de cl√¥turer la comp√©tition");
+			model.addAttribute("message", "Veuillez vous connecter avant de clÙturer la compÈtition");
 			model.addAttribute("connexion", new Connexion());
 			model.addAttribute("register", new Register());
 			return "connexion";
@@ -421,7 +421,7 @@ public class CompetitionController {
 			
 			if (competition == null) {
 				request.setAttribute("result", false);
-				model.addAttribute("message", "Le comp√©tition s√©l√©ctionner n'est pas reconnue");
+				model.addAttribute("message", "Le compÈtition sÈlÈctionner n'est pas reconnue");
 				return this.myCompetitions(model, request);
 			} 
 			
@@ -430,7 +430,7 @@ public class CompetitionController {
 				List<User> users = this.competitionService.findUserByCompetition(competition.getId());
 				
 				for(User user_compet : users){
-					String message = "Les votes ont √©t√© clotur√©s pour la comp√©tition "+competition.getName()+ "";
+					String message = "Les votes ont ÈtÈ cloturÈs pour la compÈtition "+competition.getName()+ "";
 					this.userService.createMessage(user_compet.getId(), message);
 				}
 				return this.cardCompetition(model, id, request);
@@ -477,7 +477,7 @@ public class CompetitionController {
 
 		if (user == null) {
 			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant d'ajouter une comp√©tition");
+			model.addAttribute("message", "Veuillez vous connecter avant d'ajouter une compÈtition");
 			model.addAttribute("connexion", new Connexion());
 			model.addAttribute("register", new Register());
 			return "connexion";
@@ -490,7 +490,7 @@ public class CompetitionController {
 			session.setAttribute("user", user);
 
 			request.setAttribute("result", true);
-			model.addAttribute("message", "Votre vote a bien √©t√© pris en compte");
+			model.addAttribute("message", "Votre vote a bien ÈtÈ pris en compte");
 
 			return "competitions";
 		}
