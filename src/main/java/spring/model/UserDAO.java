@@ -87,7 +87,7 @@ public class UserDAO {
 		return user;
 	}
 
-	public void updateUser(int id, String login, String pwd, String email) {
+	public User updateUser(int id, String login, String pwd, String email) {
 		Session session = sessionFactory.getCurrentSession();
 		User user = new User();
 		user.setEmail(email);
@@ -96,6 +96,7 @@ public class UserDAO {
 		user.setPwd(pwd);
 		user.setLeader(true);
 		session.update(user);
+		return user;
 	}
 
 	public void checkDatePassword(User user) {

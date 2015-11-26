@@ -65,12 +65,22 @@ public class RobotController {
 	}
 
 	@RequestMapping(value="/robots/add", method = RequestMethod.GET)
-	public String prepareAddRobot(Model model){
-
+	public String prepareAddRobot(Model model,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		User user = (User) request.getSession().getAttribute("user");
+		if (user!=null){
 		List<Technology> technologies = this.robotService.findAllTechnologies();
 		model.addAttribute("technologies", technologies);
 		model.addAttribute("AddRobot", new AddRobot());
 		return "addRobot";
+		}
+		else {
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant d'ajouter un robot");
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
+		}
 	}
 
 	@RequestMapping(value="/robots/add", method = RequestMethod.POST)
@@ -78,7 +88,7 @@ public class RobotController {
 
 		HttpSession session = request.getSession();
 		User user = (User) request.getSession().getAttribute("user");
-		
+		if (user!=null){
 		if (!addRobot.getImage().isEmpty()) {
 			byte[] bytes;
 			try {
@@ -126,23 +136,40 @@ public class RobotController {
 
 		}
 		return "robot";
+		}
+		else {
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant d'ajouter un robot");
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
+		}
 	}
 	@RequestMapping(value="/robots/join", method = RequestMethod.GET)
 	public String joinRobot(Model model,@RequestParam(value="id") final int id, HttpServletRequest request){
 		
 		HttpSession session = request.getSession();
 		User user = (User) request.getSession().getAttribute("user");
-		
+		if (user!=null){
 		this.robotService.joinRobot(id, user);
 		session.setAttribute("user", user);
 		request.setAttribute("result", true);
 		model.addAttribute("message", "Vous faites désormais partie d'une équipe");
-		return this.cardRobot(model, id);
+		session.setAttribute("user", user);
+		return this.cardRobot(model, id, request);
 	}
-
+		else {
+			request.setAttribute("result", false);
+			model.addAttribute("message", "Veuillez vous connecter avant de rejoindre une équipe");
+			model.addAttribute("connexion", new Connexion());
+			model.addAttribute("register", new Register());
+			return "connexion";
+		}
+	}
 	@RequestMapping(value="/robots/card", method = RequestMethod.GET)
-	public String cardRobot(Model model,@RequestParam(value="id") final int id){
-
+	public String cardRobot(Model model,@RequestParam(value="id") final int id,HttpServletRequest request){
+		HttpSession session = request.getSession();
+		User user = (User) request.getSession().getAttribute("user");
 		Robot robot = this.robotService.findById(id);
 		String list_technologies = "";
 		//liste de dates au format francais
@@ -183,6 +210,7 @@ public class RobotController {
 		model.addAttribute("lose", (participate_battle - win_battle));
 		model.addAttribute("robot", robot);
 		model.addAttribute("french_dates", french_dates);
+		session.setAttribute("user", user);
 		return "robot";
 	}
 

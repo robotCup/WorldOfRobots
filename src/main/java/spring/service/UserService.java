@@ -50,8 +50,8 @@ public class UserService {
 	}
 	
 	@Transactional
-	public void updateUser(int id, String login, String pwd, String email) {
-		this.userDAO.updateUser(id, login, pwd, email);		
+	public User updateUser(int id, String login, String pwd, String email) {
+		return this.userDAO.updateUser(id, login, pwd, email);		
 	}
 
 	@Transactional

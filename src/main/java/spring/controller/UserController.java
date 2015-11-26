@@ -163,27 +163,39 @@ public class UserController {
 
 	@RequestMapping(value="/modifyMySpace", method = RequestMethod.POST)
 	public String toModifyMySpace(@ModelAttribute ("update") UpdateUser update, Model model,HttpServletRequest request) {
-
-		try{
-			if (this.utilisateurService.findByLogin(update.getLogin(), update.getPwdOld())!=null){
-				String pwd= update.getPwd();
-				if (update.getPwd().equals("")){
-					pwd = update.getPwdOld();
+		HttpSession session =request.getSession();
+		User user = (User) session.getAttribute("user");
+		if (user ==null){
+			return this.prepareConnexion(model);
+		}
+		else {
+			try{
+				if (this.utilisateurService.findByLogin(update.getLogin(), update.getPwdOld())!=null){
+					String pwd= update.getPwd();
+					if (update.getPwd().equals("")){
+						pwd = update.getPwdOld();
+					}
+					else {
+						Timer timer = new Timer();
+						//request.setCharacterEncoding("UTF-8");
+						timer.schedule(new CheckUpdatePassword(update.getId(),this.utilisateurService), 60000 );
+					}
+					user =this.utilisateurService.updateUser(update.getId(),update.getLogin(),pwd,update.getEmail());
+					request.setAttribute("result", true);
+					model.addAttribute("message", "La modification de vos données personelles a bien été enregistrée");
 				}
-				this.utilisateurService.updateUser(update.getId(),update.getLogin(),pwd,update.getEmail());
-				request.setAttribute("result", true);
-				model.addAttribute("message", "La modification de vos données personelles a bien été enregistrée");
+				else {
+					request.setAttribute("result", false);
+					model.addAttribute("message", "La prise en compte de vos modifications a échoué");
+				}
 			}
-			else {
+			catch(Exception e){
+				System.out.println(e);
 				request.setAttribute("result", false);
 				model.addAttribute("message", "La prise en compte de vos modifications a échoué");
 			}
 		}
-		catch(Exception e){
-			System.out.println(e);
-			request.setAttribute("result", false);
-			model.addAttribute("message", "La prise en compte de vos modifications a échoué");
-		}
+		session.setAttribute("user", user);
 		return this.monEspacePrepare(model, request);
 	}
 
@@ -225,10 +237,11 @@ public class UserController {
 	public void deleteNews(Model model, HttpServletRequest request,@RequestParam(value = "id") final int id) {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-
+		if (user!=null){
 		session.setAttribute("user", user);
 			this.utilisateurService.deleteNews(id);
 			
 		
+		}
 	}
 }
