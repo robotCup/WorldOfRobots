@@ -25,6 +25,8 @@ $(document).ready(function() {
 	$('.date_choice_multiple').hide();
 	$('.date_choice_unique').show();
 
+	$('#date_choice_unique').prop( "checked", true );
+	
 	$('.datetimepicker').datetimepicker({
 		format: "DD/MM/YYYY HH:mm",
 		locale : 'fr',
@@ -33,69 +35,70 @@ $(document).ready(function() {
 
 	$('.date_choice').on('change', function(){		
 
-		if($(this).val() == "0"){
-			$('.date_choice_multiple').toggle();
-			$('.date_choice_unique').toggle();			
+		if($('#date_choice_unique').is(':checked')){
+			$('.date_choice_multiple').hide();
+			$('.date_choice_unique').show();	
 		}			
-		if($(this).val() == "1"){
-			$('.date_choice_multiple').toggle();
-			$('.date_choice_unique').toggle();
+		else if($('#date_choice_multiple').is(':checked')){
+			$('.date_choice_multiple').show();
+			$('.date_choice_unique').hide();
 		}
 	});
+	
 	//ajout d'une compet
 	$("#add").validate({
 		rules : {
-			'date_start' : {
+			date_start : {
 				required : {
 					depends : function(element){
 						return $("#date_choice_unique").is(':checked');
 					}
 				}				
 			},
-			'name' : {
+			name : {
 				required : true,
 				minlength: 2
 			},
-			'description' : {
+			description : {
 				required : true,
 				minlength: 2
 			},
-			'robot_max' : {
+			robot_max : {
 				required : true,
 				min: 1,
 				number: true
 			},
-			'address' : {
+			address : {
 				required : true,
 				minlength: 2
 			},
-			'duration' : {
+			duration : {
 				required : true,
 				min: 1,
 				number: true
 			},
-			'date_start_1' : {
+			date_start_1 : {
 				required : {
 					depends : function(element){
 						return $("#date_choice_multiple").is(':checked');
 					}
 				}				
 			},
-			'date_start_2' : {
+			date_start_2 : {
 				required : {
 					depends : function(element){
 						return $("#date_choice_multiple").is(':checked');
 					}
 				}	
 			},
-			'date_start_3' : {
+			date_start_3 : {
 				required : {
 					depends : function(element){
 						return $("#date_choice_multiple").is(':checked');
 					}
 				}	
 			},
-			'date_start_4' : {
+			date_start_4 : {
 				required : {
 					depends : function(element){
 						return $("#date_choice_multiple").is(':checked');
@@ -104,10 +107,9 @@ $(document).ready(function() {
 			}			
 		},
 		errorPlacement: function(error, element) {
-			element.addClass(errorClass);			
+			element.addClass("invalid");			
 		},
 		errorClass: "invalid",
-		onkeyup: true
 	});
 	
 });

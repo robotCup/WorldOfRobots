@@ -7,7 +7,7 @@
 
 <div class="row">
 	<div class="col-md-10">
-		<form:form method="post" action="toConnect" commandName="connexion"
+		<form:form method="post" action="../user/toConnect" commandName="connexion"
 			id="connexion" accept-charset="UTF-8">
 			<fieldset>
 				<legend>Se connecter : </legend>

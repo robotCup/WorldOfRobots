@@ -68,11 +68,12 @@ public class RobotController {
 	public String prepareAddRobot(Model model,HttpServletRequest request){
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
+		
 		if (user!=null){
-		List<Technology> technologies = this.robotService.findAllTechnologies();
-		model.addAttribute("technologies", technologies);
-		model.addAttribute("AddRobot", new AddRobot());
-		return "addRobot";
+			List<Technology> technologies = this.robotService.findAllTechnologies();
+			model.addAttribute("technologies", technologies);
+			model.addAttribute("AddRobot", new AddRobot());
+			return "addRobot";
 		}
 		else {
 			request.setAttribute("result", false);
@@ -89,53 +90,53 @@ public class RobotController {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		if (user!=null){
-		if (!addRobot.getImage().isEmpty()) {
-			byte[] bytes;
-			try {
-				bytes = addRobot.getImage().getBytes();
+			if (!addRobot.getImage().isEmpty()) {
+				byte[] bytes;
+				try {
+					bytes = addRobot.getImage().getBytes();
 
-				String name_file = addRobot.getName()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-				name_file = name_file.replace(' ', '_');
+					String name_file = addRobot.getName()+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+					name_file = name_file.replace(' ', '_');
 
-				File server_file = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+name_file);
+					File server_file = new File("D:/projet_git/WorldOfRobots/src/main/webapp/resources/images/robots/"+name_file);
 
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(server_file));
-				stream.write(bytes);  
-				stream.close();
+					BufferedOutputStream stream = new BufferedOutputStream(
+							new FileOutputStream(server_file));
+					stream.write(bytes);  
+					stream.close();
 
-				Robot robot = this.robotService.createRobot(addRobot.getTechnologies(), addRobot.getStrong_point(), addRobot.getName(),addRobot.getCreation_date(), name_file);
-				this.userService.createRobot(user.getId(), robot.getId());
+					Robot robot = this.robotService.createRobot(addRobot.getTechnologies(), addRobot.getStrong_point(), addRobot.getName(),addRobot.getCreation_date(), name_file);
+					this.userService.createRobot(user.getId(), robot.getId());
 
-				request.setAttribute("result", true);
-				model.addAttribute("message", "L'ajout de votre robot a bien Ã©tÃ© enregistrÃ©e");
-				model.addAttribute("robot",this.robotService.findById(robot.getId()));
+					request.setAttribute("result", true);
+					model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
+					model.addAttribute("robot",this.robotService.findById(robot.getId()));
 
-			} catch (IOException e) {
-				e.printStackTrace();
-				request.setAttribute("result", false);
-				model.addAttribute("message", "L'ajout de votre robot a Ã©chouÃ©");
-			}
-		}
-		else{
-			Robot robot = this.robotService.createRobot(addRobot.getTechnologies(), addRobot.getStrong_point(), addRobot.getName(),addRobot.getCreation_date(), null);
-
-			if(robot != null){
-				session.setAttribute("user", user);
-				this.userService.createRobot(user.getId(), robot.getId());
-				model.addAttribute("robot" , this.robotService.findById(robot.getId()));
-
-				request.setAttribute("result", true);
-				model.addAttribute("message", "L'ajout de votre robot a bien Ã©tÃ© enregistrÃ©e");
-				session.setAttribute("user", user);
+				} catch (IOException e) {
+					e.printStackTrace();
+					request.setAttribute("result", false);
+					model.addAttribute("message", "L'ajout de votre robot a échoué");
+				}
 			}
 			else{
-				request.setAttribute("result", false);
-				model.addAttribute("message", "L'ajout de votre robot a Ã©chouÃ©");
-			}
+				Robot robot = this.robotService.createRobot(addRobot.getTechnologies(), addRobot.getStrong_point(), addRobot.getName(),addRobot.getCreation_date(), null);
 
-		}
-		return "robot";
+				if(robot != null){
+					session.setAttribute("user", user);
+					this.userService.createRobot(user.getId(), robot.getId());
+					model.addAttribute("robot" , this.robotService.findById(robot.getId()));
+
+					request.setAttribute("result", true);
+					model.addAttribute("message", "L'ajout de votre robot a bien été enregistrée");
+					session.setAttribute("user", user);
+				}
+				else{
+					request.setAttribute("result", false);
+					model.addAttribute("message", "L'ajout de votre robot a échoué");
+				}
+
+			}
+			return "robot";
 		}
 		else {
 			request.setAttribute("result", false);
@@ -147,20 +148,20 @@ public class RobotController {
 	}
 	@RequestMapping(value="/robots/join", method = RequestMethod.GET)
 	public String joinRobot(Model model,@RequestParam(value="id") final int id, HttpServletRequest request){
-		
+
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		if (user!=null){
-		this.robotService.joinRobot(id, user);
-		session.setAttribute("user", user);
-		request.setAttribute("result", true);
-		model.addAttribute("message", "Vous faites dÃ©sormais partie d'une Ã©quipe");
-		session.setAttribute("user", user);
-		return this.cardRobot(model, id, request);
-	}
+			this.robotService.joinRobot(id, user);
+			session.setAttribute("user", user);
+			request.setAttribute("result", true);
+			model.addAttribute("message", "Vous faites désormais partie d'une équipe");
+			session.setAttribute("user", user);
+			return this.cardRobot(model, id, request);
+		}
 		else {
 			request.setAttribute("result", false);
-			model.addAttribute("message", "Veuillez vous connecter avant de rejoindre une Ã©quipe");
+			model.addAttribute("message", "Veuillez vous connecter avant de rejoindre une équipe");
 			model.addAttribute("connexion", new Connexion());
 			model.addAttribute("register", new Register());
 			return "connexion";
@@ -174,7 +175,7 @@ public class RobotController {
 		String list_technologies = "";
 		//liste de dates au format francais
 		Map<Integer, String> french_dates = new HashMap<Integer, String>();
-		
+
 		for(int i= 0 ; i < robot.getTechnologies().size(); i++ ){
 
 			list_technologies += robot.getTechnologies().get(i).getName();
@@ -195,13 +196,13 @@ public class RobotController {
 		else{
 			name_file = "no-image.png";
 		}
-		
+
 		french_dates.put(robot.getId(), new SimpleDateFormat("dd/MM/yyyy HH:mm").format(robot.getCreation_date()));
 
 		Long participate_competition = this.robotService.countCompetitionByRobot(robot.getId());
 		Long participate_battle = this.robotService.countBattleByRobot(robot.getId());
 		Long win_battle = this.robotService.countWinBalttleByRobot(robot.getId());
-		
+
 		model.addAttribute("technologies", list_technologies);
 		model.addAttribute("name_file", name_file);
 		model.addAttribute("participate_competition", participate_competition);
