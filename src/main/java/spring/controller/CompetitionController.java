@@ -92,7 +92,7 @@ public class CompetitionController {
 		}
 		model.addAttribute("dates_start", french_dates_start);
 		model.addAttribute("dates_end", french_dates_end);
-		model.addAttribute("title", "CompÃ©titions Ã  venir");
+		model.addAttribute("title", "Compétitions à venir");
 		model.addAttribute("competitions", competitions);
 		session.setAttribute("user", session.getAttribute("user"));
 		return "competitions";
@@ -132,7 +132,7 @@ public class CompetitionController {
 		model.addAttribute("dates_end", french_dates_end);
 		model.addAttribute("users_names", users_names);
 		model.addAttribute("fighters", nb_fighters);
-		model.addAttribute("title", "CompÃ©titions terminÃ©es");
+		model.addAttribute("title", "Compétitions terminées");
 		model.addAttribute("competitions", competitions);
 		session.setAttribute("user", user);
 		return "pastCompetitions";
@@ -247,15 +247,14 @@ public class CompetitionController {
 					Timestamp date = this.competitionService.findMinCompetitionDateByIdCompetition(competition.getId());
 					Timer timer = new Timer();
 					timer.schedule(new DeleteCompetition(competition.getId(),this.competitionService, this.userService), new Date(date.getTime()));
-					System.out.println(new Date(date.getTime()));
 				}
 				request.setAttribute("result", true);
-				model.addAttribute("message", "L'ajout de votre compÃ©tition a bien été enregistrée");
+				model.addAttribute("message", "L'ajout de votre compétition a bien été enregistrée");
 			} catch (Exception e) {
 				System.out.println(e);
 				request.setAttribute("result", false);
-				if (e.getMessage().equals("Date incorrect, veuillez saisir une date supérieure Ã  celle d'aujourd'hui")){
-					model.addAttribute("message", "Date incorrecte, veuillez saisir une date supérieure Ã  celle d'aujourd'hui");
+				if (e.getMessage().equals("Date incorrect, veuillez saisir une date supérieure à celle d'aujourd'hui")){
+					model.addAttribute("message", "Date incorrecte, veuillez saisir une date supérieure à celle d'aujourd'hui");
 				}
 				else {
 				model.addAttribute("message", "L'ajout de votre compétition a échoué");
