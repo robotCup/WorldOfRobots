@@ -68,7 +68,7 @@ public class UserController {
 		else{
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
-			session.setMaxInactiveInterval(1000);
+			session.setMaxInactiveInterval(-1);
 			List<Competition> competitions = competitionService.findAllFuture();
 			model.addAttribute("competitions", competitions);
 			model.addAttribute("lastDatePwd", user.getLast_date_pwd());
@@ -152,6 +152,7 @@ public class UserController {
 			model.addAttribute("user", userRobot);
 			model.addAttribute("robot", robotUser);
 			request.setAttribute("robot", robotUser);
+			session.setAttribute("user", user);
 			return "mySpace";
 		}
 		else {
